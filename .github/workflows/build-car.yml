@@ -30,7 +30,6 @@ jobs:
           mkdir -p /opt/bt && cd /opt/bt
           wget -q https://dl.google.com/android/repository/build-tools_r34-linux.zip -O bt.zip
           unzip -q bt.zip -d /opt/bt
-          ls /opt/bt/
           echo "APKSIGNER=$(find /opt/bt -name apksigner | head -1)" >> $GITHUB_ENV
 
       - name: Build APK (apktool, x86_64 native aapt2)
@@ -39,22 +38,14 @@ jobs:
           ls -la /tmp/unsigned.apk
 
       - name: Sign APK
-        env:
-          KS_B64: ${{ secrets.CAR_KEYSTORE_B64 }}
         run: |
-          if [ -n "$KS_B64" ]; then
-            echo "$KS_B64" | base64 -d > /tmp/car-release.keystore
-            chmod 600 /tmp/car-release.keystore
-            "$APKSIGNER" sign --ks /tmp/car-release.keystore \
-              --ks-key-alias luna_car \
-              --ks-pass pass:grown-car-2026 \
-              --key-pass pass:grown-car-2026 \
-              --out /tmp/SamsungMusic_Car_16.2.45.1.apk /tmp/unsigned.apk
-          else
-            # 未配置签名 secret：上传未签名 APK
-            cp /tmp/unsigned.apk /tmp/SamsungMusic_Car_16.2.45.1.apk
-            echo "warning: no CAR_KEYSTORE_B64 secret, uploading unsigned APK"
-          fi
+          base64 -d keystore/car-release.keystore.b64 > /tmp/car-release.keystore
+          chmod 600 /tmp/car-release.keystore
+          "$APKSIGNER" sign --ks /tmp/car-release.keystore \
+            --ks-key-alias luna_car \
+            --ks-pass pass:grow-car-2026 \
+            --key-pass pass:grow-car-2026 \
+            --out /tmp/SamsungMusic_Car_16.2.45.1.apk /tmp/unsigned.apk
           ls -la /tmp/SamsungMusic_Car_16.2.45.1.apk
 
       - name: Upload to Release
@@ -65,6 +56,8 @@ jobs:
           name: Samsung Music Car-vivo 16.2.45.1
           body: |
             Samsung Music 16.2.45.1 · vivo 车载投屏歌词适配 · 包名 com.luna.music.car
-            - vivo 双通道歌词（ucar.media.metadata.* + music.media.extras.*）
-            - 设置开关「车载投屏歌词」（默认开启）
-            - 基于 AyraHikari/SamsungMusicPort 完整可构建反编译移植版
+
+            - vivo 双通道车载歌词（ucar.media.metadata.* + music.media.extras.*）
+            - 设置新增「车载投屏歌词」开关（默认开启）
+            - 基于 AyraHikari/SamsungMusicPort，取完整可构建的 16.2.45.1 反编译版作为基座
+            - 包名：com.luna.music.car（vivo 智能车载白名单：汽水音乐车机版）
