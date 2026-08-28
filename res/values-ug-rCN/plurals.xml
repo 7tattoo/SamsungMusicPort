@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="NNNalbum">
+        <item quantity="other">%d پىلاستىنكا</item>
+        <item quantity="one">%d پىلاستىنكا</item>
+    </plurals>
+    <plurals name="NNNtrack">
+        <item quantity="other">%d ناخشا</item>
+        <item quantity="one">%d ناخشا</item>
+    </plurals>
+    <plurals name="drm_can_use_n_times">
+        <item quantity="other">‏%1$s نى %2$d قېتىم ئىشلىتەلەيسىز.</item>
+        <item quantity="one">‏%s نى 1 قېتىم ئىشلىتەلەيسىز.</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_hour_plurals">
+        <item quantity="other">睡眠时间：%d 小时</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">N/A</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_min_plurals">
+        <item quantity="other">睡眠时间：%d 分钟</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">N/A</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="46.0dip" android:width="46.0dip" android:viewportWidth="138.0" android:viewportHeight="138.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:name="android:background" android:pathData="M 14 93 A 60 60 0 1 1 124 93" android:strokeColor="#ffffffff" android:strokeWidth="18.0" android:strokeLineCap="round" />
+    <path android:name="android:progress" android:pathData="M 14 93 A 60 60 0 1 1 124 93" android:strokeColor="#ffffffff" android:strokeWidth="18.0" android:trimPathEnd="0.0" android:strokeLineCap="round" />
+</vector>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sesl_glance_list_progress_item_medium_height">38.5dip</dimen>
+    <dimen name="sesl_glance_list_progress_item_medium_height_at_monotone">28.5dip</dimen>
+</resources>

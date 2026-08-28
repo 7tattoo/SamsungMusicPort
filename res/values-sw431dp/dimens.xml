@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_size">@dimen/arc_progress_icon_size_34</item>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_top_margin">@dimen/arc_progress_icon_margin_34</item>
+    <item type="dimen" name="sesl_glance_circular_progress_small_icon_size">@dimen/circle_progress_icon_size_34</item>
+    <item type="dimen" name="sesl_glance_graph_small_title_text_size">@dimen/arc_progress_text_float_40</item>
+    <item type="dimen" name="sesl_glance_grid_item_large_circle_padding">@dimen/circle_padding_34</item>
+    <dimen name="sesl_glance_grid_item_large_circle_size">34.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_medium_circle_padding">@dimen/circle_padding_34</item>
+    <dimen name="sesl_glance_grid_item_medium_circle_size">34.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_small_circle_padding">@dimen/circle_padding_32</item>
+    <dimen name="sesl_glance_grid_item_small_circle_size">32.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_with_label_medium_circle_padding">@dimen/circle_padding_26</item>
+    <dimen name="sesl_glance_grid_item_with_label_medium_circle_size">26.0dip</dimen>
+    <dimen name="sesl_glance_grid_item_with_label_medium_label_top_padding">1.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_medium_graph_bottom_padding">10.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_medium_graph_height">16.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_with_2line_headline_medium_graph_bottom_padding">10.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_with_2line_headline_medium_graph_height">16.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_with_small_tablet">16.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_with_small_tablet_bottom_padding">6.0dip</dimen>
+    <dimen name="sesl_glance_multi_textblock_medium_horizontal_padding">4.0dip</dimen>
+    <dimen name="sesl_glance_multi_textblock_medium_top_padding">1.0dip</dimen>
+    <item type="dimen" name="sesl_glance_textblock_item_padding_dual_large_size">5.0</item>
+    <item type="dimen" name="sesl_glance_welcomepage_body_text_size">11.0</item>
+    <item type="dimen" name="sesl_glance_welcomepage_title_text_size">12.0</item>
+    <item type="dimen" name="style_graph_small_title_text_size">@dimen/arc_progress_text_dp_34</item>
+</resources>

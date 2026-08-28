@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="dimen" name="full_player_bottom_margin_percent">0.0</item>
+    <item type="dimen" name="sesl_glance_grid_item_medium_circle_padding">@dimen/circle_padding_44</item>
+    <dimen name="sesl_glance_grid_item_medium_circle_size">44.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_small_circle_padding">@dimen/circle_padding_34</item>
+    <dimen name="sesl_glance_grid_item_small_circle_size">34.0dip</dimen>
+</resources>

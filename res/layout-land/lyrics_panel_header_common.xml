@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/lyric_header" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="?actionBarSize"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/close_lyrics" android:focusable="true" android:clickable="true" android:layout_width="@dimen/full_player_action_bar_button_size" android:layout_height="@dimen/full_player_action_bar_button_size" android:src="@drawable/music_ic_ab_expand_open" android:scaleType="center" android:contentDescription="@string/tts_navigate_up" android:paddingStart="@dimen/milk_lyric_header_button_padding_horizontal" android:defaultFocusHighlightEnabled="false" app:tint="@color/basics_icon" style="@style/Player.Lyrics.Button" />
+    <FrameLayout android:gravity="center" android:id="@id/magnification_container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_alignParentEnd="true" android:defaultFocusHighlightEnabled="false" />
+</RelativeLayout>

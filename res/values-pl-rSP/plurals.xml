@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="NNNalbum">
+        <item quantity="other">Liczba albumōw: %d</item>
+        <item quantity="one">Albōmōw: %d</item>
+    </plurals>
+    <plurals name="NNNtrack">
+        <item quantity="other">Tytuły: %d</item>
+        <item quantity="one">Kōnsek %d</item>
+    </plurals>
+    <plurals name="drm_can_use_n_times">
+        <item quantity="other">Idzie użyć %1$s %2$d razy.</item>
+        <item quantity="one">Idzie użyć %s rŏz.</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_hour_plurals">
+        <item quantity="other">Czŏs spaniŏ: %d godziny</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Czŏs spaniŏ: %d godzina</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">Czŏs spaniŏ: %d godziny</item>
+        <item quantity="many">Czŏs spaniŏ: %d godzin</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_min_plurals">
+        <item quantity="other">Czŏs spaniŏ: %d minuty</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Czŏs spaniŏ: %d minuta</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">Czŏs spaniŏ: %d minuty</item>
+        <item quantity="many">Czŏs spaniŏ: %d minut</item>
+    </plurals>
+</resources>

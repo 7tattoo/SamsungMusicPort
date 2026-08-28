@@ -1,0 +1,2 @@
+build/
+# keystore base64 由 CI 通过 secrets 读取，不提交到仓库（避免泄露）。如需入库另行处理。

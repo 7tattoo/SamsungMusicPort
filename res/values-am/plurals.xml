@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="NNNalbum">
+        <item quantity="other">%d አልበሞች</item>
+        <item quantity="one">%d አልበም</item>
+    </plurals>
+    <plurals name="NNNtrack">
+        <item quantity="other">%d ትራኮች</item>
+        <item quantity="one">%d ትራክ</item>
+    </plurals>
+    <plurals name="drm_can_use_n_times">
+        <item quantity="other">%1$s %2$d ጊዜ መጠቀም ትችላለህ።</item>
+        <item quantity="one">%s 1 ጊዜ መጠቀም ይችላሉ።</item>
+    </plurals>
+    <plurals name="exo_controls_fastforward_by_amount_description">
+        <item quantity="other">በ%d ሰከንዶች በፍጥነት ወደፊት ያሳልፉ</item>
+        <item quantity="one">በ%d ሰከንዶች በፍጥነት ወደፊት ያሳልፉ</item>
+    </plurals>
+    <plurals name="exo_controls_rewind_by_amount_description">
+        <item quantity="other">በ%d ሰከንዶች ወደኋላ ይመልሱ</item>
+        <item quantity="one">በ%d ሰከንዶች ወደኋላ ይመልሱ</item>
+    </plurals>
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="other">%d አዲስ ማሳወቂያዎች</item>
+        <item quantity="one">%d አዲስ ማሳወቂያዎች</item>
+    </plurals>
+    <plurals name="n_folders">
+        <item quantity="other">%d አቃፊዎች</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">%d አቃፊ</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="n_selected">
+        <item quantity="other">%d ተመርጧል</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">%d ተመርጧል</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="n_tracks">
+        <item quantity="other">%d ሙዚቃዎች</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">%d ሙዚቃ</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_hour_plurals">
+        <item quantity="other">የእንቅልፍ ጊዜ፡ %d ሰዓታት</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">የእንቅልፍ ጊዜ፡ %d ሰዓት</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_min_plurals">
+        <item quantity="other">የእንቅልፍ ጊዜ፡ %d ደቂቃዎች</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">የእንቅልፍ ጊዜ፡ %d ደቂቃ</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+</resources>

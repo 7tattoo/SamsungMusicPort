@@ -1,0 +1,433 @@
+.class public Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+.super Lio/netty/handler/codec/mqtt/MqttMessage;
+.source "r8-map-id-bb9673dd66f7c22e3c19bb88719260f6b59961698e6095c5d1edce97e840ddda"
+
+# interfaces
+.implements Lio/netty/buffer/ByteBufHolder;
+
+
+# direct methods
+.method public constructor <init>(Lio/netty/handler/codec/mqtt/MqttFixedHeader;Lio/netty/handler/codec/mqtt/MqttPublishVariableHeader;Lio/netty/buffer/ByteBuf;)V
+    .locals 0
+
+    .line 1
+    invoke-direct {p0, p1, p2, p3}, Lio/netty/handler/codec/mqtt/MqttMessage;-><init>(Lio/netty/handler/codec/mqtt/MqttFixedHeader;Ljava/lang/Object;Ljava/lang/Object;)V
+
+    .line 2
+    .line 3
+    .line 4
+    return-void
+.end method
+
+
+# virtual methods
+.method public content()Lio/netty/buffer/ByteBuf;
+    .locals 2
+
+    .line 1
+    invoke-super {p0}, Lio/netty/handler/codec/mqtt/MqttMessage;->payload()Ljava/lang/Object;
+
+    .line 2
+    .line 3
+    .line 4
+    move-result-object v0
+
+    .line 5
+    check-cast v0, Lio/netty/buffer/ByteBuf;
+
+    .line 6
+    .line 7
+    invoke-interface {v0}, Lio/netty/util/ReferenceCounted;->refCnt()I
+
+    .line 8
+    .line 9
+    .line 10
+    move-result v1
+
+    .line 11
+    if-lez v1, :cond_0
+
+    .line 12
+    .line 13
+    return-object v0
+
+    .line 14
+    :cond_0
+    new-instance v1, Lio/netty/util/IllegalReferenceCountException;
+
+    .line 15
+    .line 16
+    invoke-interface {v0}, Lio/netty/util/ReferenceCounted;->refCnt()I
+
+    .line 17
+    .line 18
+    .line 19
+    move-result v0
+
+    .line 20
+    invoke-direct {v1, v0}, Lio/netty/util/IllegalReferenceCountException;-><init>(I)V
+
+    .line 21
+    .line 22
+    .line 23
+    throw v1
+.end method
+
+.method public bridge synthetic copy()Lio/netty/buffer/ByteBufHolder;
+    .locals 1
+
+    .line 1
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->copy()Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public copy()Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+    .locals 1
+
+    .line 2
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->content()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lio/netty/buffer/ByteBuf;->copy()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    invoke-virtual {p0, v0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->replace(Lio/netty/buffer/ByteBuf;)Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public bridge synthetic duplicate()Lio/netty/buffer/ByteBufHolder;
+    .locals 1
+
+    .line 1
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->duplicate()Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public duplicate()Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+    .locals 1
+
+    .line 2
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->content()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lio/netty/buffer/ByteBuf;->duplicate()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    invoke-virtual {p0, v0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->replace(Lio/netty/buffer/ByteBuf;)Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public payload()Lio/netty/buffer/ByteBuf;
+    .locals 1
+
+    .line 2
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->content()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public bridge synthetic payload()Ljava/lang/Object;
+    .locals 1
+
+    .line 1
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->payload()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public refCnt()I
+    .locals 1
+
+    .line 1
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->content()Lio/netty/buffer/ByteBuf;
+
+    .line 2
+    .line 3
+    .line 4
+    move-result-object v0
+
+    .line 5
+    invoke-interface {v0}, Lio/netty/util/ReferenceCounted;->refCnt()I
+
+    .line 6
+    .line 7
+    .line 8
+    move-result v0
+
+    .line 9
+    return v0
+.end method
+
+.method public release()Z
+    .locals 1
+
+    .line 1
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->content()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Lio/netty/util/ReferenceCounted;->release()Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public release(I)Z
+    .locals 1
+
+    .line 2
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->content()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    invoke-interface {v0, p1}, Lio/netty/util/ReferenceCounted;->release(I)Z
+
+    move-result p1
+
+    return p1
+.end method
+
+.method public bridge synthetic replace(Lio/netty/buffer/ByteBuf;)Lio/netty/buffer/ByteBufHolder;
+    .locals 0
+
+    .line 1
+    invoke-virtual {p0, p1}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->replace(Lio/netty/buffer/ByteBuf;)Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+.method public replace(Lio/netty/buffer/ByteBuf;)Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+    .locals 3
+
+    .line 2
+    new-instance v0, Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttMessage;->fixedHeader()Lio/netty/handler/codec/mqtt/MqttFixedHeader;
+
+    move-result-object v1
+
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->variableHeader()Lio/netty/handler/codec/mqtt/MqttPublishVariableHeader;
+
+    move-result-object v2
+
+    invoke-direct {v0, v1, v2, p1}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;-><init>(Lio/netty/handler/codec/mqtt/MqttFixedHeader;Lio/netty/handler/codec/mqtt/MqttPublishVariableHeader;Lio/netty/buffer/ByteBuf;)V
+
+    return-object v0
+.end method
+
+.method public bridge synthetic retain()Lio/netty/buffer/ByteBufHolder;
+    .locals 1
+
+    .line 1
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->retain()Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public bridge synthetic retain(I)Lio/netty/buffer/ByteBufHolder;
+    .locals 0
+
+    .line 2
+    invoke-virtual {p0, p1}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->retain(I)Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+.method public retain()Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+    .locals 1
+
+    .line 5
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->content()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lio/netty/buffer/ByteBuf;->retain()Lio/netty/buffer/ByteBuf;
+
+    return-object p0
+.end method
+
+.method public retain(I)Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+    .locals 1
+
+    .line 6
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->content()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Lio/netty/buffer/ByteBuf;->retain(I)Lio/netty/buffer/ByteBuf;
+
+    return-object p0
+.end method
+
+.method public bridge synthetic retain()Lio/netty/util/ReferenceCounted;
+    .locals 1
+
+    .line 3
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->retain()Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public bridge synthetic retain(I)Lio/netty/util/ReferenceCounted;
+    .locals 0
+
+    .line 4
+    invoke-virtual {p0, p1}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->retain(I)Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+.method public bridge synthetic retainedDuplicate()Lio/netty/buffer/ByteBufHolder;
+    .locals 1
+
+    .line 1
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->retainedDuplicate()Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public retainedDuplicate()Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+    .locals 1
+
+    .line 2
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->content()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lio/netty/buffer/ByteBuf;->retainedDuplicate()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    invoke-virtual {p0, v0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->replace(Lio/netty/buffer/ByteBuf;)Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public bridge synthetic touch()Lio/netty/buffer/ByteBufHolder;
+    .locals 1
+
+    .line 1
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->touch()Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public bridge synthetic touch(Ljava/lang/Object;)Lio/netty/buffer/ByteBufHolder;
+    .locals 0
+
+    .line 2
+    invoke-virtual {p0, p1}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->touch(Ljava/lang/Object;)Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+.method public touch()Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+    .locals 1
+
+    .line 5
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->content()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lio/netty/buffer/ByteBuf;->touch()Lio/netty/buffer/ByteBuf;
+
+    return-object p0
+.end method
+
+.method public touch(Ljava/lang/Object;)Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+    .locals 1
+
+    .line 6
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->content()Lio/netty/buffer/ByteBuf;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Lio/netty/buffer/ByteBuf;->touch(Ljava/lang/Object;)Lio/netty/buffer/ByteBuf;
+
+    return-object p0
+.end method
+
+.method public bridge synthetic touch()Lio/netty/util/ReferenceCounted;
+    .locals 1
+
+    .line 3
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->touch()Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public bridge synthetic touch(Ljava/lang/Object;)Lio/netty/util/ReferenceCounted;
+    .locals 0
+
+    .line 4
+    invoke-virtual {p0, p1}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->touch(Ljava/lang/Object;)Lio/netty/handler/codec/mqtt/MqttPublishMessage;
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+.method public variableHeader()Lio/netty/handler/codec/mqtt/MqttPublishVariableHeader;
+    .locals 1
+
+    .line 2
+    invoke-super {p0}, Lio/netty/handler/codec/mqtt/MqttMessage;->variableHeader()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lio/netty/handler/codec/mqtt/MqttPublishVariableHeader;
+
+    return-object v0
+.end method
+
+.method public bridge synthetic variableHeader()Ljava/lang/Object;
+    .locals 1
+
+    .line 1
+    invoke-virtual {p0}, Lio/netty/handler/codec/mqtt/MqttPublishMessage;->variableHeader()Lio/netty/handler/codec/mqtt/MqttPublishVariableHeader;
+
+    move-result-object v0
+
+    return-object v0
+.end method

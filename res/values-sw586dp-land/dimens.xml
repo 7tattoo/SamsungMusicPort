@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="dimen" name="sesl_glance_arc_progress_medium_icon_size">@dimen/arc_progress_icon_size_46</item>
+    <item type="dimen" name="sesl_glance_arc_progress_medium_icon_top_margin">@dimen/arc_progress_icon_margin_46</item>
+</resources>

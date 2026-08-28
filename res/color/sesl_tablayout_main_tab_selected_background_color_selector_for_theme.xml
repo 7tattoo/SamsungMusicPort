@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:color="@android:color/system_accent1_300" android:alpha="@dimen/sesl_tablayout_main_tab_selected_background_color_alpha_for_theme" />
+    <item android:color="@color/basics_bottom_menu_text" />
+</selector>

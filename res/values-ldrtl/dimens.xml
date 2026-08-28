@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="dimen" name="glance_linear_progress_bar_rotation_y">180.0</item>
+</resources>

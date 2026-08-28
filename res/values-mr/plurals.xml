@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="exo_controls_fastforward_by_amount_description">
+        <item quantity="other">%d सेकंद फास्ट फॉरवर्ड करा</item>
+        <item quantity="one">%d सेकंद फास्ट फॉरवर्ड करा</item>
+    </plurals>
+    <plurals name="exo_controls_rewind_by_amount_description">
+        <item quantity="other">%d सेकंद रिवाइंड करा</item>
+        <item quantity="one">%d सेकंद रिवाइंड करा</item>
+    </plurals>
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="other">%d नवीन सूचना</item>
+        <item quantity="one">%d नवीन सूचना</item>
+    </plurals>
+    <plurals name="time_difference_short_days">
+        <item quantity="other">%dदि</item>
+        <item quantity="one">%dदि</item>
+    </plurals>
+    <plurals name="time_difference_short_hours">
+        <item quantity="other">%dता</item>
+        <item quantity="one">%dता</item>
+    </plurals>
+    <plurals name="time_difference_short_minutes">
+        <item quantity="other">%dमि</item>
+        <item quantity="one">%dमि</item>
+    </plurals>
+    <plurals name="time_difference_words_days">
+        <item quantity="other">%d दिवस</item>
+        <item quantity="one">%d दिवस</item>
+    </plurals>
+    <plurals name="time_difference_words_hours">
+        <item quantity="other">%d तास</item>
+        <item quantity="one">%d तास</item>
+    </plurals>
+    <plurals name="time_difference_words_minutes">
+        <item quantity="other">%d मिनिटे</item>
+        <item quantity="one">%d मिनिट</item>
+    </plurals>
+</resources>

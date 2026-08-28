@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_widget_title_artist">ناونیشان - هونەرمەند</string>
+    <string name="music_core_smart_view">نمایشی زیرەک</string>
+    <string name="opacity">Opacity</string>
+    <string name="shuffle_off">Shuffle off</string>
+    <string name="shuffle_on">Shuffle on</string>
+    <string name="tts_one">One</string>
+    <string name="tts_text_size">قەبارەی دەق</string>
+    <string name="widget_config_background_shape">شێوە</string>
+</resources>

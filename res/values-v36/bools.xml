@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="support_extendable_app_widget">true</bool>
+    <bool name="support_screen_off_music">true</bool>
+</resources>

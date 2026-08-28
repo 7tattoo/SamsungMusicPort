@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <vector android:height="@dimen/chip_close_icon_size" android:width="@dimen/chip_close_icon_size" android:viewportWidth="20.0" android:viewportHeight="20.0"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+            <path android:fillColor="#fffcfcff" android:pathData="M0,10C0,4.477 4.477,0 10,0C15.523,0 20,4.477 20,10C20,15.523 15.523,20 10,20C4.477,20 0,15.523 0,10Z" android:fillAlpha="0.15" />
+            <path android:fillColor="#ffd93e36" android:pathData="M15.25,9.35C15.609,9.35 15.9,9.641 15.9,10C15.9,10.359 15.609,10.65 15.25,10.65H4.75C4.391,10.65 4.1,10.359 4.1,10C4.1,9.641 4.391,9.35 4.75,9.35H15.25Z" />
+        </vector>
+    </item>
+</layer-list>

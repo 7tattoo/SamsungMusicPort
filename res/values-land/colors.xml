@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="full_player_menu_icon_color">@color/basics_dt1</color>
+    <color name="full_player_text_main">@color/basics_dt1</color>
+    <color name="lock_player_shortcut">@color/basics_dt1</color>
+    <color name="lock_player_shortcut_stroke">#66ffffff</color>
+    <color name="melon_home_mix_item_text1">#fffafafa</color>
+</resources>

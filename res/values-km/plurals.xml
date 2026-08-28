@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="exo_controls_fastforward_by_amount_description">
+        <item quantity="other">ខា​ទៅមុខ %d វិនាទី</item>
+        <item quantity="one">ខា​ទៅមុខ %d វិនាទី</item>
+    </plurals>
+    <plurals name="exo_controls_rewind_by_amount_description">
+        <item quantity="other">ខា​ថយក្រោយ %d វិនាទី</item>
+        <item quantity="one">ខា​ថយក្រោយ %d វិនាទី</item>
+    </plurals>
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="other">ការជូនដំណឹងថ្មី %d</item>
+        <item quantity="one">ការជូនដំណឹងថ្មី %d</item>
+    </plurals>
+    <plurals name="time_difference_short_days">
+        <item quantity="other">%dថ</item>
+        <item quantity="one">%dថ</item>
+    </plurals>
+    <plurals name="time_difference_short_hours">
+        <item quantity="other">%dម៉</item>
+        <item quantity="one">%dម៉</item>
+    </plurals>
+    <plurals name="time_difference_short_minutes">
+        <item quantity="other">%dន</item>
+        <item quantity="one">%dន</item>
+    </plurals>
+    <plurals name="time_difference_words_days">
+        <item quantity="other">%d ថ្ងៃ</item>
+        <item quantity="one">%d ថ្ងៃ</item>
+    </plurals>
+    <plurals name="time_difference_words_hours">
+        <item quantity="other">%d ម៉ោង</item>
+        <item quantity="one">%d ម៉ោង</item>
+    </plurals>
+    <plurals name="time_difference_words_minutes">
+        <item quantity="other">%d ន</item>
+        <item quantity="one">%d ន</item>
+    </plurals>
+</resources>

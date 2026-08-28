@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="sesl_glance_linear_graph_small_label_text_visibility">8</integer>
+</resources>

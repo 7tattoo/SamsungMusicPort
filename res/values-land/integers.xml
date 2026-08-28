@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="milk_store_album_grid_count">5</integer>
+    <integer name="milk_store_main_music_video_column">5</integer>
+    <integer name="milk_store_main_pick_column">2</integer>
+    <integer name="milk_store_main_recommend_radio_column">5</integer>
+    <integer name="milk_store_main_top_chart_column">2</integer>
+    <integer name="mtrl_calendar_header_orientation">0</integer>
+    <integer name="mtrl_calendar_selection_text_lines">6</integer>
+    <integer name="sesl_glance_combine_body_small_2nd_text__visibility">8</integer>
+    <integer name="sesl_glance_combine_body_tiny_2nd_text_visibility">8</integer>
+    <integer name="sesl_glance_grid_item_with_label_medium_label_visibility">8</integer>
+</resources>

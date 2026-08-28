@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="edge_panel_detail_subject">#99fafafa</color>
+    <color name="edge_panel_detail_text">#ccfafafa</color>
+    <color name="edge_panel_divider">#4cfafafa</color>
+</resources>

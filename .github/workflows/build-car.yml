@@ -1,0 +1,70 @@
+name: Build car-release
+
+on:
+  push:
+    tags:
+      - 'car-v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install apktool
+        run: |
+          mkdir -p /opt/apktool
+          wget -q https://github.com/iBotPeaches/Apktool/releases/download/v2.9.3/apktool_2.9.3.jar -O /opt/apktool/apktool.jar
+          echo "APKTOOL=/opt/apktool/apktool.jar" >> $GITHUB_ENV
+
+      - name: Install Android build-tools (apksigner)
+        run: |
+          mkdir -p /opt/bt && cd /opt/bt
+          wget -q https://dl.google.com/android/repository/build-tools_r34-linux.zip -O bt.zip
+          unzip -q bt.zip -d /opt/bt
+          ls /opt/bt/
+          echo "APKSIGNER=$(find /opt/bt -name apksigner | head -1)" >> $GITHUB_ENV
+
+      - name: Build APK (apktool, x86_64 native aapt2)
+        run: |
+          java -jar "$APKTOOL" b . -o /tmp/unsigned.apk --use-aapt2
+          ls -la /tmp/unsigned.apk
+
+      - name: Sign APK
+        env:
+          KS_B64: ${{ secrets.CAR_KEYSTORE_B64 }}
+        run: |
+          if [ -n "$KS_B64" ]; then
+            echo "$KS_B64" | base64 -d > /tmp/car-release.keystore
+            chmod 600 /tmp/car-release.keystore
+            "$APKSIGNER" sign --ks /tmp/car-release.keystore \
+              --ks-key-alias luna_car \
+              --ks-pass pass:grown-car-2026 \
+              --key-pass pass:grown-car-2026 \
+              --out /tmp/SamsungMusic_Car_16.2.45.1.apk /tmp/unsigned.apk
+          else
+            # 未配置签名 secret：上传未签名 APK
+            cp /tmp/unsigned.apk /tmp/SamsungMusic_Car_16.2.45.1.apk
+            echo "warning: no CAR_KEYSTORE_B64 secret, uploading unsigned APK"
+          fi
+          ls -la /tmp/SamsungMusic_Car_16.2.45.1.apk
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: /tmp/SamsungMusic_Car_16.2.45.1.apk
+          tag_name: ${{ github.ref_name }}
+          name: Samsung Music Car-vivo 16.2.45.1
+          body: |
+            Samsung Music 16.2.45.1 · vivo 车载投屏歌词适配 · 包名 com.luna.music.car
+            - vivo 双通道歌词（ucar.media.metadata.* + music.media.extras.*）
+            - 设置开关「车载投屏歌词」（默认开启）
+            - 基于 AyraHikari/SamsungMusicPort 完整可构建反编译移植版

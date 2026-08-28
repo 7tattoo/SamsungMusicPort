@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="10.0dip" android:width="10.0dip" android:viewportWidth="100.0" android:viewportHeight="100.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:pathData="M0,0 L0,100" android:strokeColor="#ffffffff" android:strokeWidth="@integer/sesl_debug_grid_stroke" />
+    <path android:pathData="M25,0 L25,100" android:strokeColor="#ffffffff" android:strokeWidth="@integer/sesl_debug_grid_stroke_half" />
+    <path android:pathData="M50,0 L50,100" android:strokeColor="#ffffffff" android:strokeWidth="@integer/sesl_debug_grid_stroke_half" />
+    <path android:pathData="M75,0 L75,100" android:strokeColor="#ffffffff" android:strokeWidth="@integer/sesl_debug_grid_stroke_half" />
+    <path android:pathData="M100,0 L100,100" android:strokeColor="#ffffffff" android:strokeWidth="@integer/sesl_debug_grid_stroke" />
+    <path android:pathData="M0,0 L100,0" android:strokeColor="#ffffffff" android:strokeWidth="@integer/sesl_debug_grid_stroke" />
+    <path android:pathData="M0,25 L100,25" android:strokeColor="#ffffffff" android:strokeWidth="@integer/sesl_debug_grid_stroke_half" />
+    <path android:pathData="M0,50 L100,50" android:strokeColor="#ffffffff" android:strokeWidth="@integer/sesl_debug_grid_stroke_half" />
+    <path android:pathData="M0,75 L100,75" android:strokeColor="#ffffffff" android:strokeWidth="@integer/sesl_debug_grid_stroke_half" />
+    <path android:pathData="M0,100 L100,100" android:strokeColor="#ffffffff" android:strokeWidth="@integer/sesl_debug_grid_stroke" />
+</vector>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="dimen" name="sesl_config_prefSnackWidth">37.5%</item>
+    <dimen name="sesl_floating_max_content_width">840.0dip</dimen>
+    <item type="dimen" name="sesl_floating_pane_floating_mode_default_width">0.32</item>
+    <dimen name="sesl_floating_pane_floating_mode_max_width">840.0dip</dimen>
+    <dimen name="sesl_floating_pane_side_mode_max_width">840.0dip</dimen>
+    <item type="dimen" name="sesl_floating_pane_side_mode_min_width">0.32</item>
+</resources>

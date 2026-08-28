@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="NNNalbum">
+        <item quantity="other">%d album masu yawa</item>
+        <item quantity="one">%d album</item>
+    </plurals>
+    <plurals name="NNNtrack">
+        <item quantity="other">%d waƙoƙi</item>
+        <item quantity="one">%d waƙa</item>
+    </plurals>
+    <plurals name="drm_can_use_n_times">
+        <item quantity="other">Za ka iya amfani %1$s %2$d lokuta.</item>
+        <item quantity="one">Za ka iya amfani da %s lokaci 1.</item>
+    </plurals>
+    <plurals name="n_folders">
+        <item quantity="other">%d foldoji</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">%d folda</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="n_selected">
+        <item quantity="other">%d an zaɓa</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">%d an zaɓa</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="n_tracks">
+        <item quantity="other">%d waƙoƙi</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">%d waƙa</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_hour_plurals">
+        <item quantity="other">Lokacin barci: awanni %d</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Lokacin barci: awa %d</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_min_plurals">
+        <item quantity="other">Lokacin barci: mintuna %d</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Lokacin barci: minti %d</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+</resources>

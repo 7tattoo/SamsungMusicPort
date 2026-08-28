@@ -1,0 +1,34 @@
+.class public final Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/d;
+.super Ljava/lang/Object;
+.source "r8-map-id-bb9673dd66f7c22e3c19bb88719260f6b59961698e6095c5d1edce97e840ddda"
+
+# interfaces
+.implements Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/a;
+
+
+# instance fields
+.field public a:Ljava/lang/String;
+
+
+# virtual methods
+.method public final getText()Ljava/lang/String;
+    .locals 1
+
+    .line 1
+    iget-object v0, p0, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/d;->a:Ljava/lang/String;
+
+    .line 2
+    .line 3
+    return-object v0
+.end method
+
+.method public final j()J
+    .locals 2
+
+    .line 1
+    const-wide/16 v0, -0x1
+
+    .line 2
+    .line 3
+    return-wide v0
+.end method

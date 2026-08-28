@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="dimen" name="sesl_glance_arc_progress_medium_icon_size">@dimen/arc_progress_icon_size_40</item>
+    <item type="dimen" name="sesl_glance_arc_progress_medium_icon_top_margin">@dimen/arc_progress_icon_margin_40</item>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_size">@dimen/arc_progress_icon_size_34</item>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_top_margin">@dimen/arc_progress_icon_margin_34</item>
+    <item type="dimen" name="sesl_glance_circular_progress_medium_icon_size">@dimen/circle_progress_icon_size_40</item>
+    <item type="dimen" name="sesl_glance_circular_progress_small_icon_size">@dimen/circle_progress_icon_size_34</item>
+    <dimen name="sesl_glance_combine_body_medium_linear_progress_height">22.0dip</dimen>
+    <dimen name="sesl_glance_combine_body_medium_linear_progress_vertical_margin">6.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_large_with_titlebar_bottom_margin">10.0dip</dimen>
+    <item type="dimen" name="sesl_glance_combine_primary_medium_circle_padding">@dimen/circle_padding_40</item>
+    <dimen name="sesl_glance_combine_primary_medium_circle_size">40.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_medium_default_padding">10.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_medium_larger_padding">15.0dip</dimen>
+    <item type="dimen" name="sesl_glance_combine_primary_small_circle_padding">@dimen/circle_padding_34</item>
+    <dimen name="sesl_glance_combine_primary_small_circle_size">34.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_with_2texts_tiny_icon_size">12.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_with_text_tiny_icon_size">20.0dip</dimen>
+    <item type="dimen" name="sesl_glance_graph_medium_title_text_size">@dimen/arc_progress_text_float_40</item>
+    <item type="dimen" name="sesl_glance_graph_small_display_text_size">18.0</item>
+    <item type="dimen" name="sesl_glance_grid_item_large_circle_padding">@dimen/circle_padding_46</item>
+    <dimen name="sesl_glance_grid_item_large_circle_size">46.0dip</dimen>
+    <dimen name="sesl_glance_grid_item_large_circle_size_fallback">43.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_medium_circle_padding">@dimen/circle_padding_32</item>
+    <dimen name="sesl_glance_grid_item_medium_circle_size">32.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_small_circle_padding">@dimen/circle_padding_34</item>
+    <dimen name="sesl_glance_grid_item_small_circle_size">34.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_with_label_medium_circle_padding">@dimen/circle_padding_32</item>
+    <dimen name="sesl_glance_grid_item_with_label_medium_circle_size">32.0dip</dimen>
+    <dimen name="sesl_glance_grid_item_with_label_medium_circle_size_fallback">36.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_small_graph_height">10.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_with_2line_headline_medium_graph_height">14.0dip</dimen>
+    <item type="dimen" name="sesl_glance_multi_textblock_medium_display_text_size">22.0</item>
+    <item type="dimen" name="sesl_glance_multi_textblock_small_display_text_size">14.0</item>
+    <item type="dimen" name="sesl_glance_multi_textblock_widesmall_display_text_size">18.0</item>
+    <dimen name="sesl_picker_dialog_width">300.0dip</dimen>
+    <dimen name="sesl_suggestive_dialog_min_width_major">384.0dip</dimen>
+    <dimen name="sesl_suggestive_dialog_min_width_minor">384.0dip</dimen>
+    <dimen name="sesl_suggestive_dialog_title_padding_top">20.0dip</dimen>
+    <item type="dimen" name="style_graph_medium_title_text_size">@dimen/arc_progress_text_dp_40</item>
+    <dimen name="style_graph_small_display_text_size">18.0dip</dimen>
+    <item type="dimen" name="style_graph_small_title_text_size">@dimen/arc_progress_text_dp_34</item>
+    <dimen name="style_multi_textblock_medium_display_text_size">22.0dip</dimen>
+    <dimen name="style_multi_textblock_small_display_text_size">14.0dip</dimen>
+    <dimen name="style_multi_textblock_widesmall_display_text_size">18.0dip</dimen>
+</resources>

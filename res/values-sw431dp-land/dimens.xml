@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_size">@dimen/arc_progress_icon_size_30</item>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_top_margin">@dimen/arc_progress_icon_margin_30</item>
+    <item type="dimen" name="sesl_glance_circular_progress_small_icon_size">@dimen/circle_progress_icon_size_30</item>
+    <item type="dimen" name="sesl_glance_grid_item_large_circle_padding">@dimen/circle_padding_42</item>
+    <dimen name="sesl_glance_grid_item_large_circle_size">42.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_medium_circle_padding">@dimen/circle_padding_34</item>
+    <dimen name="sesl_glance_grid_item_medium_circle_size">34.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_small_circle_padding">@dimen/circle_padding_38</item>
+    <dimen name="sesl_glance_grid_item_small_circle_size">34.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_with_label_medium_circle_padding">@dimen/circle_padding_22</item>
+    <dimen name="sesl_glance_grid_item_with_label_medium_circle_size">22.0dip</dimen>
+    <dimen name="sesl_glance_grid_item_with_label_medium_label_top_padding">1.0dip</dimen>
+    <dimen name="sesl_glance_multi_textblock_medium_horizontal_padding">2.0dip</dimen>
+    <dimen name="sesl_glance_multi_textblock_medium_top_padding">1.0dip</dimen>
+    <item type="dimen" name="sesl_glance_textblock_item_padding_dual_large_size">3.0</item>
+    <item type="dimen" name="style_graph_small_title_text_size">@dimen/arc_progress_text_dp_30</item>
+</resources>

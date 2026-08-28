@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="exo_controls_fastforward_by_amount_description">
+        <item quantity="other">%d секунд алдыга түрдүрүү</item>
+        <item quantity="one">%d секунд алдыга түрдүрүү</item>
+    </plurals>
+    <plurals name="exo_controls_rewind_by_amount_description">
+        <item quantity="other">%d секунд артка түрдүрүү</item>
+        <item quantity="one">%d секунд артка түрдүрүү</item>
+    </plurals>
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="other">%d жаңы билдирме</item>
+        <item quantity="one">%d жаңы билдирме</item>
+    </plurals>
+    <plurals name="time_difference_short_days">
+        <item quantity="other">%d к.</item>
+        <item quantity="one">%d к.</item>
+    </plurals>
+    <plurals name="time_difference_short_hours">
+        <item quantity="other">%d с.</item>
+        <item quantity="one">%d с.</item>
+    </plurals>
+    <plurals name="time_difference_short_minutes">
+        <item quantity="other">%d мүн.</item>
+        <item quantity="one">%d мүн.</item>
+    </plurals>
+    <plurals name="time_difference_words_days">
+        <item quantity="other">%d күн</item>
+        <item quantity="one">%d күн</item>
+    </plurals>
+    <plurals name="time_difference_words_hours">
+        <item quantity="other">%d саат</item>
+        <item quantity="one">%d саат</item>
+    </plurals>
+    <plurals name="time_difference_words_minutes">
+        <item quantity="other">%d мүн.</item>
+        <item quantity="one">%d мүн.</item>
+    </plurals>
+</resources>

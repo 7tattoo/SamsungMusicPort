@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/button_root" android:layout_width="fill_parent" android:layout_height="24.0dip" android:layoutDirection="ltr"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/shuffle_container" android:layout_width="wrap_content" android:layout_height="fill_parent" android:adjustViewBounds="false">
+        <ImageButton android:id="@id/shuffle_btn" android:layout_width="24.0dip" android:layout_height="24.0dip" android:src="@drawable/app_widget_multi_foldable_ic_shuffle_on_dark_shadow" android:scaleType="fitCenter" style="@style/AppWidget.ImageButton.Small" />
+    </FrameLayout>
+    <TextView android:id="@id/button_space_1" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+    <FrameLayout android:layout_width="wrap_content" android:layout_height="fill_parent" android:adjustViewBounds="false">
+        <ImageButton android:id="@id/prev_btn" android:layout_width="24.0dip" android:layout_height="24.0dip" android:src="@drawable/app_widget_multi_foldable_ic_back_dark_shadow" android:scaleType="fitCenter" android:contentDescription="@string/tts_previous" style="@style/AppWidget.ImageButton" />
+    </FrameLayout>
+    <TextView android:id="@id/button_space_2" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+    <FrameLayout android:layout_width="wrap_content" android:layout_height="fill_parent" android:adjustViewBounds="false">
+        <ImageButton android:id="@id/play_pause_btn" android:layout_width="24.0dip" android:layout_height="24.0dip" android:src="@drawable/app_widget_multi_foldable_ic_play_dark_shadow" android:scaleType="fitCenter" style="@style/AppWidget.ImageButton" />
+    </FrameLayout>
+    <TextView android:id="@id/button_space_3" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+    <FrameLayout android:layout_width="wrap_content" android:layout_height="fill_parent" android:adjustViewBounds="false">
+        <ImageButton android:id="@id/next_btn" android:layout_width="24.0dip" android:layout_height="24.0dip" android:src="@drawable/app_widget_multi_foldable_ic_forward_dark_shadow" android:scaleType="fitCenter" android:contentDescription="@string/tts_next" style="@style/AppWidget.ImageButton" />
+    </FrameLayout>
+    <TextView android:id="@id/button_space_4" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+    <FrameLayout android:id="@id/repeat_container" android:layout_width="wrap_content" android:layout_height="fill_parent" android:adjustViewBounds="false">
+        <ImageButton android:id="@id/repeat_btn" android:layout_width="24.0dip" android:layout_height="24.0dip" android:src="@drawable/app_widget_multi_foldable_ic_repeat_off_dark_shadow" android:scaleType="fitCenter" style="@style/AppWidget.ImageButton.Small" />
+    </FrameLayout>
+</LinearLayout>

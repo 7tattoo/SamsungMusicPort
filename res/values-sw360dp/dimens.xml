@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="edge_panel_album_art_default_icon_padding">48.0dip</dimen>
+    <dimen name="edge_panel_album_art_default_icon_size">42.0dip</dimen>
+    <dimen name="edge_panel_album_art_size">138.0dip</dimen>
+    <item type="dimen" name="full_player_album_max_height_percent">0.37</item>
+    <dimen name="media_info_default_text2">17.0sp</dimen>
+    <dimen name="meta_edit_layout_padding_vertical">16.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_day_height">32.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_header_button_height">36.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_header_button_width">36.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_header_height">36.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_view_height">192.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_week_height">32.0dip</dimen>
+    <dimen name="sesl_date_picker_gap_between_header_and_weekend">10.0dip</dimen>
+    <dimen name="sesl_date_picker_gap_between_weekend_and_calender">8.0dip</dimen>
+    <dimen name="sesl_date_picker_selected_day_circle_radius">14.0dip</dimen>
+    <item type="dimen" name="sesl_glance_arc_progress_medium_icon_size">@dimen/arc_progress_icon_size_52</item>
+    <item type="dimen" name="sesl_glance_arc_progress_medium_icon_top_margin">@dimen/arc_progress_icon_margin_52</item>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_size">@dimen/arc_progress_icon_size_46</item>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_top_margin">@dimen/arc_progress_icon_margin_46</item>
+    <item type="dimen" name="sesl_glance_circular_progress_medium_icon_size">@dimen/circle_progress_icon_size_52</item>
+    <item type="dimen" name="sesl_glance_circular_progress_small_icon_size">@dimen/circle_progress_icon_size_46</item>
+    <dimen name="sesl_glance_combine_body_medium_linear_progress_height">26.0dip</dimen>
+    <dimen name="sesl_glance_combine_body_medium_linear_progress_vertical_margin">8.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_large_with_titlebar_bottom_margin">14.0dip</dimen>
+    <item type="dimen" name="sesl_glance_combine_primary_large_with_titlebar_circle_padding">@dimen/circle_padding_60</item>
+    <dimen name="sesl_glance_combine_primary_large_with_titlebar_circle_size">60.0dip</dimen>
+    <item type="dimen" name="sesl_glance_combine_primary_medium_circle_padding">@dimen/circle_padding_52</item>
+    <dimen name="sesl_glance_combine_primary_medium_circle_size">52.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_medium_default_padding">14.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_medium_larger_padding">21.0dip</dimen>
+    <item type="dimen" name="sesl_glance_combine_primary_small_circle_padding">@dimen/circle_padding_46</item>
+    <dimen name="sesl_glance_combine_primary_small_circle_size">46.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_with_2texts_tiny_icon_size">16.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_with_text_tiny_icon_size">26.0dip</dimen>
+    <item type="dimen" name="sesl_glance_graph_medium_title_text_size">@dimen/arc_progress_text_float_52</item>
+    <item type="dimen" name="sesl_glance_graph_small_display_text_size">20.0</item>
+    <item type="dimen" name="sesl_glance_graph_small_title_text_size">@dimen/arc_progress_text_float_46</item>
+    <item type="dimen" name="sesl_glance_grid_item_medium_circle_padding">@dimen/circle_padding_52</item>
+    <dimen name="sesl_glance_grid_item_medium_circle_size">52.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_small_circle_padding">@dimen/circle_padding_46</item>
+    <dimen name="sesl_glance_grid_item_small_circle_size">46.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_with_label_medium_circle_padding">@dimen/circle_padding_46</item>
+    <dimen name="sesl_glance_grid_item_with_label_medium_circle_size">46.0dip</dimen>
+    <dimen name="sesl_glance_grid_item_with_label_medium_label_top_padding">2.0dip</dimen>
+    <dimen name="sesl_glance_grid_with_label_medium_padding">8.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_medium_graph_bottom_padding">14.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_medium_graph_height">26.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_small_graph_height">14.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_with_2line_headline_medium_graph_bottom_padding">14.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_with_2line_headline_medium_graph_height">26.0dip</dimen>
+    <dimen name="sesl_glance_list_progress_item_medium_height">26.0dip</dimen>
+    <item type="dimen" name="sesl_glance_multi_textblock_medium_display_text_size">32.0</item>
+    <dimen name="sesl_glance_multi_textblock_medium_horizontal_padding">12.0dip</dimen>
+    <dimen name="sesl_glance_multi_textblock_medium_top_padding">2.0dip</dimen>
+    <item type="dimen" name="sesl_glance_multi_textblock_small_display_text_size">18.0</item>
+    <item type="dimen" name="sesl_glance_multi_textblock_widesmall_display_text_size">22.0</item>
+    <item type="dimen" name="sesl_glance_welcomepage_medium_button_padding">@dimen/circle_padding_38</item>
+    <dimen name="sesl_glance_welcomepage_medium_button_size">38.0dip</dimen>
+    <dimen name="sesl_picker_spinner_height">164.0dip</dimen>
+    <dimen name="sesl_spinning_date_picker_height">278.0dip</dimen>
+    <dimen name="sesl_spinning_date_picker_height_dialog">278.0dip</dimen>
+    <item type="dimen" name="style_graph_medium_title_text_size">@dimen/arc_progress_text_dp_52</item>
+    <dimen name="style_graph_small_display_text_size">20.0dip</dimen>
+    <item type="dimen" name="style_graph_small_title_text_size">@dimen/arc_progress_text_dp_46</item>
+    <dimen name="style_multi_textblock_medium_display_text_size">32.0dip</dimen>
+    <dimen name="style_multi_textblock_small_display_text_size">18.0dip</dimen>
+    <dimen name="style_multi_textblock_widesmall_display_text_size">22.0dip</dimen>
+    <dimen name="winset_dialog_body_padding_vertical">24.0dip</dimen>
+    <dimen name="winset_dialog_slider_text">15.0dip</dimen>
+    <dimen name="winset_spinner_margin_horizontal">6.0dip</dimen>
+</resources>

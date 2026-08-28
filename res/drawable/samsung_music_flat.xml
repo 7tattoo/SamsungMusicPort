@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="108.0dip" android:width="108.0dip" android:viewportWidth="108.0" android:viewportHeight="108.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="@drawable/$samsung_music_flat__0" android:pathData="M46.42,81C38.35,81 31.8,74.44 31.8,66.34V66.26C31.8,58.13 38.38,51.53 46.49,51.53H54.58V59.75H46.49C42.9,59.75 40,62.66 40,66.26V66.34C40,69.9 42.87,72.78 46.42,72.78C47.67,76.73 46.42,81 46.42,81Z" />
+    <path android:fillColor="#ffffffff" android:pathData="M56.94,26.4C69.57,26.4 79.8,36.67 79.8,49.33V49.99H71.61V49.33C71.61,42.67 67.19,37.04 61.13,35.23L61.04,35.2L61.04,66.34C61.04,74.35 54.62,80.87 46.66,81L46.42,81C38.35,81 42.87,72.78 46.42,72.78C49.97,72.78 52.84,69.9 52.84,66.34V30.51C52.84,28.24 54.68,26.4 56.94,26.4Z" />
+</vector>

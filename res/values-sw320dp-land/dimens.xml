@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="dimen" name="full_player_album_max_height_percent">0.75</item>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_size">@dimen/arc_progress_icon_size_34</item>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_top_margin">@dimen/arc_progress_icon_margin_34</item>
+    <item type="dimen" name="sesl_glance_circular_progress_small_icon_size">@dimen/circle_progress_icon_size_34</item>
+    <item type="dimen" name="sesl_glance_combine_primary_small_circle_padding">@dimen/circle_padding_34</item>
+    <dimen name="sesl_glance_combine_primary_small_circle_size">34.0dip</dimen>
+    <item type="dimen" name="sesl_glance_graph_small_display_text_size">18.0</item>
+    <item type="dimen" name="sesl_glance_graph_small_title_text_size">@dimen/arc_progress_text_float_34</item>
+    <item type="dimen" name="sesl_glance_grid_item_small_circle_padding">@dimen/circle_padding_34</item>
+    <dimen name="sesl_glance_grid_item_small_circle_size">34.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_with_label_medium_circle_padding">@dimen/circle_padding_34</item>
+    <dimen name="sesl_glance_grid_item_with_label_medium_circle_size">34.0dip</dimen>
+    <dimen name="sesl_glance_grid_item_with_label_medium_label_top_padding">1.0dip</dimen>
+    <dimen name="sesl_glance_grid_with_label_medium_padding">6.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_small_graph_height">10.0dip</dimen>
+    <item type="dimen" name="sesl_glance_multi_textblock_small_display_text_size">14.0</item>
+    <item type="dimen" name="sesl_glance_multi_textblock_widesmall_display_text_size">18.0</item>
+    <item type="dimen" name="sesl_glance_welcomepage_medium_button_padding">@dimen/circle_padding_26</item>
+    <dimen name="sesl_glance_welcomepage_medium_button_size">26.0dip</dimen>
+    <dimen name="style_graph_small_display_text_size">18.0dip</dimen>
+    <item type="dimen" name="style_graph_small_title_text_size">@dimen/arc_progress_text_dp_34</item>
+    <dimen name="style_multi_textblock_small_display_text_size">14.0dip</dimen>
+    <dimen name="style_multi_textblock_widesmall_display_text_size">18.0dip</dimen>
+</resources>

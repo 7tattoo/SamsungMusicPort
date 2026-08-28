@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="n_folders">
+        <item quantity="other">%d فۆڵدەر</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">%d فۆڵدەر</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="n_selected">
+        <item quantity="other">%d دەسنیشانکرا</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">%d دەسنیشانکرا</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="n_tracks">
+        <item quantity="other">%d تراک</item>
+        <item quantity="zero">%d tracks</item>
+        <item quantity="one">%d تراک</item>
+        <item quantity="two">%d tracks</item>
+        <item quantity="few">%d tracks</item>
+        <item quantity="many">%d tracks</item>
+    </plurals>
+</resources>

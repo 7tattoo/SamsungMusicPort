@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="sesl_glance_combine_body_small_2nd_text__visibility">8</integer>
+    <integer name="sesl_glance_combine_body_tiny_2nd_text_visibility">8</integer>
+    <integer name="sesl_glance_grid_item_with_label_medium_label_visibility">8</integer>
+    <integer name="sesl_glance_multi_textblock_small_3rd_text_visibility">8</integer>
+</resources>

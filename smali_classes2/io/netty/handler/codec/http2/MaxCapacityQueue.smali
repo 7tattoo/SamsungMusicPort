@@ -1,0 +1,533 @@
+.class final Lio/netty/handler/codec/http2/MaxCapacityQueue;
+.super Ljava/lang/Object;
+.source "r8-map-id-bb9673dd66f7c22e3c19bb88719260f6b59961698e6095c5d1edce97e840ddda"
+
+# interfaces
+.implements Ljava/util/Queue;
+
+
+# annotations
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "<E:",
+        "Ljava/lang/Object;",
+        ">",
+        "Ljava/lang/Object;",
+        "Ljava/util/Queue<",
+        "TE;>;"
+    }
+.end annotation
+
+
+# instance fields
+.field private final maxCapacity:I
+
+.field private final queue:Ljava/util/Queue;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/Queue<",
+            "TE;>;"
+        }
+    .end annotation
+.end field
+
+
+# direct methods
+.method public constructor <init>(Ljava/util/Queue;I)V
+    .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/util/Queue<",
+            "TE;>;I)V"
+        }
+    .end annotation
+
+    .line 1
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 2
+    .line 3
+    .line 4
+    iput-object p1, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 5
+    .line 6
+    iput p2, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->maxCapacity:I
+
+    .line 7
+    .line 8
+    return-void
+.end method
+
+
+# virtual methods
+.method public add(Ljava/lang/Object;)Z
+    .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(TE;)Z"
+        }
+    .end annotation
+
+    .line 1
+    invoke-virtual {p0, p1}, Lio/netty/handler/codec/http2/MaxCapacityQueue;->offer(Ljava/lang/Object;)Z
+
+    .line 2
+    .line 3
+    .line 4
+    move-result p1
+
+    .line 5
+    if-eqz p1, :cond_0
+
+    .line 6
+    .line 7
+    const/4 p1, 0x1
+
+    .line 8
+    return p1
+
+    .line 9
+    :cond_0
+    new-instance p1, Ljava/lang/IllegalStateException;
+
+    .line 10
+    .line 11
+    invoke-direct {p1}, Ljava/lang/IllegalStateException;-><init>()V
+
+    .line 12
+    .line 13
+    .line 14
+    throw p1
+.end method
+
+.method public addAll(Ljava/util/Collection;)Z
+    .locals 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/util/Collection<",
+            "+TE;>;)Z"
+        }
+    .end annotation
+
+    .line 1
+    iget v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->maxCapacity:I
+
+    .line 2
+    .line 3
+    invoke-virtual {p0}, Lio/netty/handler/codec/http2/MaxCapacityQueue;->size()I
+
+    .line 4
+    .line 5
+    .line 6
+    move-result v1
+
+    .line 7
+    invoke-interface {p1}, Ljava/util/Collection;->size()I
+
+    .line 8
+    .line 9
+    .line 10
+    move-result v2
+
+    .line 11
+    add-int/2addr v2, v1
+
+    .line 12
+    if-lt v0, v2, :cond_0
+
+    .line 13
+    .line 14
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 15
+    .line 16
+    invoke-interface {v0, p1}, Ljava/util/Collection;->addAll(Ljava/util/Collection;)Z
+
+    .line 17
+    .line 18
+    .line 19
+    move-result p1
+
+    .line 20
+    return p1
+
+    .line 21
+    :cond_0
+    new-instance p1, Ljava/lang/IllegalStateException;
+
+    .line 22
+    .line 23
+    invoke-direct {p1}, Ljava/lang/IllegalStateException;-><init>()V
+
+    .line 24
+    .line 25
+    .line 26
+    throw p1
+.end method
+
+.method public clear()V
+    .locals 1
+
+    .line 1
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 2
+    .line 3
+    invoke-interface {v0}, Ljava/util/Collection;->clear()V
+
+    .line 4
+    .line 5
+    .line 6
+    return-void
+.end method
+
+.method public contains(Ljava/lang/Object;)Z
+    .locals 1
+
+    .line 1
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 2
+    .line 3
+    invoke-interface {v0, p1}, Ljava/util/Collection;->contains(Ljava/lang/Object;)Z
+
+    .line 4
+    .line 5
+    .line 6
+    move-result p1
+
+    .line 7
+    return p1
+.end method
+
+.method public containsAll(Ljava/util/Collection;)Z
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/util/Collection<",
+            "*>;)Z"
+        }
+    .end annotation
+
+    .line 1
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 2
+    .line 3
+    invoke-interface {v0, p1}, Ljava/util/Collection;->containsAll(Ljava/util/Collection;)Z
+
+    .line 4
+    .line 5
+    .line 6
+    move-result p1
+
+    .line 7
+    return p1
+.end method
+
+.method public element()Ljava/lang/Object;
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()TE;"
+        }
+    .end annotation
+
+    .line 1
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 2
+    .line 3
+    invoke-interface {v0}, Ljava/util/Queue;->element()Ljava/lang/Object;
+
+    .line 4
+    .line 5
+    .line 6
+    move-result-object v0
+
+    .line 7
+    return-object v0
+.end method
+
+.method public isEmpty()Z
+    .locals 1
+
+    .line 1
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 2
+    .line 3
+    invoke-interface {v0}, Ljava/util/Collection;->isEmpty()Z
+
+    .line 4
+    .line 5
+    .line 6
+    move-result v0
+
+    .line 7
+    return v0
+.end method
+
+.method public iterator()Ljava/util/Iterator;
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()",
+            "Ljava/util/Iterator<",
+            "TE;>;"
+        }
+    .end annotation
+
+    .line 1
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 2
+    .line 3
+    invoke-interface {v0}, Ljava/util/Collection;->iterator()Ljava/util/Iterator;
+
+    .line 4
+    .line 5
+    .line 6
+    move-result-object v0
+
+    .line 7
+    return-object v0
+.end method
+
+.method public offer(Ljava/lang/Object;)Z
+    .locals 2
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(TE;)Z"
+        }
+    .end annotation
+
+    .line 1
+    iget v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->maxCapacity:I
+
+    .line 2
+    .line 3
+    iget-object v1, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 4
+    .line 5
+    invoke-interface {v1}, Ljava/util/Collection;->size()I
+
+    .line 6
+    .line 7
+    .line 8
+    move-result v1
+
+    .line 9
+    if-gt v0, v1, :cond_0
+
+    .line 10
+    .line 11
+    const/4 p1, 0x0
+
+    .line 12
+    return p1
+
+    .line 13
+    :cond_0
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 14
+    .line 15
+    invoke-interface {v0, p1}, Ljava/util/Queue;->offer(Ljava/lang/Object;)Z
+
+    .line 16
+    .line 17
+    .line 18
+    move-result p1
+
+    .line 19
+    return p1
+.end method
+
+.method public peek()Ljava/lang/Object;
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()TE;"
+        }
+    .end annotation
+
+    .line 1
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 2
+    .line 3
+    invoke-interface {v0}, Ljava/util/Queue;->peek()Ljava/lang/Object;
+
+    .line 4
+    .line 5
+    .line 6
+    move-result-object v0
+
+    .line 7
+    return-object v0
+.end method
+
+.method public poll()Ljava/lang/Object;
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()TE;"
+        }
+    .end annotation
+
+    .line 1
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 2
+    .line 3
+    invoke-interface {v0}, Ljava/util/Queue;->poll()Ljava/lang/Object;
+
+    .line 4
+    .line 5
+    .line 6
+    move-result-object v0
+
+    .line 7
+    return-object v0
+.end method
+
+.method public remove()Ljava/lang/Object;
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()TE;"
+        }
+    .end annotation
+
+    .line 1
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    invoke-interface {v0}, Ljava/util/Queue;->remove()Ljava/lang/Object;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public remove(Ljava/lang/Object;)Z
+    .locals 1
+
+    .line 2
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    invoke-interface {v0, p1}, Ljava/util/Collection;->remove(Ljava/lang/Object;)Z
+
+    move-result p1
+
+    return p1
+.end method
+
+.method public removeAll(Ljava/util/Collection;)Z
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/util/Collection<",
+            "*>;)Z"
+        }
+    .end annotation
+
+    .line 1
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 2
+    .line 3
+    invoke-interface {v0, p1}, Ljava/util/Collection;->removeAll(Ljava/util/Collection;)Z
+
+    .line 4
+    .line 5
+    .line 6
+    move-result p1
+
+    .line 7
+    return p1
+.end method
+
+.method public retainAll(Ljava/util/Collection;)Z
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/util/Collection<",
+            "*>;)Z"
+        }
+    .end annotation
+
+    .line 1
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 2
+    .line 3
+    invoke-interface {v0, p1}, Ljava/util/Collection;->retainAll(Ljava/util/Collection;)Z
+
+    .line 4
+    .line 5
+    .line 6
+    move-result p1
+
+    .line 7
+    return p1
+.end method
+
+.method public size()I
+    .locals 1
+
+    .line 1
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    .line 2
+    .line 3
+    invoke-interface {v0}, Ljava/util/Collection;->size()I
+
+    .line 4
+    .line 5
+    .line 6
+    move-result v0
+
+    .line 7
+    return v0
+.end method
+
+.method public toArray()[Ljava/lang/Object;
+    .locals 1
+
+    .line 1
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    invoke-interface {v0}, Ljava/util/Collection;->toArray()[Ljava/lang/Object;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public toArray([Ljava/lang/Object;)[Ljava/lang/Object;
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "<T:",
+            "Ljava/lang/Object;",
+            ">([TT;)[TT;"
+        }
+    .end annotation
+
+    .line 2
+    iget-object v0, p0, Lio/netty/handler/codec/http2/MaxCapacityQueue;->queue:Ljava/util/Queue;
+
+    invoke-interface {v0, p1}, Ljava/util/Collection;->toArray([Ljava/lang/Object;)[Ljava/lang/Object;
+
+    move-result-object p1
+
+    return-object p1
+.end method

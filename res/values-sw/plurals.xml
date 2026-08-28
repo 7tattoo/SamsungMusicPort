@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="NNNalbum">
+        <item quantity="other">%d albamu</item>
+        <item quantity="one">%d albamu</item>
+    </plurals>
+    <plurals name="NNNtrack">
+        <item quantity="other">Nyimbo %d</item>
+        <item quantity="one">wimbo %d</item>
+    </plurals>
+    <plurals name="drm_can_use_n_times">
+        <item quantity="other">Unaweza kutumia %1$s mara %2$d.</item>
+        <item quantity="one">Unaweza kutumia %s mara 1.</item>
+    </plurals>
+    <plurals name="exo_controls_fastforward_by_amount_description">
+        <item quantity="other">Sogeza mbele haraka kwa sekunde %d</item>
+        <item quantity="one">Sogeza mbele haraka kwa sekunde %d</item>
+    </plurals>
+    <plurals name="exo_controls_rewind_by_amount_description">
+        <item quantity="other">Rudisha nyuma kwa sekunde %d</item>
+        <item quantity="one">Rudisha nyuma kwa sekunde %d</item>
+    </plurals>
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="other">Arifa %d mpya</item>
+        <item quantity="one">Arifa %d mpya</item>
+    </plurals>
+    <plurals name="n_folders">
+        <item quantity="other">Folda %d</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Folda %d</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="n_selected">
+        <item quantity="other">%d imechaguliwa</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">%d imechaguliwa</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="n_tracks">
+        <item quantity="other">Nyimbo %d</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Wimbo %d</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_hour_plurals">
+        <item quantity="other">Kipima muda wa kulala: Saa %d</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Kipima muda wa kulala: Saa %d</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_min_plurals">
+        <item quantity="other">Muda wa kulala: Dakika %d</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Muda wa kulala: Dakika %d</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">N/A</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+</resources>

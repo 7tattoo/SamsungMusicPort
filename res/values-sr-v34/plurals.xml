@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="NNNalbum">
+        <item quantity="other">%d албума</item>
+        <item quantity="one">%d албум</item>
+    </plurals>
+    <plurals name="NNNtrack">
+        <item quantity="other">%d нумере/а</item>
+        <item quantity="one">%d нумера</item>
+    </plurals>
+    <plurals name="drm_can_use_n_times">
+        <item quantity="other">%1$s се може користити %2$d пута.</item>
+        <item quantity="one">%s се може користити 1 пут.</item>
+    </plurals>
+    <plurals name="n_folders">
+        <item quantity="other">%d фолдера</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">%d фолдер</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">%d фолдера</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="n_selected">
+        <item quantity="other">Изабрано: %d</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Изабрано: %d</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">Изабрано: %d</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="n_tracks">
+        <item quantity="other">%d нумера</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">%d нумера</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">%d нумере</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_hour_plurals">
+        <item quantity="other">Време спавања: %d сати</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Време спавања: %d сат</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">Време спавања: %d сата</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_min_plurals">
+        <item quantity="other">Време спавања: %d минута</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Време спавања: %d минут</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">Време спавања: %d минута</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+</resources>

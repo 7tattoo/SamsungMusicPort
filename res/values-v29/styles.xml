@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppWidget.ListStyle" parent="@android:style/Theme.DeviceDefault.DayNight" />
+    <style name="Base.Theme.AppCompat" parent="@style/Base.V29.Theme.AppCompat" />
+    <style name="Base.Theme.AppCompat.Light" parent="@style/Base.V29.Theme.AppCompat.Light" />
+    <style name="Base.Widget.AppCompat.ImageButton" parent="@style/Base.V29.Widget.AppCompat.ImageButton" />
+    <style name="Base.Widget.Design.TabLayout" parent="@style/Base.V29.Widget.Design.TabLayout" />
+    <style name="Glance.AppWidget.TextAppearance.Bold" parent="@style/Glance.AppWidget.TextAppearance.DeviceDefaultFontFamily">
+        <item name="android:fontFamily">sec</item>
+        <item name="android:textFontWeight">700</item>
+    </style>
+    <style name="Glance.AppWidget.TextAppearance.Medium" parent="@style/Glance.AppWidget.TextAppearance.DeviceDefaultFontFamily">
+        <item name="android:fontFamily">sec</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+    <style name="Glance.AppWidget.TextAppearance.Normal" parent="@style/Glance.AppWidget.TextAppearance.DeviceDefaultFontFamily">
+        <item name="android:fontFamily">sec</item>
+        <item name="android:textFontWeight">400</item>
+    </style>
+    <style name="Glance.AppWidget.TextAppearance.SemiBold" parent="">
+        <item name="android:fontFamily">sec</item>
+        <item name="android:textFontWeight">600</item>
+    </style>
+    <style name="Glance.AppWidget.TextAppearance.SemiBoldNum" parent="">
+        <item name="android:fontFamily">sec-num</item>
+        <item name="android:textFontWeight">600</item>
+    </style>
+    <style name="Glance.AppWidget.TextAppearance.SemiBoldNumFixed" parent="">
+        <item name="android:fontFamily">sec-num-fixed</item>
+        <item name="android:textFontWeight">600</item>
+    </style>
+    <style name="Glance.AppWidget.Theme" parent="@android:style/Theme.DeviceDefault.DayNight" />
+    <style name="GridItem.Thumbnail" parent="@style/GridItem">
+        <item name="android:background">@drawable/basics_list_thumbnail_big_mask</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">0.0dip</item>
+        <item name="android:foreground">?android:selectableItemBackground</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="layout_constraintDimensionRatio">w, 1:1</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+    <style name="GridItem.Thumbnail.Circle" parent="@style/GridItem.Thumbnail">
+        <item name="android:background">@drawable/basics_list_thumbnail_circle_mask</item>
+        <item name="android:foreground">?android:selectableItemBackground</item>
+    </style>
+    <style name="GridItem.Thumbnail.Home" parent="@style/GridItem.Thumbnail">
+        <item name="android:background">@drawable/melon_home_mix_grid_item_thumbnail</item>
+        <item name="android:foreground">?android:selectableItemBackground</item>
+        <item name="android:stateListAnimator">?seslLargeTouchAnimator</item>
+    </style>
+    <style name="GridItem.Thumbnail.Mid" parent="@style/GridItem.Thumbnail">
+        <item name="android:background">@drawable/basics_list_thumbnail_mid_mask</item>
+        <item name="android:foreground">?android:selectableItemBackground</item>
+    </style>
+    <style name="LockPlayer.LyricsCloseButton" parent="@style/LockPlayer">
+        <item name="android:background">@drawable/icon_recoil_background</item>
+        <item name="android:stateListAnimator">?seslSmallTouchAnimator</item>
+    </style>
+    <style name="LockPlayer.ShortcutButton" parent="@style/LockPlayer">
+        <item name="android:background">@drawable/lock_player_shortcut_recoil_background</item>
+        <item name="android:stateListAnimator">?seslLargeTouchAnimator</item>
+    </style>
+    <style name="MetaEdit.ImageButton" parent="@style/MetaEdit">
+        <item name="android:background">@drawable/icon_recoil_background</item>
+        <item name="android:stateListAnimator">?seslSmallTouchAnimator</item>
+    </style>
+    <style name="MiniPlayer.ImageButton" parent="@style/MiniPlayer">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/icon_recoil_background</item>
+        <item name="android:padding">@dimen/mini_player_button_padding</item>
+        <item name="android:layout_width">@dimen/mini_player_button_touch_feedback</item>
+        <item name="android:layout_height">@dimen/mini_player_button_touch_feedback</item>
+        <item name="android:tint">@color/basics_dt1</item>
+        <item name="android:stateListAnimator">?seslSmallTouchAnimator</item>
+    </style>
+    <style name="Player.Lyrics.Button" parent="@style/Player.Lyrics">
+        <item name="android:background">@drawable/icon_recoil_background</item>
+        <item name="android:stateListAnimator">?seslSmallTouchAnimator</item>
+    </style>
+    <style name="SomPlayer.CloseButton" parent="@style/SomPlayer">
+        <item name="android:background">@drawable/icon_recoil_background_dark</item>
+        <item name="android:stateListAnimator">?seslSmallTouchAnimator</item>
+    </style>
+    <style name="Theme.OneUi" parent="@style/BaseAppTheme.Q" />
+    <style name="Widget.AppCompat.ActionBar.TabView" parent="@style/Base.V29.Widget.AppCompat.ActionBar.TabView" />
+    <style name="Widget.AppCompat.ActionButton" parent="@style/Base.V29.Widget.AppCompat.ActionButton" />
+    <style name="Widget.AppCompat.ActionButton.CloseMode" parent="@style/Base.V29.Widget.AppCompat.ActionButton.CloseMode" />
+    <style name="Widget.AppCompat.ActionButton.Overflow" parent="@style/Base.V29.Widget.AppCompat.ActionButton.Overflow" />
+    <style name="Widget.AppCompat.Button" parent="@style/Base.V29.Widget.AppCompat.Button" />
+    <style name="Widget.AppCompat.Button.Dialog" parent="@style/Base.V29.Widget.AppCompat.Button.Dialog" />
+    <style name="Widget.AppCompat.Button.Small" parent="@style/Base.V29.Widget.AppCompat.Button.Small" />
+    <style name="Widget.AppCompat.CompoundButton.CheckBox" parent="@style/Base.V29.Widget.AppCompat.CompoundButton.CheckBox" />
+    <style name="Widget.AppCompat.CompoundButton.RadioButton" parent="@style/Base.V29.Widget.AppCompat.CompoundButton.RadioButton" />
+    <style name="Widget.AppCompat.CompoundButton.Switch" parent="@style/Base.V29.Widget.AppCompat.CompoundButton.Switch" />
+    <style name="Widget.AppCompat.Light.ActionBar.TabView" parent="@style/Base.V29.Widget.AppCompat.Light.ActionBar.TabView" />
+    <style name="Widget.AppCompat.Light.ActionButton.Overflow" parent="@style/Base.V29.Widget.AppCompat.Light.ActionButton.Overflow" />
+    <style name="Widget.AppCompat.Light.Button" parent="@style/Base.V29.Widget.AppCompat.Light.Button" />
+    <style name="Widget.AppCompat.Light.Button.Dialog" parent="@style/Base.V29.Widget.AppCompat.Light.Button.Dialog" />
+    <style name="Widget.AppCompat.Light.Button.Small" parent="@style/Base.V29.Widget.AppCompat.Light.Button.Small" />
+    <style name="Widget.AppCompat.Light.CompoundButton.CheckBox" parent="@style/Base.V29.Widget.AppCompat.Light.CompoundButton.CheckBox" />
+    <style name="Widget.AppCompat.Light.CompoundButton.RadioButton" parent="@style/Base.V29.Widget.AppCompat.Light.CompoundButton.RadioButton" />
+    <style name="Widget.AppCompat.Light.CompoundButton.Switch" parent="@style/Base.V29.Widget.AppCompat.Light.CompoundButton.Switch" />
+    <style name="Widget.AppCompat.Light.ListView.DropDown" parent="@style/Base.V29.Widget.AppCompat.Light.ListView.DropDown" />
+    <style name="Widget.AppCompat.Light.Spinner" parent="@style/Base.V29.Widget.AppCompat.Light.Spinner" />
+    <style name="Widget.AppCompat.ListMenuView" parent="@style/Base.V29.Widget.AppCompat.ListMenuView" />
+    <style name="Widget.AppCompat.ListView.DropDown" parent="@style/Base.V29.Widget.AppCompat.ListView.DropDown" />
+    <style name="Widget.AppCompat.Spinner" parent="@style/Base.V29.Widget.AppCompat.Spinner" />
+    <style name="Widget.AppCompat.Toolbar.Button.Navigation" parent="@style/Base.V29.Widget.AppCompat.Toolbar.Button.Navigation" />
+    <style name="Widget.Design.BottomNavigationView" parent="@style/Widget.V29.Design.BottomNavigationView" />
+    <style name="Widget.Design.BottomNavigationView.Text" parent="@style/Widget.V29.Design.BottomNavigationView.Text" />
+    <style name="Widget.Design.DividerButtonLayout.DividerButton" parent="@style/Base.V29.Widget.Design.DividerButtonLayout.DividerButton" />
+    <style name="Widget.Design.DividerButtonLayout.DividerButton.Light" parent="@style/Base.V29.Widget.Design.DividerButtonLayout.DividerButton.Light" />
+    <style name="Widget.Design.Light.BottomNavigationView.Text" parent="@style/Widget.V29.Design.Light.BottomNavigationView.Text" />
+    <style name="Widget.Design.TabLayout.Light" parent="@style/Widget.V29.Design.TabLayout.Light" />
+    <style name="Base.V29.Theme.AppCompat" parent="@style/Base.V28.Theme.AppCompat">
+        <item name="android:absListViewStyle">@style/Widget.AppCompat.AbsListView</item>
+        <item name="android:listSelector">@drawable/sesl_list_item_recoil_background_dark</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/sesl_list_item_recoil_background_dark</item>
+        <item name="android:selectableItemBackground">@drawable/sesl_default_transparent_recoil_background_dark</item>
+        <item name="android:selectableItemBackgroundBorderless">@drawable/sesl_transparent_borderless_recoil_background_dark</item>
+        <item name="actionBarItemBackground">@drawable/sesl_transparent_borderless_action_item_recoil_background_dark</item>
+        <item name="listChoiceBackgroundIndicator">@drawable/sesl_list_item_recoil_background_dark</item>
+        <item name="selectableItemBackground">@drawable/sesl_default_transparent_recoil_background_dark</item>
+        <item name="selectableItemBackgroundBorderless">@drawable/sesl_transparent_borderless_recoil_background_dark</item>
+    </style>
+    <style name="Base.V29.Theme.AppCompat.Light" parent="@style/Base.V28.Theme.AppCompat.Light">
+        <item name="android:absListViewStyle">@style/Widget.AppCompat.Light.AbsListView</item>
+        <item name="android:listSelector">@drawable/sesl_list_item_recoil_background_light</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/sesl_list_item_recoil_background_light</item>
+        <item name="android:selectableItemBackground">@drawable/sesl_default_transparent_recoil_background_light</item>
+        <item name="android:selectableItemBackgroundBorderless">@drawable/sesl_transparent_borderless_recoil_background_light</item>
+        <item name="actionBarItemBackground">@drawable/sesl_transparent_borderless_action_item_recoil_background_light</item>
+        <item name="listChoiceBackgroundIndicator">@drawable/sesl_list_item_recoil_background_light</item>
+        <item name="selectableItemBackground">@drawable/sesl_default_transparent_recoil_background_light</item>
+        <item name="selectableItemBackgroundBorderless">@drawable/sesl_transparent_borderless_recoil_background_light</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.ActionBar.TabView" parent="@style/Base.Widget.AppCompat.ActionBar.TabView">
+        <item name="android:background">@drawable/sesl_default_transparent_recoil_background_dark</item>
+        <item name="android:stateListAnimator">@animator/sesl_recoil_button_selector</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.ActionButton" parent="@style/Base.Widget.AppCompat.ActionButton">
+        <item name="android:stateListAnimator">@animator/sesl_recoil_button_selector</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.ActionButton.CloseMode" parent="@style/Base.Widget.AppCompat.ActionButton.CloseMode">
+        <item name="android:stateListAnimator">@animator/sesl_recoil_button_selector</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.ActionButton.Overflow" parent="@style/Base.Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:stateListAnimator">@animator/sesl_recoil_button_selector</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Button" parent="@style/Base.Widget.AppCompat.Button">
+        <item name="android:background">@drawable/sesl_default_button_recoil_background_dark</item>
+        <item name="android:stateListAnimator">@animator/sesl_recoil_button_selector</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Button.Dialog" parent="@style/Base.Widget.AppCompat.Button.Dialog">
+        <item name="android:background">@drawable/sesl_dialog_btn_default_borderless_recoil_background_dark</item>
+        <item name="android:stateListAnimator">@animator/sesl_recoil_dialog_button_selector</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Button.Small" parent="@style/Base.Widget.AppCompat.Button.Small">
+        <item name="android:background">@drawable/sesl_default_button_small_recoil_background_dark</item>
+        <item name="android:stateListAnimator">@animator/sesl_recoil_button_selector</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.CompoundButton.CheckBox" parent="@style/Base.Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:background">@drawable/sesl_transparent_borderless_compound_button_recoil_background_dark</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.CompoundButton.RadioButton" parent="@style/Base.Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:background">@drawable/sesl_transparent_borderless_compound_button_recoil_background_dark</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.CompoundButton.Switch" parent="@style/Base.Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:background">@drawable/sesl_switch_recoil_background_dark</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.ImageButton" parent="@android:style/Widget.Material.ImageButton">
+        <item name="android:background">@drawable/sesl_default_button_recoil_background_dark</item>
+        <item name="android:stateListAnimator">@animator/sesl_recoil_button_selector</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Light.ActionBar.TabView" parent="@style/Base.V29.Widget.AppCompat.ActionBar.TabView">
+        <item name="android:background">@drawable/sesl_default_transparent_recoil_background_light</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Light.ActionButton.Overflow" parent="@style/Base.Widget.AppCompat.Light.ActionButton.Overflow">
+        <item name="android:stateListAnimator">@animator/sesl_recoil_button_selector</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Light.Button" parent="@style/Base.Widget.AppCompat.Light.Button">
+        <item name="android:background">@drawable/sesl_default_button_recoil_background_light</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Light.Button.Dialog" parent="@style/Base.Widget.AppCompat.Light.Button.Dialog">
+        <item name="android:background">@drawable/sesl_dialog_btn_default_borderless_recoil_background_light</item>
+        <item name="android:stateListAnimator">@animator/sesl_recoil_dialog_button_selector</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Light.Button.Small" parent="@style/Base.Widget.AppCompat.Light.Button.Small">
+        <item name="android:background">@drawable/sesl_default_button_small_recoil_background_light</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Light.CompoundButton.CheckBox" parent="@style/Base.Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:background">@drawable/sesl_transparent_borderless_compound_button_recoil_background_light</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Light.CompoundButton.RadioButton" parent="@style/Base.Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:background">@drawable/sesl_transparent_borderless_compound_button_recoil_background_light</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Light.CompoundButton.Switch" parent="@style/Base.Widget.AppCompat.Light.CompoundButton.Switch">
+        <item name="android:background">@drawable/sesl_switch_recoil_background_light</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Light.ListView.DropDown" parent="@style/Base.Widget.AppCompat.Light.ListView.DropDown">
+        <item name="android:listSelector">@drawable/sesl_list_item_recoil_background_light</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Light.Spinner" parent="@style/Base.Widget.AppCompat.Light.Spinner">
+        <item name="android:stateListAnimator">@animator/sesl_recoil_button_selector</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.ListMenuView" parent="@style/Base.Widget.AppCompat.ListMenuView">
+        <item name="android:listSelector">@drawable/sesl_list_item_recoil_background_light</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.ListView.DropDown" parent="@style/Base.Widget.AppCompat.ListView.DropDown">
+        <item name="android:listSelector">@drawable/sesl_list_item_recoil_background_dark</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Spinner" parent="@style/Base.Widget.AppCompat.Spinner">
+        <item name="android:stateListAnimator">@animator/sesl_recoil_button_selector</item>
+    </style>
+    <style name="Base.V29.Widget.AppCompat.Toolbar.Button.Navigation" parent="@style/Base.Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:stateListAnimator">@animator/sesl_recoil_button_selector</item>
+    </style>
+    <style name="Base.V29.Widget.Design.DividerButtonLayout.DividerButton" parent="@style/Base.V7.Widget.Design.DividerButtonLayout.DividerButton">
+        <item name="android:stateListAnimator">?seslSmallTouchAnimator</item>
+    </style>
+    <style name="Base.V29.Widget.Design.DividerButtonLayout.DividerButton.Light" parent="@style/Base.V7.Widget.Design.DividerButtonLayout.DividerButton.Light">
+        <item name="android:stateListAnimator">?seslSmallTouchAnimator</item>
+    </style>
+    <style name="Base.V29.Widget.Design.TabLayout" parent="@style/Base.V7.Widget.Design.TabLayout">
+        <item name="tabBackground">@drawable/sesl_tabview_transparent_recoil_background_dark</item>
+    </style>
+    <style name="BaseAppTheme.Q" parent="@style/BaseAppTheme.Pie">
+        <item name="android:enforceNavigationBarContrast">false</item>
+    </style>
+    <style name="Glance.AppWidget.TextAppearance.DeviceDefaultFontFamily" parent="@android:style/TextAppearance.DeviceDefault">
+        <item name="android:textSize">@null</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:textColor">@null</item>
+        <item name="android:textColorLink">@null</item>
+        <item name="android:shadowColor">@null</item>
+        <item name="android:shadowDx">@null</item>
+        <item name="android:shadowDy">@null</item>
+        <item name="android:shadowRadius">@null</item>
+        <item name="android:elegantTextHeight">@null</item>
+        <item name="android:letterSpacing">@null</item>
+        <item name="android:fontFeatureSettings">@null</item>
+        <item name="android:fontVariationSettings">@null</item>
+    </style>
+    <style name="Widget.AppCompat.AbsListView" parent="@style/Base.Widget.AppCompat.AbsListView">
+        <item name="android:listSelector">@drawable/sesl_list_item_recoil_background_dark</item>
+    </style>
+    <style name="Widget.AppCompat.Light.AbsListView" parent="@style/Base.Widget.AppCompat.AbsListView">
+        <item name="android:listSelector">@drawable/sesl_list_item_recoil_background_light</item>
+    </style>
+    <style name="Widget.V29.Design.BottomNavigationView" parent="@style/Widget.V7.Design.BottomNavigationView">
+        <item name="itemStateListAnimator">@animator/sesl_recoil_button_selector</item>
+    </style>
+    <style name="Widget.V29.Design.BottomNavigationView.Text" parent="@style/Widget.V7.Design.BottomNavigationView.Text">
+        <item name="itemBackground">@drawable/sesl_bottom_navigation_recoil_background_text_dark</item>
+    </style>
+    <style name="Widget.V29.Design.Light.BottomNavigationView.Text" parent="@style/Widget.V7.Design.Light.BottomNavigationView.Text">
+        <item name="itemBackground">@drawable/sesl_bottom_navigation_recoil_background_text_light</item>
+    </style>
+    <style name="Widget.V29.Design.TabLayout.Light" parent="@style/Widget.V7.Design.TabLayout.Light">
+        <item name="tabBackground">@drawable/sesl_tabview_transparent_recoil_background_light</item>
+    </style>
+</resources>

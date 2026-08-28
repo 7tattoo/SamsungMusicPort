@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="dimen" name="full_player_album_max_height_percent">0.75</item>
+    <dimen name="sesl_date_picker_calendar_day_height">28.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_header_button_height">32.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_header_button_width">32.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_header_height">32.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_view_height">168.0dip</dimen>
+    <dimen name="sesl_date_picker_calendar_week_height">28.0dip</dimen>
+    <dimen name="sesl_date_picker_gap_between_header_and_weekend">9.0dip</dimen>
+    <dimen name="sesl_date_picker_gap_between_weekend_and_calender">7.0dip</dimen>
+    <dimen name="sesl_date_picker_selected_day_circle_radius">12.0dip</dimen>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_size">@dimen/arc_progress_icon_size_40</item>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_top_margin">@dimen/arc_progress_icon_margin_40</item>
+    <dimen name="sesl_glance_combine_body_medium_linear_progress_height">22.0dip</dimen>
+    <dimen name="sesl_glance_combine_body_medium_linear_progress_vertical_margin">6.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_large_with_titlebar_bottom_margin">10.0dip</dimen>
+    <item type="dimen" name="sesl_glance_combine_primary_large_with_titlebar_circle_padding">@dimen/circle_padding_50</item>
+    <dimen name="sesl_glance_combine_primary_large_with_titlebar_circle_size">50.0dip</dimen>
+    <item type="dimen" name="sesl_glance_combine_primary_medium_circle_padding">@dimen/circle_padding_40</item>
+    <dimen name="sesl_glance_combine_primary_medium_circle_size">40.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_medium_default_padding">10.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_medium_larger_padding">15.0dip</dimen>
+    <item type="dimen" name="sesl_glance_combine_primary_small_circle_padding">@dimen/circle_padding_40</item>
+    <dimen name="sesl_glance_combine_primary_small_circle_size">40.0dip</dimen>
+    <item type="dimen" name="sesl_glance_graph_large_display_text_size">26.0</item>
+    <item type="dimen" name="sesl_glance_grid_item_small_circle_padding">@dimen/circle_padding_40</item>
+    <dimen name="sesl_glance_grid_item_small_circle_size">40.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_with_label_medium_circle_padding">@dimen/circle_padding_40</item>
+    <dimen name="sesl_glance_grid_item_with_label_medium_circle_size">40.0dip</dimen>
+    <dimen name="sesl_spinning_date_picker_height">244.0dip</dimen>
+    <dimen name="sesl_spinning_date_picker_height_dialog">244.0dip</dimen>
+    <dimen name="style_graph_large_display_text_size">26.0dip</dimen>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.graphics.drawable.SeslRecoilDrawable app:seslRecoilColor="@color/sesl_design_snackbar_suggest_action_ripple_color" xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <androidx.appcompat.util.SeslShapeDrawable android:shape="rectangle">
+            <corners android:radius="22.0dip" />
+            <solid android:color="@color/sesl_design_snackbar_suggest_action_background_color" />
+        </androidx.appcompat.util.SeslShapeDrawable>
+    </item>
+</androidx.appcompat.graphics.drawable.SeslRecoilDrawable>

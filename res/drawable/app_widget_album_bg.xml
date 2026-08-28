@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="156.0dip" android:width="136.0dip" android:viewportWidth="136.0" android:viewportHeight="156.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <group>
+        <clip-path android:pathData="M0,0h136v156h-136z" />
+        <group>
+            <clip-path android:pathData="M0,0H136V156H0V0Z" />
+            <group>
+                <clip-path android:pathData="M136,0H0V156H136V0Z" />
+                <path android:fillColor="#ff616161" android:pathData="M136,0H0V156H136V0Z" android:fillAlpha="0.37" />
+                <path android:fillColor="#ffe1e1e1" android:pathData="M112,0H24C10.75,0 0,10.75 0,24V132V156H136V24C136,10.75 125.25,0 112,0Z" android:fillAlpha="0.32" />
+                <path android:fillColor="#ff141414" android:pathData="M136,0H0V156H136V0Z" android:fillAlpha="0.6" />
+                <path android:fillColor="#ff747474" android:pathData="M136,0H0L0,156H136V132V0Z" android:fillAlpha="0.05" />
+                <path android:fillColor="#fff2f2f2" android:pathData="M136,0L0,0L0.13,156H136V0Z" android:fillAlpha="0.07" />
+                <path android:fillColor="#fffcfcff" android:pathData="M136,0H0V156H136V0Z" android:fillAlpha="0.75" />
+                <path android:fillColor="#fff2f2f2" android:pathData="M0,0H136V156H0V0Z" android:fillAlpha="0.18" />
+            </group>
+            <path android:fillColor="#00000000" android:pathData="M135.75,0.25H0.25V155.75H135.75V0.25Z" android:strokeColor="#fffcfcff" android:strokeWidth="0.5" android:strokeAlpha="0.2" />
+            <path android:fillColor="@drawable/$app_widget_album_bg__0" android:pathData="M0,0H136V156H0V0Z" android:strokeAlpha="0.75" android:fillAlpha="0.75" />
+        </group>
+    </group>
+</vector>

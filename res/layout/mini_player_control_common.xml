@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout android:gravity="center" android:id="@id/mini_player_control" android:layout_width="wrap_content" android:layout_height="fill_parent" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <FrameLayout android:id="@id/prev_btn" android:focusable="true" android:clickable="true" android:layout_width="@dimen/mini_player_button_width" android:layout_height="@dimen/mini_player_button_height" android:defaultFocusHighlightEnabled="false" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent" style="@style/MiniPlayer.PrevButton">
+            <ImageView android:id="@id/prev_icon" android:duplicateParentState="true" android:src="@drawable/music_mini_player_ic_control_prev" style="@style/MiniPlayer.ImageButton" />
+        </FrameLayout>
+        <FrameLayout android:id="@id/mini_play_pause_btn" android:focusable="true" android:clickable="true" android:layout_width="@dimen/mini_player_button_width" android:layout_height="@dimen/mini_player_button_height" android:layout_marginLeft="@dimen/mini_player_control_button_margin_horizontal" android:layout_marginRight="@dimen/mini_player_control_button_margin_horizontal" android:defaultFocusHighlightEnabled="false" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toRightOf="@id/prev_btn" app:layout_constraintRight_toLeftOf="@id/next_btn" app:layout_constraintTop_toTopOf="parent">
+            <ImageView android:id="@id/play_pause_icon" android:duplicateParentState="true" android:src="@drawable/mini_player_play_pause" style="@style/MiniPlayer.ImageButton" />
+        </FrameLayout>
+        <FrameLayout android:id="@id/next_btn" android:focusable="true" android:clickable="true" android:layout_width="@dimen/mini_player_button_width" android:layout_height="@dimen/mini_player_button_height" android:defaultFocusHighlightEnabled="false" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent" style="@style/MiniPlayer.NextButton">
+            <ImageView android:id="@id/next_icon" android:duplicateParentState="true" android:src="@drawable/music_mini_player_ic_control_next" style="@style/MiniPlayer.ImageButton" />
+        </FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/queue_btn" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:defaultFocusHighlightEnabled="false" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent" style="@style/MiniPlayer.QueueButton">
+            <FrameLayout android:duplicateParentState="true" android:layout_width="@dimen/mini_player_button_width" android:layout_height="@dimen/mini_player_button_height" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/queue_icon_margin_space" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+                <ImageView android:id="@id/queue_icon" android:duplicateParentState="true" android:src="@drawable/music_mini_player_ic_control_queue" style="@style/MiniPlayer.ImageButton" />
+            </FrameLayout>
+            <android.widget.Space android:id="@id/queue_icon_margin_space" android:layout_width="@dimen/mini_player_queue_space_width" android:layout_height="@dimen/mini_player_button_height" app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="NNNalbum">
+        <item quantity="other">%d albums</item>
+        <item quantity="one">%d album</item>
+    </plurals>
+    <plurals name="NNNtrack">
+        <item quantity="other">%d tracks</item>
+        <item quantity="one">%d track</item>
+    </plurals>
+    <plurals name="drm_can_use_n_times">
+        <item quantity="other">You can use %1$s %2$d times.</item>
+        <item quantity="one">You can use %s 1 time.</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_hour_plurals">
+        <item quantity="other">Sleep time: %d hours</item>
+        <item quantity="zero">Sleep time: %d hours</item>
+        <item quantity="one">Sleep time: %d hour</item>
+        <item quantity="two">Sleep time: %d hours</item>
+        <item quantity="few">Sleep time: %d hours</item>
+        <item quantity="many">Sleep time: %d hours</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_min_plurals">
+        <item quantity="other">Sleep time: %d minutes</item>
+        <item quantity="zero">Sleep time: %d minutes</item>
+        <item quantity="one">Sleep time: %d minute</item>
+        <item quantity="two">Sleep time: %d minutes</item>
+        <item quantity="few">Sleep time: %d minutes</item>
+        <item quantity="many">Sleep time: %d minutes</item>
+    </plurals>
+</resources>

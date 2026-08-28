@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@android:color/transparent" android:clipChildren="false" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginBottom="?actionBarSize" android:clipToOutline="false"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:layout_gravity="center" android:id="@id/app_bar_viewpager_container" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginHorizontal="@dimen/sesl_appbar_viewpager_margin_horizontal">
+        <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:id="@id/app_bar_viewpager_parent" android:paddingTop="@dimen/sesl_appbar_viewpager_padding_for_elevation" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="@dimen/sesl_appbar_viewpager_padding_for_elevation" android:paddingEnd="@dimen/sesl_appbar_viewpager_padding_for_elevation">
+            <androidx.viewpager2.widget.ViewPager2 android:layout_gravity="center_horizontal" android:id="@id/app_bar_viewpager" android:background="@drawable/sesl_viewpager_background" android:layout_width="@dimen/sesl_appbar_viewpager_width" android:layout_height="@dimen/sesl_appbar_viewpager_height" android:elevation="1.0dip" android:clipToOutline="true" />
+            <LinearLayout android:gravity="center" android:id="@id/bottom_layout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:layout_marginBottom="6.0dip" />
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

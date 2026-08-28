@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="favorite_item_divide_max_limit">5</integer>
+    <integer name="sesl_glance_linear_graph_small_label_text_visibility">0</integer>
+</resources>

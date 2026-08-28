@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="NNNalbum">
+        <item quantity="other">%d albuma</item>
+        <item quantity="one">%d album</item>
+    </plurals>
+    <plurals name="NNNtrack">
+        <item quantity="other">%d numere/a</item>
+        <item quantity="one">%d numera</item>
+    </plurals>
+    <plurals name="drm_can_use_n_times">
+        <item quantity="other">%1$s se može koristiti %2$d puta.</item>
+        <item quantity="one">%s se može koristiti 1 put.</item>
+    </plurals>
+    <plurals name="exo_controls_fastforward_by_amount_description">
+        <item quantity="other">Premotajte %d sekundi unapred</item>
+        <item quantity="one">Premotajte %d sekundu unapred</item>
+        <item quantity="few">Premotajte %d sekunde unapred</item>
+    </plurals>
+    <plurals name="exo_controls_rewind_by_amount_description">
+        <item quantity="other">Premotajte %d sekundi unazad</item>
+        <item quantity="one">Premotajte %d sekundu unazad</item>
+        <item quantity="few">Premotajte %d sekunde unazad</item>
+    </plurals>
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="other">%d novih obaveštenja</item>
+        <item quantity="one">%d novo obaveštenje</item>
+        <item quantity="few">%d nova obaveštenja</item>
+    </plurals>
+    <plurals name="n_folders">
+        <item quantity="other">%d foldera</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">%d folder</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">%d foldera</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="n_selected">
+        <item quantity="other">Izabrano: %d</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Izabrano: %d</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">Izabrano: %d</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="n_tracks">
+        <item quantity="other">%d numera</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">%d numera</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">%d numere</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_hour_plurals">
+        <item quantity="other">Vreme spavanja: %d sati</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Vreme spavanja: %d sat</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">Vreme spavanja: %d sata</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+    <plurals name="sesl_sleep_duration_in_min_plurals">
+        <item quantity="other">Vreme spavanja: %d minuta</item>
+        <item quantity="zero">N/A</item>
+        <item quantity="one">Vreme spavanja: %d minut</item>
+        <item quantity="two">N/A</item>
+        <item quantity="few">Vreme spavanja: %d minuta</item>
+        <item quantity="many">N/A</item>
+    </plurals>
+</resources>

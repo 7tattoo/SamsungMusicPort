@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:padding="16.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <android.widget.Toolbar android:layout_gravity="bottom" android:id="@id/toolbar" android:layout_width="fill_parent" android:layout_height="wrap_content" app:layout_collapseMode="pin" />
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dip">
+            <ImageView android:id="@id/ivPreview" android:layout_width="56.0dip" android:layout_height="56.0dip" android:contentDescription="Preview" />
+            <TextView android:textSize="16.0sp" android:id="@id/tvPreviewLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12.0dip" style="@style/ActionBar.Title.Sub" />
+        </LinearLayout>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dip" android:text="Options:" />
+        <RadioGroup android:id="@id/rgAlias" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="10.0dip">
+            <RadioButton android:id="@id/rbDefault" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Icon Baru + Samsung Musik" />
+            <RadioButton android:id="@id/rbNameAlt" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Icon Baru + Musik" />
+            <RadioButton android:id="@id/rbNameGalaxy" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Icon Baru + Galaxy Musik" />
+            <RadioButton android:id="@id/rbOldIcon" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Icon Lama + Samsung Musik" />
+            <RadioButton android:id="@id/rbOldNameAlt" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Icon Lama + Musik" />
+            <RadioButton android:id="@id/rbOldNameGalaxy" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Icon Lama + Galaxy Musik" />
+        </RadioGroup>
+        <Button android:id="@id/btnApply" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/apply" style="?borderlessButtonStyle" />
+        <TextView android:textSize="12.0sp" android:textColor="#ff6f6f6f" android:id="@id/tvNote" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:text="@string/launcher_note" />
+    </LinearLayout>
+</ScrollView>

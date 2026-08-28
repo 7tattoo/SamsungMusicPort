@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="dimen" name="sesl_glance_arc_progress_medium_icon_size">@dimen/arc_progress_icon_size_52</item>
+    <item type="dimen" name="sesl_glance_arc_progress_medium_icon_top_margin">@dimen/arc_progress_icon_margin_52</item>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_size">@dimen/arc_progress_icon_size_40</item>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_size_tablet">@dimen/arc_progress_icon_size_37</item>
+    <item type="dimen" name="sesl_glance_arc_progress_small_icon_top_margin">@dimen/arc_progress_icon_margin_40</item>
+    <item type="dimen" name="sesl_glance_circular_progress_medium_icon_size">@dimen/circle_progress_icon_size_52</item>
+    <item type="dimen" name="sesl_glance_circular_progress_small_icon_size">@dimen/circle_progress_icon_size_46</item>
+    <dimen name="sesl_glance_combine_body_medium_linear_progress_height">26.0dip</dimen>
+    <dimen name="sesl_glance_combine_body_medium_linear_progress_vertical_margin">8.0dip</dimen>
+    <item type="dimen" name="sesl_glance_combine_body_text_size">14.0</item>
+    <item type="dimen" name="sesl_glance_combine_display_text_medium_over_size">26.0</item>
+    <item type="dimen" name="sesl_glance_combine_display_text_small_size">22.0</item>
+    <item type="dimen" name="sesl_glance_combine_display_text_tiny_size">18.0</item>
+    <item type="dimen" name="sesl_glance_combine_label_monotone_text_small_over_size">9.0</item>
+    <item type="dimen" name="sesl_glance_combine_label_text_small_over_size">14.0</item>
+    <item type="dimen" name="sesl_glance_combine_label_text_tiny_size">13.0</item>
+    <dimen name="sesl_glance_combine_primary_large_with_titlebar_bottom_margin">14.0dip</dimen>
+    <item type="dimen" name="sesl_glance_combine_primary_large_with_titlebar_circle_padding">@dimen/circle_padding_60</item>
+    <dimen name="sesl_glance_combine_primary_large_with_titlebar_circle_size">60.0dip</dimen>
+    <item type="dimen" name="sesl_glance_combine_primary_medium_circle_padding">@dimen/circle_padding_52</item>
+    <dimen name="sesl_glance_combine_primary_medium_circle_size">52.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_medium_default_padding">14.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_medium_larger_padding">21.0dip</dimen>
+    <item type="dimen" name="sesl_glance_combine_primary_small_circle_padding">@dimen/circle_padding_40</item>
+    <dimen name="sesl_glance_combine_primary_small_circle_size">40.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_with_2texts_tiny_icon_size">16.0dip</dimen>
+    <dimen name="sesl_glance_combine_primary_with_text_tiny_icon_size">26.0dip</dimen>
+    <dimen name="sesl_glance_combine_text_small_padding">9.0dip</dimen>
+    <item type="dimen" name="sesl_glance_combine_title_text_size">17.0</item>
+    <item type="dimen" name="sesl_glance_graph_large_display_text_size">24.0</item>
+    <item type="dimen" name="sesl_glance_graph_medium_title_text_size">@dimen/arc_progress_text_float_52</item>
+    <item type="dimen" name="sesl_glance_graph_small_display_text_size">19.0</item>
+    <item type="dimen" name="sesl_glance_graph_small_title_text_size">@dimen/arc_progress_text_float_46</item>
+    <item type="dimen" name="sesl_glance_grid_item_large_circle_size_fallback">@dimen/sesl_glance_grid_item_large_circle_size</item>
+    <item type="dimen" name="sesl_glance_grid_item_medium_circle_padding">@dimen/circle_padding_52</item>
+    <dimen name="sesl_glance_grid_item_medium_circle_size">52.0dip</dimen>
+    <dimen name="sesl_glance_grid_item_small_circle_size_fold_main_over_sw_700">44.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_with_label_medium_circle_padding">@dimen/circle_padding_46</item>
+    <dimen name="sesl_glance_grid_item_with_label_medium_circle_size">46.0dip</dimen>
+    <item type="dimen" name="sesl_glance_grid_item_with_label_medium_circle_size_fallback">@dimen/sesl_glance_grid_item_medium_circle_size</item>
+    <dimen name="sesl_glance_grid_item_with_label_medium_label_top_padding">2.0dip</dimen>
+    <dimen name="sesl_glance_grid_with_label_medium_padding">8.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_large_description_content_width">110.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_medium_graph_height">22.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_small_graph_height">13.0dip</dimen>
+    <dimen name="sesl_glance_linear_graph_with_2line_headline_medium_graph_height">24.0dip</dimen>
+    <dimen name="sesl_glance_list_progress_item_medium_height">22.0dip</dimen>
+    <item type="dimen" name="sesl_glance_multi_textblock_medium_display_text_size">32.0</item>
+    <dimen name="sesl_glance_multi_textblock_medium_horizontal_padding">12.0dip</dimen>
+    <dimen name="sesl_glance_multi_textblock_medium_top_padding">2.0dip</dimen>
+    <item type="dimen" name="sesl_glance_multi_textblock_small_display_text_size">18.0</item>
+    <item type="dimen" name="sesl_glance_multi_textblock_widesmall_display_text_size">22.0</item>
+    <item type="dimen" name="sesl_glance_single_textblock_body_size">14.0</item>
+    <item type="dimen" name="sesl_glance_single_textblock_description_size">17.0</item>
+    <item type="dimen" name="sesl_glance_single_textblock_small_display_couple_size">26.0</item>
+    <item type="dimen" name="sesl_glance_single_textblock_small_display_solo_size">38.0</item>
+    <item type="dimen" name="sesl_glance_single_textblock_small_label_size">14.0</item>
+    <item type="dimen" name="sesl_glance_single_textblock_tiny_display_2_size">38.0</item>
+    <item type="dimen" name="sesl_glance_single_textblock_tiny_display_3_size">26.0</item>
+    <item type="dimen" name="sesl_glance_single_textblock_tiny_display_4_size">17.0</item>
+    <item type="dimen" name="sesl_glance_single_textblock_tiny_label_size">12.0</item>
+    <item type="dimen" name="sesl_glance_single_textblock_title_size">19.0</item>
+    <item type="dimen" name="sesl_glance_welcomepage_title_text_size">14.0</item>
+    <dimen name="style_graph_large_display_text_size">24.0dip</dimen>
+    <item type="dimen" name="style_graph_medium_title_text_size">@dimen/arc_progress_text_dp_52</item>
+    <dimen name="style_graph_small_display_text_size">19.0dip</dimen>
+    <item type="dimen" name="style_graph_small_title_text_size">@dimen/arc_progress_text_dp_46</item>
+    <dimen name="style_multi_textblock_medium_display_text_size">32.0dip</dimen>
+    <dimen name="style_multi_textblock_small_display_text_size">18.0dip</dimen>
+    <dimen name="style_multi_textblock_widesmall_display_text_size">22.0dip</dimen>
+</resources>

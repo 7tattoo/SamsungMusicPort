@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#ff000000" />
+    <corners android:topLeftRadius="@dimen/sesl_glance_shape_left_speech_balloon_corner_radius_top_left" android:topRightRadius="@dimen/sesl_glance_shape_left_speech_balloon_corner_radius_top_right" android:bottomLeftRadius="@dimen/sesl_glance_shape_left_speech_balloon_corner_radius_bottom_left" android:bottomRightRadius="@dimen/sesl_glance_shape_left_speech_balloon_corner_radius_bottom_right" />
+</shape>

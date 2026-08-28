@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView android:textSize="@dimen/download_manager_count_indicator_text" android:textColor="@color/melon_download_manager_description_209_17_3" android:gravity="center" android:id="@id/download_count_indicator" android:paddingBottom="@dimen/download_manager_count_indicator_margin_bottom" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="@dimen/download_manager_count_indicator_height" style="@style/Font.NewSEC.400"
+  xmlns:android="http://schemas.android.com/apk/res/android" />
