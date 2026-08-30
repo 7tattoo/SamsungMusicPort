@@ -44,7 +44,7 @@
 
 # virtual methods
 .method public onItemClick(Landroid/widget/AdapterView;Landroid/view/View;IJ)V
-    .locals 0
+    .locals 1
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -71,25 +71,53 @@
     .line 107
     iget-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$4;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
-    iget-object p2, p0, Lcom/luna/music/car/NeteaseTestActivity$4;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
+    invoke-static {p1}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgetadapter(Lcom/luna/music/car/NeteaseTestActivity;)Landroid/widget/ArrayAdapter;
 
-    invoke-static {p2}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgettrackIds(Lcom/luna/music/car/NeteaseTestActivity;)Ljava/util/List;
+    move-result-object p1
 
-    move-result-object p2
+    invoke-virtual {p1, p3}, Landroid/widget/ArrayAdapter;->getItem(I)Ljava/lang/Object;
 
-    invoke-interface {p2, p3}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    move-result-object p1
 
-    move-result-object p2
+    check-cast p1, Ljava/lang/String;
 
-    check-cast p2, Ljava/lang/Long;
+    .line 108
+    const-string p2, "\t"
 
-    invoke-virtual {p2}, Ljava/lang/Long;->longValue()J
+    invoke-virtual {p1, p2}, Ljava/lang/String;->split(Ljava/lang/String;)[Ljava/lang/String;
 
-    move-result-wide p2
-
-    invoke-static {p1, p2, p3}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$mrunPlay(Lcom/luna/music/car/NeteaseTestActivity;J)V
+    move-result-object p1
 
     .line 109
+    iget-object p2, p0, Lcom/luna/music/car/NeteaseTestActivity$4;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
+
+    iget-object p4, p0, Lcom/luna/music/car/NeteaseTestActivity$4;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
+
+    invoke-static {p4}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgettrackIds(Lcom/luna/music/car/NeteaseTestActivity;)Ljava/util/List;
+
+    move-result-object p4
+
+    invoke-interface {p4, p3}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object p3
+
+    check-cast p3, Ljava/lang/Long;
+
+    invoke-virtual {p3}, Ljava/lang/Long;->longValue()J
+
+    move-result-wide p3
+
+    const/4 p5, 0x0
+
+    aget-object p5, p1, p5
+
+    const/4 v0, 0x1
+
+    aget-object p1, p1, v0
+
+    invoke-static {p2, p3, p4, p5, p1}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$mrunPlay(Lcom/luna/music/car/NeteaseTestActivity;JLjava/lang/String;Ljava/lang/String;)V
+
+    .line 111
     :cond_0
     return-void
 .end method

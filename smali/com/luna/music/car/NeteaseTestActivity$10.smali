@@ -47,7 +47,7 @@
         }
     .end annotation
 
-    .line 221
+    .line 224
     iput-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$10;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     iput-object p2, p0, Lcom/luna/music/car/NeteaseTestActivity$10;->val$error:Ljava/lang/Exception;
@@ -64,14 +64,14 @@
 .method public run()V
     .locals 4
 
-    .line 224
+    .line 227
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity$10;->val$error:Ljava/lang/Exception;
 
     invoke-virtual {v0}, Ljava/lang/Exception;->getMessage()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 225
+    .line 228
     iget-object v1, p0, Lcom/luna/music/car/NeteaseTestActivity$10;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     invoke-static {v1}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgetstatus(Lcom/luna/music/car/NeteaseTestActivity;)Landroid/widget/TextView;
@@ -82,7 +82,7 @@
 
     if-nez v0, :cond_0
 
-    .line 226
+    .line 229
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity$10;->val$error:Ljava/lang/Exception;
 
     invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
@@ -121,9 +121,9 @@
 
     move-result-object v0
 
-    .line 225
+    .line 228
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 227
+    .line 230
     return-void
 .end method

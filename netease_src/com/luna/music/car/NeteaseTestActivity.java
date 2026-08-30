@@ -104,7 +104,9 @@ public final class NeteaseTestActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position < trackIds.size()) {
-                    runPlay(trackIds.get(position));
+                    String row = adapter.getItem(position);
+                    String[] parts = row.split("\t");
+                    runPlay(trackIds.get(position), parts[0], parts[1]);
                 }
             }
         });
@@ -147,7 +149,7 @@ public final class NeteaseTestActivity extends Activity {
                                 String[] parts = row.split("\t");
                                 if (parts.length < 3) continue;
                                 trackIds.add(Long.parseLong(parts[0]));
-                                adapter.add(parts[1] + " - " + parts[2]);
+                                adapter.add(parts[1] + "\t" + parts[2]);
                             }
                             adapter.notifyDataSetChanged();
                             status.setText("共 " + trackIds.size() + " 条结果");
@@ -160,7 +162,7 @@ public final class NeteaseTestActivity extends Activity {
         }).start();
     }
 
-    private void runPlay(final long songId) {
+    private void runPlay(final long songId, final String title, final String artist) {
         status.setText("解析播放地址…");
         new Thread(new Runnable() {
             @Override
@@ -175,7 +177,8 @@ public final class NeteaseTestActivity extends Activity {
                                 status.setText("无可用播放地址（版权或会员限制）");
                                 return;
                             }
-                            startPlayback(url);
+                            PlayIntentHelper.playNow(NeteaseTestActivity.this, url, title, artist);
+                            status.setText("已发送到 Samsung Music 播放");
                         }
                     });
                 } catch (final Exception error) {

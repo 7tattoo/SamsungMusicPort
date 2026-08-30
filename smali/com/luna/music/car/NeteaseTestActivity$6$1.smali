@@ -43,7 +43,7 @@
         }
     .end annotation
 
-    .line 140
+    .line 142
     iput-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$6$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$6;
 
     iput-object p2, p0, Lcom/luna/music/car/NeteaseTestActivity$6$1;->val$rows:[Ljava/lang/String;
@@ -56,9 +56,9 @@
 
 # virtual methods
 .method public run()V
-    .locals 8
+    .locals 9
 
-    .line 143
+    .line 145
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity$6$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$6;
 
     iget-object v0, v0, Lcom/luna/music/car/NeteaseTestActivity$6;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
@@ -69,7 +69,7 @@
 
     invoke-virtual {v0}, Landroid/widget/ArrayAdapter;->clear()V
 
-    .line 144
+    .line 146
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity$6$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$6;
 
     iget-object v0, v0, Lcom/luna/music/car/NeteaseTestActivity$6;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
@@ -80,7 +80,7 @@
 
     invoke-interface {v0}, Ljava/util/List;->clear()V
 
-    .line 145
+    .line 147
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity$6$1;->val$rows:[Ljava/lang/String;
 
     array-length v1, v0
@@ -94,12 +94,12 @@
 
     aget-object v4, v0, v3
 
-    .line 146
+    .line 148
     if-nez v4, :cond_0
 
     goto :goto_1
 
-    .line 147
+    .line 149
     :cond_0
     const-string v5, "\t"
 
@@ -107,69 +107,67 @@
 
     move-result-object v4
 
-    .line 148
-    array-length v5, v4
+    .line 150
+    array-length v6, v4
 
-    const/4 v6, 0x3
+    const/4 v7, 0x3
 
-    if-ge v5, v6, :cond_1
+    if-ge v6, v7, :cond_1
 
     goto :goto_1
 
-    .line 149
+    .line 151
     :cond_1
-    iget-object v5, p0, Lcom/luna/music/car/NeteaseTestActivity$6$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$6;
+    iget-object v6, p0, Lcom/luna/music/car/NeteaseTestActivity$6$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$6;
 
-    iget-object v5, v5, Lcom/luna/music/car/NeteaseTestActivity$6;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
+    iget-object v6, v6, Lcom/luna/music/car/NeteaseTestActivity$6;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
-    invoke-static {v5}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgettrackIds(Lcom/luna/music/car/NeteaseTestActivity;)Ljava/util/List;
+    invoke-static {v6}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgettrackIds(Lcom/luna/music/car/NeteaseTestActivity;)Ljava/util/List;
+
+    move-result-object v6
+
+    aget-object v7, v4, v2
+
+    invoke-static {v7}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
+
+    move-result-wide v7
+
+    invoke-static {v7, v8}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
+
+    move-result-object v7
+
+    invoke-interface {v6, v7}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    .line 152
+    iget-object v6, p0, Lcom/luna/music/car/NeteaseTestActivity$6$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$6;
+
+    iget-object v6, v6, Lcom/luna/music/car/NeteaseTestActivity$6;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
+
+    invoke-static {v6}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgetadapter(Lcom/luna/music/car/NeteaseTestActivity;)Landroid/widget/ArrayAdapter;
+
+    move-result-object v6
+
+    const/4 v7, 0x1
+
+    aget-object v7, v4, v7
+
+    const/4 v8, 0x2
+
+    aget-object v4, v4, v8
+
+    new-instance v8, Ljava/lang/StringBuilder;
+
+    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v8, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v5
 
-    aget-object v6, v4, v2
-
-    invoke-static {v6}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
-
-    move-result-wide v6
-
-    invoke-static {v6, v7}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
-
-    move-result-object v6
-
-    invoke-interface {v5, v6}, Ljava/util/List;->add(Ljava/lang/Object;)Z
-
-    .line 150
-    iget-object v5, p0, Lcom/luna/music/car/NeteaseTestActivity$6$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$6;
-
-    iget-object v5, v5, Lcom/luna/music/car/NeteaseTestActivity$6;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
-
-    invoke-static {v5}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgetadapter(Lcom/luna/music/car/NeteaseTestActivity;)Landroid/widget/ArrayAdapter;
-
-    move-result-object v5
-
-    const/4 v6, 0x1
-
-    aget-object v6, v4, v6
-
-    const/4 v7, 0x2
-
-    aget-object v4, v4, v7
-
-    new-instance v7, Ljava/lang/StringBuilder;
-
-    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
-
-    invoke-virtual {v7, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v6
-
-    const-string v7, " - "
-
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v6
-
-    invoke-virtual {v6, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v4
 
@@ -177,15 +175,15 @@
 
     move-result-object v4
 
-    invoke-virtual {v5, v4}, Landroid/widget/ArrayAdapter;->add(Ljava/lang/Object;)V
+    invoke-virtual {v6, v4}, Landroid/widget/ArrayAdapter;->add(Ljava/lang/Object;)V
 
-    .line 145
+    .line 147
     :goto_1
     add-int/lit8 v3, v3, 0x1
 
     goto :goto_0
 
-    .line 152
+    .line 154
     :cond_2
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity$6$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$6;
 
@@ -197,7 +195,7 @@
 
     invoke-virtual {v0}, Landroid/widget/ArrayAdapter;->notifyDataSetChanged()V
 
-    .line 153
+    .line 155
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity$6$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$6;
 
     iget-object v0, v0, Lcom/luna/music/car/NeteaseTestActivity$6;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
@@ -244,6 +242,6 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 154
+    .line 156
     return-void
 .end method

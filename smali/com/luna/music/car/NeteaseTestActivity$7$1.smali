@@ -43,7 +43,7 @@
         }
     .end annotation
 
-    .line 171
+    .line 173
     iput-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$7$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$7;
 
     iput-object p2, p0, Lcom/luna/music/car/NeteaseTestActivity$7$1;->val$url:Ljava/lang/String;
@@ -56,9 +56,9 @@
 
 # virtual methods
 .method public run()V
-    .locals 2
+    .locals 4
 
-    .line 174
+    .line 176
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity$7$1;->val$url:Ljava/lang/String;
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -67,7 +67,7 @@
 
     if-eqz v0, :cond_0
 
-    .line 175
+    .line 177
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity$7$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$7;
 
     iget-object v0, v0, Lcom/luna/music/car/NeteaseTestActivity$7;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
@@ -80,10 +80,10 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 176
+    .line 178
     return-void
 
-    .line 178
+    .line 180
     :cond_0
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity$7$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$7;
 
@@ -91,8 +91,29 @@
 
     iget-object v1, p0, Lcom/luna/music/car/NeteaseTestActivity$7$1;->val$url:Ljava/lang/String;
 
-    invoke-static {v0, v1}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$mstartPlayback(Lcom/luna/music/car/NeteaseTestActivity;Ljava/lang/String;)V
+    iget-object v2, p0, Lcom/luna/music/car/NeteaseTestActivity$7$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$7;
 
-    .line 179
+    iget-object v2, v2, Lcom/luna/music/car/NeteaseTestActivity$7;->val$title:Ljava/lang/String;
+
+    iget-object v3, p0, Lcom/luna/music/car/NeteaseTestActivity$7$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$7;
+
+    iget-object v3, v3, Lcom/luna/music/car/NeteaseTestActivity$7;->val$artist:Ljava/lang/String;
+
+    invoke-static {v0, v1, v2, v3}, Lcom/luna/music/car/PlayIntentHelper;->playNow(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 181
+    iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity$7$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$7;
+
+    iget-object v0, v0, Lcom/luna/music/car/NeteaseTestActivity$7;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
+
+    invoke-static {v0}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgetstatus(Lcom/luna/music/car/NeteaseTestActivity;)Landroid/widget/TextView;
+
+    move-result-object v0
+
+    const-string v1, "\u5df2\u53d1\u9001\u5230 Samsung Music \u64ad\u653e"
+
+    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    .line 182
     return-void
 .end method

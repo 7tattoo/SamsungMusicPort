@@ -90,10 +90,10 @@
     return-void
 .end method
 
-.method static bridge synthetic -$$Nest$mrunPlay(Lcom/luna/music/car/NeteaseTestActivity;J)V
+.method static bridge synthetic -$$Nest$mrunPlay(Lcom/luna/music/car/NeteaseTestActivity;JLjava/lang/String;Ljava/lang/String;)V
     .locals 0
 
-    invoke-direct {p0, p1, p2}, Lcom/luna/music/car/NeteaseTestActivity;->runPlay(J)V
+    invoke-direct {p0, p1, p2, p3, p4}, Lcom/luna/music/car/NeteaseTestActivity;->runPlay(JLjava/lang/String;Ljava/lang/String;)V
 
     return-void
 .end method
@@ -102,14 +102,6 @@
     .locals 0
 
     invoke-direct {p0, p1}, Lcom/luna/music/car/NeteaseTestActivity;->runSearch(Ljava/lang/String;)V
-
-    return-void
-.end method
-
-.method static bridge synthetic -$$Nest$mstartPlayback(Lcom/luna/music/car/NeteaseTestActivity;Ljava/lang/String;)V
-    .locals 0
-
-    invoke-direct {p0, p1}, Lcom/luna/music/car/NeteaseTestActivity;->startPlayback(Ljava/lang/String;)V
 
     return-void
 .end method
@@ -144,24 +136,24 @@
 .method private applyStatusBarInset(Landroid/view/View;)V
     .locals 1
 
-    .line 119
+    .line 121
     new-instance v0, Lcom/luna/music/car/NeteaseTestActivity$5;
 
     invoke-direct {v0, p0}, Lcom/luna/music/car/NeteaseTestActivity$5;-><init>(Lcom/luna/music/car/NeteaseTestActivity;)V
 
     invoke-virtual {p1, v0}, Landroid/view/View;->setOnApplyWindowInsetsListener(Landroid/view/View$OnApplyWindowInsetsListener;)V
 
-    .line 128
+    .line 130
     invoke-virtual {p1}, Landroid/view/View;->requestApplyInsets()V
 
-    .line 129
+    .line 131
     return-void
 .end method
 
 .method private postError(Ljava/lang/String;Ljava/lang/Exception;)V
     .locals 2
 
-    .line 221
+    .line 224
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity;->main:Landroid/os/Handler;
 
     new-instance v1, Lcom/luna/music/car/NeteaseTestActivity$10;
@@ -170,19 +162,19 @@
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
-    .line 229
+    .line 232
     return-void
 .end method
 
 .method private releasePlayer()V
     .locals 1
 
-    .line 232
+    .line 235
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity;->player:Landroid/media/MediaPlayer;
 
     if-eqz v0, :cond_0
 
-    .line 234
+    .line 237
     :try_start_0
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity;->player:Landroid/media/MediaPlayer;
 
@@ -190,59 +182,67 @@
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 237
+    .line 240
     goto :goto_0
 
-    .line 235
+    .line 238
     :catch_0
     move-exception v0
 
-    .line 238
+    .line 241
     :goto_0
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity;->player:Landroid/media/MediaPlayer;
 
     invoke-virtual {v0}, Landroid/media/MediaPlayer;->release()V
 
-    .line 239
+    .line 242
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity;->player:Landroid/media/MediaPlayer;
 
-    .line 241
+    .line 244
     :cond_0
     return-void
 .end method
 
-.method private runPlay(J)V
-    .locals 2
+.method private runPlay(JLjava/lang/String;Ljava/lang/String;)V
+    .locals 7
 
-    .line 164
+    .line 166
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity;->status:Landroid/widget/TextView;
 
     const-string v1, "\u89e3\u6790\u64ad\u653e\u5730\u5740\u2026"
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 165
+    .line 167
     new-instance v0, Ljava/lang/Thread;
 
     new-instance v1, Lcom/luna/music/car/NeteaseTestActivity$7;
 
-    invoke-direct {v1, p0, p1, p2}, Lcom/luna/music/car/NeteaseTestActivity$7;-><init>(Lcom/luna/music/car/NeteaseTestActivity;J)V
+    move-object v2, p0
+
+    move-wide v3, p1
+
+    move-object v5, p3
+
+    move-object v6, p4
+
+    invoke-direct/range {v1 .. v6}, Lcom/luna/music/car/NeteaseTestActivity$7;-><init>(Lcom/luna/music/car/NeteaseTestActivity;JLjava/lang/String;Ljava/lang/String;)V
 
     invoke-direct {v0, v1}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
 
-    .line 185
+    .line 188
     invoke-virtual {v0}, Ljava/lang/Thread;->start()V
 
-    .line 186
+    .line 189
     return-void
 .end method
 
 .method private runSearch(Ljava/lang/String;)V
     .locals 2
 
-    .line 131
+    .line 133
     invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
@@ -251,7 +251,7 @@
 
     return-void
 
-    .line 132
+    .line 134
     :cond_0
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity;->status:Landroid/widget/TextView;
 
@@ -259,7 +259,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 133
+    .line 135
     new-instance v0, Ljava/lang/Thread;
 
     new-instance v1, Lcom/luna/music/car/NeteaseTestActivity$6;
@@ -268,20 +268,20 @@
 
     invoke-direct {v0, v1}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
 
-    .line 160
+    .line 162
     invoke-virtual {v0}, Ljava/lang/Thread;->start()V
 
-    .line 161
+    .line 163
     return-void
 .end method
 
 .method private startPlayback(Ljava/lang/String;)V
     .locals 3
 
-    .line 189
+    .line 192
     invoke-direct {p0}, Lcom/luna/music/car/NeteaseTestActivity;->releasePlayer()V
 
-    .line 191
+    .line 194
     :try_start_0
     new-instance v0, Landroid/media/MediaPlayer;
 
@@ -289,55 +289,55 @@
 
     iput-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity;->player:Landroid/media/MediaPlayer;
 
-    .line 192
+    .line 195
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity;->player:Landroid/media/MediaPlayer;
 
     new-instance v1, Landroid/media/AudioAttributes$Builder;
 
     invoke-direct {v1}, Landroid/media/AudioAttributes$Builder;-><init>()V
 
-    .line 193
+    .line 196
     const/4 v2, 0x1
 
     invoke-virtual {v1, v2}, Landroid/media/AudioAttributes$Builder;->setUsage(I)Landroid/media/AudioAttributes$Builder;
 
     move-result-object v1
 
-    .line 194
+    .line 197
     const/4 v2, 0x2
 
     invoke-virtual {v1, v2}, Landroid/media/AudioAttributes$Builder;->setContentType(I)Landroid/media/AudioAttributes$Builder;
 
     move-result-object v1
 
-    .line 195
+    .line 198
     invoke-virtual {v1}, Landroid/media/AudioAttributes$Builder;->build()Landroid/media/AudioAttributes;
 
     move-result-object v1
 
-    .line 192
+    .line 195
     invoke-virtual {v0, v1}, Landroid/media/MediaPlayer;->setAudioAttributes(Landroid/media/AudioAttributes;)V
 
-    .line 196
+    .line 199
     new-instance v0, Ljava/util/HashMap;
 
     invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
 
-    .line 197
+    .line 200
     const-string v1, "User-Agent"
 
     const-string v2, "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36"
 
     invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 198
+    .line 201
     const-string v1, "Referer"
 
     const-string v2, "https://music.163.com/"
 
     invoke-interface {v0, v1, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 199
+    .line 202
     iget-object v1, p0, Lcom/luna/music/car/NeteaseTestActivity;->player:Landroid/media/MediaPlayer;
 
     invoke-static {p1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
@@ -346,7 +346,7 @@
 
     invoke-virtual {v1, p0, p1, v0}, Landroid/media/MediaPlayer;->setDataSource(Landroid/content/Context;Landroid/net/Uri;Ljava/util/Map;)V
 
-    .line 200
+    .line 203
     iget-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity;->player:Landroid/media/MediaPlayer;
 
     new-instance v0, Lcom/luna/music/car/NeteaseTestActivity$8;
@@ -355,7 +355,7 @@
 
     invoke-virtual {p1, v0}, Landroid/media/MediaPlayer;->setOnPreparedListener(Landroid/media/MediaPlayer$OnPreparedListener;)V
 
-    .line 207
+    .line 210
     iget-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity;->player:Landroid/media/MediaPlayer;
 
     new-instance v0, Lcom/luna/music/car/NeteaseTestActivity$9;
@@ -364,21 +364,21 @@
 
     invoke-virtual {p1, v0}, Landroid/media/MediaPlayer;->setOnErrorListener(Landroid/media/MediaPlayer$OnErrorListener;)V
 
-    .line 214
+    .line 217
     iget-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity;->player:Landroid/media/MediaPlayer;
 
     invoke-virtual {p1}, Landroid/media/MediaPlayer;->prepareAsync()V
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 217
+    .line 220
     goto :goto_0
 
-    .line 215
+    .line 218
     :catch_0
     move-exception p1
 
-    .line 216
+    .line 219
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity;->status:Landroid/widget/TextView;
 
     invoke-virtual {p1}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
@@ -409,7 +409,7 @@
 
     invoke-virtual {v0, p1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 218
+    .line 221
     :goto_0
     return-void
 .end method
@@ -636,29 +636,29 @@
 
     invoke-virtual {v0, v3}, Landroid/widget/ListView;->setOnItemClickListener(Landroid/widget/AdapterView$OnItemClickListener;)V
 
-    .line 111
+    .line 113
     new-instance v3, Landroid/widget/LinearLayout$LayoutParams;
 
     invoke-direct {v3, v1, v2, v8}, Landroid/widget/LinearLayout$LayoutParams;-><init>(IIF)V
 
     invoke-virtual {p1, v0, v3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 114
+    .line 116
     invoke-virtual {p0, p1}, Lcom/luna/music/car/NeteaseTestActivity;->setContentView(Landroid/view/View;)V
 
-    .line 115
+    .line 117
     return-void
 .end method
 
 .method protected onDestroy()V
     .locals 0
 
-    .line 245
+    .line 248
     invoke-direct {p0}, Lcom/luna/music/car/NeteaseTestActivity;->releasePlayer()V
 
-    .line 246
+    .line 249
     invoke-super {p0}, Landroid/app/Activity;->onDestroy()V
 
-    .line 247
+    .line 250
     return-void
 .end method

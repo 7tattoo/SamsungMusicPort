@@ -33,7 +33,7 @@
         }
     .end annotation
 
-    .line 119
+    .line 121
     iput-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$5;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -46,17 +46,17 @@
 .method public onApplyWindowInsets(Landroid/view/View;Landroid/view/WindowInsets;)Landroid/view/WindowInsets;
     .locals 3
 
-    .line 122
+    .line 124
     invoke-virtual {p2}, Landroid/view/WindowInsets;->getSystemWindowInsetTop()I
 
     move-result v0
 
-    .line 123
+    .line 125
     invoke-virtual {p2}, Landroid/view/WindowInsets;->getSystemWindowInsetBottom()I
 
     move-result v1
 
-    .line 124
+    .line 126
     const/16 v2, 0x18
 
     add-int/2addr v0, v2
@@ -65,6 +65,6 @@
 
     invoke-virtual {p1, v2, v0, v2, v1}, Landroid/view/View;->setPadding(IIII)V
 
-    .line 125
+    .line 127
     return-object p2
 .end method
