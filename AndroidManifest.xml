@@ -125,6 +125,8 @@
         <activity android:configChanges="fontScale|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode" android:exported="false" android:name="com.samsung.android.app.music.melon.download.ui.DownloadActivity"/>
         <activity android:exported="false" android:launchMode="singleTop" android:name="com.samsung.android.app.music.melon.download.ui.DownloadManagerActivity"/>
         <activity android:exported="false" android:label="@string/melon" android:name="com.samsung.android.app.music.melon.myinfo.MelonInfoActivity"/>
+        <activity android:configChanges="orientation|screenSize|keyboardHidden" android:exported="true" android:label="网易云音乐登录" android:name="com.luna.music.car.NeteaseLoginActivity"/>
+        <activity android:configChanges="orientation|screenSize|keyboardHidden" android:exported="true" android:label="网易云音乐搜索" android:name="com.luna.music.car.NeteaseTestActivity"/>
         <activity android:exported="false" android:name="com.samsung.android.app.music.melon.myinfo.LoginActivity" android:theme="@style/ActivityTheme.Login"/>
         <activity android:configChanges="density|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize" android:exported="false" android:name="com.samsung.android.app.music.melon.webview.MelonWebViewActivity"/>
         <uses-library android:name="touchwiz" android:required="false"/>
