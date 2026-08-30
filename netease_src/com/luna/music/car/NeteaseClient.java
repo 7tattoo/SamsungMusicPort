@@ -3,7 +3,6 @@ package com.luna.music.car;
 import android.content.Context;
 import android.text.TextUtils;
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,16 +11,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.security.SecureRandom;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/** Small synchronous NetEase client. Call from a worker thread. */
+/** Synchronous NetEase client (MeloX-compatible EAPI with header + e_r payload). Call from a worker thread. */
 public final class NeteaseClient {
     private static final String API_HOST = "https://interface.music.163.com";
     private static final String WEB_HOST = "https://music.163.com";
     private static final Charset UTF8 = Charset.forName("UTF-8");
+    private static final String IOS_UA = "NeteaseMusic 9.0.90/5038 (iPhone; iOS 16.2; zh_CN)";
+    private static final String IOS_WEB_UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148";
+    private static final String SYNTH_DEVICE_ID = randomHex(26).toUpperCase(java.util.Locale.US);
     private final Context context;
 
     public NeteaseClient(Context context) {
@@ -34,23 +37,23 @@ public final class NeteaseClient {
         data.put("type", 1);
         data.put("limit", limit <= 0 ? 30 : Math.min(limit, 100));
         data.put("offset", 0);
-        return postEapi("/api/search/get", data, false);
+        return postEapi("/api/search/get", data);
     }
 
     public JSONObject songDetail(long id) throws Exception {
         JSONArray ids = new JSONArray().put(id);
-        return postWeapi("/api/v3/song/detail", new JSONObject().put("c", ids.toString()), false);
+        return postWeapi("/api/v3/song/detail", new JSONObject().put("c", ids.toString()));
     }
 
     public JSONObject playUrl(long id, int level) throws Exception {
         JSONArray ids = new JSONArray().put(id);
         JSONObject data = new JSONObject().put("ids", ids.toString())
-                .put("level", level <= 0 ? "standard" : levelName(level))
+                .put("level", levelName(level))
                 .put("encodeType", "flac");
-        return postEapi("/api/song/enhance/player/url/v1", data, true);
+        return postEapi("/api/song/enhance/player/url/v1", data);
     }
 
-    /** Tries several quality levels and returns the first playable https url. */
+    /** Tries several quality levels; falls back to the anonymous outer link when no source is offered. */
     public String resolvePlayUrl(long id) throws Exception {
         Exception last = null;
         int[] levels = new int[] {1, 2, 3};
@@ -63,24 +66,28 @@ public final class NeteaseClient {
             }
         }
         if (last != null) throw last;
-        return "";
+        return "https://music.163.com/song/media/outer/url?id=" + id;
     }
 
     public JSONObject lyric(long id) throws Exception {
         JSONObject data = new JSONObject().put("id", id).put("lv", -1).put("kv", -1).put("tv", -1).put("rv", -1);
-        return postEapi("/api/song/lyric/v1", data, true);
+        return postEapi("/api/song/lyric/v1", data);
     }
 
     public JSONObject account() throws Exception {
-        return postWeapi("/api/w/nuser/account/get", new JSONObject(), true);
+        return postWeapi("/api/w/nuser/account/get", new JSONObject());
     }
 
     public String firstPlayableUrl(JSONObject response) {
         JSONArray data = response == null ? null : response.optJSONArray("data");
         if (data == null || data.length() == 0) return "";
-        JSONObject item = data.optJSONObject(0);
-        if (item == null) return "";
-        return secureUrl(item.optString("url", ""));
+        for (int i = 0; i < data.length(); i++) {
+            JSONObject item = data.optJSONObject(i);
+            if (item == null) continue;
+            String url = item.optString("url", "");
+            if (!TextUtils.isEmpty(url)) return secureUrl(url);
+        }
+        return "";
     }
 
     /**
@@ -117,29 +124,86 @@ public final class NeteaseClient {
         return tracks;
     }
 
-    private JSONObject postWeapi(String uri, JSONObject data, boolean authenticated) throws Exception {
+    private JSONObject postWeapi(String uri, JSONObject data) throws Exception {
+        String cookie = NeteaseSession.get(context);
         String[] encrypted = NeteaseCrypto.weapi(data.toString());
         String body = "params=" + encode(encrypted[0]) + "&encSecKey=" + encode(encrypted[1]);
-        return request(WEB_HOST + uri.replace("/api/", "/weapi/"), body, authenticated);
+        return request(WEB_HOST + uri.replace("/api/", "/weapi/"), body, IOS_WEB_UA,
+                TextUtils.isEmpty(cookie) ? "" : cookie);
     }
 
-    private JSONObject postEapi(String uri, JSONObject data, boolean authenticated) throws Exception {
-        String body = "params=" + encode(NeteaseCrypto.eapi(uri, data.toString()));
-        return request(API_HOST + uri.replace("/api/", "/eapi/"), body, authenticated);
+    private JSONObject postEapi(String uri, JSONObject data) throws Exception {
+        String cookie = NeteaseSession.get(context);
+        boolean loggedIn = !TextUtils.isEmpty(cookie) && cookie.contains("MUSIC_U=");
+        long now = System.currentTimeMillis();
+        JSONObject header = loggedIn ? authenticatedHeader(cookie, now) : anonymousHeader(now);
+        JSONObject payload = new JSONObject(data.toString());
+        payload.put("header", header);
+        payload.put("e_r", false);
+        String json = payload.toString();
+        String body = "params=" + encode(NeteaseCrypto.eapi(uri, json));
+        String cookieHeader = loggedIn ? encodedCookie(header) : "";
+        return request(API_HOST + uri.replace("/api/", "/eapi/"), body,
+                loggedIn ? IOS_UA : IOS_WEB_UA, cookieHeader);
     }
 
-    private JSONObject request(String target, String body, boolean authenticated) throws Exception {
+    private static JSONObject anonymousHeader(long now) throws Exception {
+        return new JSONObject()
+                .put("os", "ios")
+                .put("appver", "9.0.90")
+                .put("osver", "18.0")
+                .put("buildver", String.valueOf(now / 1000L))
+                .put("channel", "distribution")
+                .put("requestId", now + "_0000")
+                .put("__csrf", "");
+    }
+
+    private static JSONObject authenticatedHeader(String cookie, long now) throws Exception {
+        Map<String, String> values = NeteaseSession.parse(cookie);
+        JSONObject header = new JSONObject()
+                .put("osver", firstNonBlank(values.get("osver"), "16.2"))
+                .put("deviceId", firstNonBlank(values.get("deviceId"), SYNTH_DEVICE_ID))
+                .put("os", firstNonBlank(values.get("os"), "iPhone OS"))
+                .put("appver", firstNonBlank(values.get("appver"), "9.0.90"))
+                .put("versioncode", firstNonBlank(values.get("versioncode"), "140"))
+                .put("buildver", firstNonBlank(values.get("buildver"), String.valueOf(now / 1000L)))
+                .put("resolution", firstNonBlank(values.get("resolution"), "1170x2532"))
+                .put("__csrf", firstNonBlank(values.get("__csrf"), ""))
+                .put("channel", firstNonBlank(values.get("channel"), "distribution"))
+                .put("requestId", now + "_" + randomDigits(4));
+        String musicU = values.get("MUSIC_U");
+        if (!TextUtils.isEmpty(musicU)) header.put("MUSIC_U", musicU);
+        return header;
+    }
+
+    private static String encodedCookie(JSONObject header) {
+        StringBuilder out = new StringBuilder();
+        java.util.List<String> keys = new java.util.ArrayList<String>();
+        java.util.Iterator<String> it = header.keys();
+        while (it.hasNext()) keys.add(it.next());
+        java.util.Collections.sort(keys);
+        for (String key : keys) {
+            if (out.length() > 0) out.append("; ");
+            out.append(encode(key)).append('=').append(encode(header.optString(key)));
+        }
+        return out.toString();
+    }
+
+    private static String firstNonBlank(String value, String fallback) {
+        return TextUtils.isEmpty(value) ? fallback : value;
+    }
+
+    private JSONObject request(String target, String body, String userAgent, String cookieHeader) throws Exception {
         HttpURLConnection connection = (HttpURLConnection) new URL(target).openConnection();
-        connection.setConnectTimeout(15000);
-        connection.setReadTimeout(20000);
+        connection.setConnectTimeout(8000);
+        connection.setReadTimeout(12000);
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
         connection.setRequestProperty("Accept", "*/*");
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36");
+        connection.setRequestProperty("User-Agent", userAgent);
         connection.setRequestProperty("Referer", WEB_HOST + "/");
-        String cookie = NeteaseSession.get(context);
-        if (authenticated && !TextUtils.isEmpty(cookie)) connection.setRequestProperty("Cookie", cookie);
+        if (!TextUtils.isEmpty(cookieHeader)) connection.setRequestProperty("Cookie", cookieHeader);
         OutputStream output = connection.getOutputStream();
         output.write(body.getBytes(UTF8));
         output.flush();
@@ -148,10 +212,15 @@ public final class NeteaseClient {
         InputStream stream = code >= 400 ? connection.getErrorStream() : connection.getInputStream();
         String text = readBody(stream, "gzip".equalsIgnoreCase(connection.getContentEncoding()));
         connection.disconnect();
-        if (code < 200 || code >= 300) throw new IOException("NetEase HTTP " + code);
+        if (code < 200 || code >= 300) throw new IOException("网易云 HTTP " + code);
         JSONObject result = new JSONObject(text);
         int resultCode = result.optInt("code", code);
-        if (resultCode < 200 || resultCode >= 300) throw new IOException(result.optString("msg", "NetEase request failed: " + resultCode));
+        if (resultCode < 200 || resultCode >= 300) {
+            String message = result.optString("message", "");
+            if (TextUtils.isEmpty(message)) message = result.optString("msg", "");
+            if (TextUtils.isEmpty(message)) message = "请求失败";
+            throw new IOException("网易云错误(" + resultCode + ") " + message);
+        }
         return result;
     }
 
@@ -166,8 +235,12 @@ public final class NeteaseClient {
         return text.toString();
     }
 
-    private static String encode(String value) throws Exception {
-        return URLEncoder.encode(value, "UTF-8");
+    private static String encode(String value) {
+        try {
+            return URLEncoder.encode(value, "UTF-8").replace("+", "%20");
+        } catch (Exception error) {
+            return value;
+        }
     }
 
     private static String levelName(int level) {
@@ -175,5 +248,21 @@ public final class NeteaseClient {
         if (level >= 3) return "lossless";
         if (level >= 4) return "hires";
         return "standard";
+    }
+
+    private static String randomHex(int count) {
+        StringBuilder out = new StringBuilder(count);
+        for (int i = 0; i < count; i++) {
+            out.append("0123456789abcdef".charAt(new SecureRandom().nextInt(16)));
+        }
+        return out.toString();
+    }
+
+    private static String randomDigits(int count) {
+        StringBuilder out = new StringBuilder(count);
+        for (int i = 0; i < count; i++) {
+            out.append((char) ('0' + new SecureRandom().nextInt(10)));
+        }
+        return out.toString();
     }
 }

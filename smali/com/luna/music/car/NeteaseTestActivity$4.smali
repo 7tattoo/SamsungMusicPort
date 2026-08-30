@@ -33,7 +33,7 @@
         }
     .end annotation
 
-    .line 100
+    .line 103
     iput-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$4;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -55,7 +55,7 @@
         }
     .end annotation
 
-    .line 103
+    .line 106
     iget-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$4;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     invoke-static {p1}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgettrackIds(Lcom/luna/music/car/NeteaseTestActivity;)Ljava/util/List;
@@ -68,7 +68,7 @@
 
     if-ge p3, p1, :cond_0
 
-    .line 104
+    .line 107
     iget-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$4;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     iget-object p2, p0, Lcom/luna/music/car/NeteaseTestActivity$4;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
@@ -89,7 +89,7 @@
 
     invoke-static {p1, p2, p3}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$mrunPlay(Lcom/luna/music/car/NeteaseTestActivity;J)V
 
-    .line 106
+    .line 109
     :cond_0
     return-void
 .end method

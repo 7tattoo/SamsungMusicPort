@@ -43,7 +43,7 @@
         }
     .end annotation
 
-    .line 162
+    .line 165
     iput-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$7;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     iput-wide p2, p0, Lcom/luna/music/car/NeteaseTestActivity$7;->val$songId:J
@@ -58,7 +58,7 @@
 .method public run()V
     .locals 3
 
-    .line 166
+    .line 169
     :try_start_0
     new-instance v0, Lcom/luna/music/car/NeteaseClient;
 
@@ -66,14 +66,14 @@
 
     invoke-direct {v0, v1}, Lcom/luna/music/car/NeteaseClient;-><init>(Landroid/content/Context;)V
 
-    .line 167
+    .line 170
     iget-wide v1, p0, Lcom/luna/music/car/NeteaseTestActivity$7;->val$songId:J
 
     invoke-virtual {v0, v1, v2}, Lcom/luna/music/car/NeteaseClient;->resolvePlayUrl(J)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 168
+    .line 171
     iget-object v1, p0, Lcom/luna/music/car/NeteaseTestActivity$7;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     invoke-static {v1}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgetmain(Lcom/luna/music/car/NeteaseTestActivity;)Landroid/os/Handler;
@@ -88,21 +88,21 @@
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 180
+    .line 183
     goto :goto_0
 
-    .line 178
+    .line 181
     :catch_0
     move-exception v0
 
-    .line 179
+    .line 182
     iget-object v1, p0, Lcom/luna/music/car/NeteaseTestActivity$7;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     const-string v2, "\u89e3\u6790\u5931\u8d25"
 
     invoke-static {v1, v2, v0}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$mpostError(Lcom/luna/music/car/NeteaseTestActivity;Ljava/lang/String;Ljava/lang/Exception;)V
 
-    .line 181
+    .line 184
     :goto_0
     return-void
 .end method

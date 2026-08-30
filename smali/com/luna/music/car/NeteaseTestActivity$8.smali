@@ -33,7 +33,7 @@
         }
     .end annotation
 
-    .line 194
+    .line 200
     iput-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$8;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -46,10 +46,10 @@
 .method public onPrepared(Landroid/media/MediaPlayer;)V
     .locals 1
 
-    .line 197
+    .line 203
     invoke-virtual {p1}, Landroid/media/MediaPlayer;->start()V
 
-    .line 198
+    .line 204
     iget-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$8;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     invoke-static {p1}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgetstatus(Lcom/luna/music/car/NeteaseTestActivity;)Landroid/widget/TextView;
@@ -60,6 +60,6 @@
 
     invoke-virtual {p1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 199
+    .line 205
     return-void
 .end method
