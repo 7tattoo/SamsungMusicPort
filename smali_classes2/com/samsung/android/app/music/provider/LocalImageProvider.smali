@@ -46,7 +46,7 @@
 
     .line 8
     .line 9
-    const-string v1, "content://com.luna.music.car.local_image/"
+    const-string v1, "content://com.qidian.QDReader.local_image/"
 
     .line 10
     .line 11
@@ -67,7 +67,7 @@
 
     .line 19
     .line 20
-    const-string v1, "content://com.luna.music.car.local_image/album_art/album"
+    const-string v1, "content://com.qidian.QDReader.local_image/album_art/album"
 
     .line 21
     .line 22
@@ -88,7 +88,7 @@
 
     .line 30
     .line 31
-    const-string v1, "content://com.luna.music.car.local_image/album_art/file"
+    const-string v1, "content://com.qidian.QDReader.local_image/album_art/file"
 
     .line 32
     .line 33
@@ -116,7 +116,7 @@
     const/4 v2, 0x1
 
     .line 45
-    const-string v3, "com.luna.music.car.local_image"
+    const-string v3, "com.qidian.QDReader.local_image"
 
     .line 46
     .line 47

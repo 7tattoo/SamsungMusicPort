@@ -399,7 +399,7 @@
     .line 31
     :cond_0
     :try_start_0
-    const-string v0, "com.luna.music.car"
+    const-string v0, "com.qidian.QDReader"
 
     .line 32
     .line 33

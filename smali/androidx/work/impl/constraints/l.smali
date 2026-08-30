@@ -8575,7 +8575,7 @@
 
     .line 201
     .line 202
-    const-string v3, "content://com.luna.music.car/"
+    const-string v3, "content://com.qidian.QDReader/"
 
     .line 203
     .line 204

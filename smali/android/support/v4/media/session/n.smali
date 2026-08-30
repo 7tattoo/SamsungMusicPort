@@ -174,7 +174,7 @@
 
     .line 2
     .line 3
-    const-string v1, "com.luna.music.car.session.PlayControl"
+    const-string v1, "com.qidian.QDReader.session.PlayControl"
 
     .line 4
     .line 5

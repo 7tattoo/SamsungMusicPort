@@ -455,7 +455,7 @@
     .line 206
     .line 207
     .line 208
-    const-string v1, "package:com.luna.music.car"
+    const-string v1, "package:com.qidian.QDReader"
 
     .line 209
     .line 210

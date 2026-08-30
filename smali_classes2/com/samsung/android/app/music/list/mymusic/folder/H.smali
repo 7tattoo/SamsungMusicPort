@@ -166,7 +166,7 @@
 
     .line 20
     .line 21
-    const-string v2, "content://com.luna.music.car/audio/media/music_folders_tree"
+    const-string v2, "content://com.qidian.QDReader/audio/media/music_folders_tree"
 
     .line 22
     .line 23

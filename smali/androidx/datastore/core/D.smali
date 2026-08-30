@@ -1024,7 +1024,7 @@
 
     .line 368
     .line 369
-    const-string v2, "com.luna.music.car.KEP_CHECKED_DEPLOYED_VERSION"
+    const-string v2, "com.qidian.QDReader.KEP_CHECKED_DEPLOYED_VERSION"
 
     .line 370
     .line 371
@@ -1086,7 +1086,7 @@
     .line 399
     .line 400
     .line 401
-    const-string v2, "com.luna.music.car.KEP_APP_UPDATE_CARD_NO_MORE_SEE"
+    const-string v2, "com.qidian.QDReader.KEP_APP_UPDATE_CARD_NO_MORE_SEE"
 
     .line 402
     .line 403
@@ -1147,7 +1147,7 @@
 
     .line 430
     :goto_6
-    const-string v2, "com.luna.music.car.KEY_APP_UPDATE_BADGE"
+    const-string v2, "com.qidian.QDReader.KEY_APP_UPDATE_BADGE"
 
     .line 431
     .line 432
@@ -1187,7 +1187,7 @@
     .line 450
     .line 451
     :cond_13
-    const-string v2, "com.luna.music.car.KEP_APP_UPDATE_TICKET"
+    const-string v2, "com.qidian.QDReader.KEP_APP_UPDATE_TICKET"
 
     .line 452
     .line 453

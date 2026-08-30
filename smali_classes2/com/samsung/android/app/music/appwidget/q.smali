@@ -634,7 +634,7 @@
     .line 4
     .line 5
     .line 6
-    const-string v1, "com.luna.music.car.dlna.connectivitychanged"
+    const-string v1, "com.qidian.QDReader.dlna.connectivitychanged"
 
     .line 7
     .line 8
@@ -663,7 +663,7 @@
     .line 19
     .line 20
     .line 21
-    const-string p2, "com.luna.music.car.dlna.connectivitychanged.extra.what"
+    const-string p2, "com.qidian.QDReader.dlna.connectivitychanged.extra.what"
 
     .line 22
     .line 23
@@ -672,7 +672,7 @@
     .line 24
     .line 25
     .line 26
-    const-string p0, "com.luna.music.car.dlna.extra.deviceId"
+    const-string p0, "com.qidian.QDReader.dlna.extra.deviceId"
 
     .line 27
     .line 28

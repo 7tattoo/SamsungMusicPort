@@ -35,7 +35,7 @@
     .locals 4
 
     .line 1
-    const-string v0, "content://com.luna.music.car/melon/tracks/convert_update"
+    const-string v0, "content://com.qidian.QDReader/melon/tracks/convert_update"
 
     .line 2
     .line 3
@@ -76,7 +76,7 @@
 
     .line 21
     .line 22
-    const-string v3, "com.luna.music.car"
+    const-string v3, "com.qidian.QDReader"
 
     .line 23
     .line 24

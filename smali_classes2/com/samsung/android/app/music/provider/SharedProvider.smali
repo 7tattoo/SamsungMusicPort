@@ -247,7 +247,7 @@
 
     .line 6
     .line 7
-    const-string v3, "com.luna.music.car.shared"
+    const-string v3, "com.qidian.QDReader.shared"
 
     .line 8
     .line 9

@@ -1971,7 +1971,7 @@
     .line 41
     .line 42
     .line 43
-    const-string v2, "content://com.luna.music.car/"
+    const-string v2, "content://com.qidian.QDReader/"
 
     .line 44
     .line 45

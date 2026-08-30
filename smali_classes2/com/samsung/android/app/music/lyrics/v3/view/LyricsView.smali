@@ -1132,7 +1132,7 @@
     instance-of v1, p1, Ljava/lang/Iterable;
     if-eqz v1, :car_lrc_skip
     check-cast p1, Ljava/lang/Iterable;
-    invoke-static {p1}, Lcom/luna/music/car/CarLyricsBridge;->setLyricsFrom(Ljava/lang/Iterable;)V
+    invoke-static {p1}, Lcom/qidian/QDReader/CarLyricsBridge;->setLyricsFrom(Ljava/lang/Iterable;)V
     check-cast p1, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;
     :car_lrc_skip
 

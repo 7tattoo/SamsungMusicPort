@@ -1005,7 +1005,7 @@
 
     .line 460
     .line 461
-    const-string v2, "content://com.luna.music.car/audio/playlists/"
+    const-string v2, "content://com.qidian.QDReader/audio/playlists/"
 
     .line 462
     .line 463

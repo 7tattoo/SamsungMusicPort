@@ -1183,7 +1183,7 @@
 
     .line 2
     .line 3
-    const-string v1, "content://com.luna.music.car/audio/playlists/"
+    const-string v1, "content://com.qidian.QDReader/audio/playlists/"
 
     .line 4
     .line 5

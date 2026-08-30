@@ -206,7 +206,7 @@
 
     .line 58
     .line 59
-    const-string p5, "com.luna.music.car.session.PlayControl"
+    const-string p5, "com.qidian.QDReader.session.PlayControl"
 
     .line 60
     .line 61
@@ -788,7 +788,7 @@
     .line 343
     .line 344
     .line 345
-    const-string p5, "com.luna.music.car.intent.action.LAUNCH_MUSIC"
+    const-string p5, "com.qidian.QDReader.intent.action.LAUNCH_MUSIC"
 
     .line 346
     .line 347
@@ -802,7 +802,7 @@
     .line 351
     .line 352
     .line 353
-    const-string p5, "com.luna.music.car"
+    const-string p5, "com.qidian.QDReader"
 
     .line 354
     .line 355
@@ -2596,10 +2596,10 @@
     # growcar-lrc: 先清理旧曲歌词，再发布当前歌曲 metadata
     invoke-virtual {v2}, Lcom/samsung/android/app/music/repository/model/player/music/Music;->getMediaId()J
     move-result-wide v6
-    invoke-static {v6, v7}, Lcom/luna/music/car/CarLyricsBridge;->setTrackId(J)V
+    invoke-static {v6, v7}, Lcom/qidian/QDReader/CarLyricsBridge;->setTrackId(J)V
 
     check-cast p3, Landroid/support/v4/media/MediaMetadataCompat;
-    invoke-static {p3}, Lcom/luna/music/car/CarLyricsBridge;->applyCompat(Landroid/support/v4/media/MediaMetadataCompat;)Landroid/support/v4/media/MediaMetadataCompat;
+    invoke-static {p3}, Lcom/qidian/QDReader/CarLyricsBridge;->applyCompat(Landroid/support/v4/media/MediaMetadataCompat;)Landroid/support/v4/media/MediaMetadataCompat;
 
     .line 120
     .line 121
@@ -2622,7 +2622,7 @@
     # growcar-lrc: 使用 Music.mediaId（不是 queue item 主键）锁定当前曲目
     invoke-virtual {v2}, Lcom/samsung/android/app/music/repository/model/player/music/Music;->getMediaId()J
     move-result-wide v6
-    invoke-static {v6, v7}, Lcom/luna/music/car/CarLyricsBridge;->setTrackId(J)V
+    invoke-static {v6, v7}, Lcom/qidian/QDReader/CarLyricsBridge;->setTrackId(J)V
 
     .line 130
     .line 131

@@ -46,7 +46,7 @@
 
     .line 10
     .line 11
-    const-string v3, "com.luna.music.car.restricted"
+    const-string v3, "com.qidian.QDReader.restricted"
 
     .line 12
     .line 13

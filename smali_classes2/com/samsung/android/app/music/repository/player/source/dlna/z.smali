@@ -141,7 +141,7 @@
 
     .line 9
     .line 10
-    const-string v1, "sendStickyDlnaInfo action: com.luna.music.car.dlna.flat.searching.info what: "
+    const-string v1, "sendStickyDlnaInfo action: com.qidian.QDReader.dlna.flat.searching.info what: "
 
     .line 11
     .line 12
@@ -202,7 +202,7 @@
 
     .line 42
     .line 43
-    const-string v1, "com.luna.music.car.dlna.flat.searching.info"
+    const-string v1, "com.qidian.QDReader.dlna.flat.searching.info"
 
     .line 44
     .line 45
@@ -211,7 +211,7 @@
     .line 46
     .line 47
     .line 48
-    const-string v1, "com.luna.music.car.dlna.flat.searching.extra.what"
+    const-string v1, "com.qidian.QDReader.dlna.flat.searching.extra.what"
 
     .line 49
     .line 50
@@ -220,7 +220,7 @@
     .line 51
     .line 52
     .line 53
-    const-string p1, "com.luna.music.car.dlna.extra.deviceId"
+    const-string p1, "com.qidian.QDReader.dlna.extra.deviceId"
 
     .line 54
     .line 55

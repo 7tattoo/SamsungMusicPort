@@ -20,7 +20,7 @@
     .locals 2
 
     .line 1
-    const-string v0, "content://com.luna.music.car/audio/media"
+    const-string v0, "content://com.qidian.QDReader/audio/media"
 
     .line 2
     .line 3
@@ -36,7 +36,7 @@
 
     .line 8
     .line 9
-    const-string v1, "content://com.luna.music.car/audio/media/all"
+    const-string v1, "content://com.qidian.QDReader/audio/media/all"
 
     .line 10
     .line 11
@@ -52,7 +52,7 @@
 
     .line 16
     .line 17
-    const-string v1, "content://com.luna.music.car/audio/raw_meta"
+    const-string v1, "content://com.qidian.QDReader/audio/raw_meta"
 
     .line 18
     .line 19

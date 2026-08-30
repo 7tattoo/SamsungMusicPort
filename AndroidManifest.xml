@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:compileSdkVersion="36" android:compileSdkVersionCodename="16" package="com.luna.music.car" platformBuildVersionCode="36" platformBuildVersionName="16">
+<?xml version="1.0" encoding="utf-8" standalone="no"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:compileSdkVersion="36" android:compileSdkVersionCodename="16" package="com.qidian.QDReader" platformBuildVersionCode="36" platformBuildVersionName="16">
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
     <queries>
         <package android:name="com.kakao.talk"/>
@@ -79,16 +79,16 @@
     <uses-permission android:name="android.permission.READ_PHONE_NUMBERS"/>
     <uses-permission android:name="android.permission.MANAGE_ACTIVITY_STACKS"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <permission android:name="com.luna.music.car.provider.permission.READ_MUSIC_SEARCH_PROVIDER"/>
-    <permission android:name="com.luna.music.car.provider.permission.WRITE_MUSIC_SEARCH_PROVIDER"/>
-    <permission android:name="com.luna.music.car.provider.permission.READ_SHARED_PROVIDER" android:protectionLevel="signatureOrSystem"/>
-    <permission android:name="com.luna.music.car.provider.permission.WRITE_SHARED_PROVIDER" android:protectionLevel="signatureOrSystem"/>
+    <permission android:name="com.qidian.QDReader.provider.permission.READ_MUSIC_SEARCH_PROVIDER"/>
+    <permission android:name="com.qidian.QDReader.provider.permission.WRITE_MUSIC_SEARCH_PROVIDER"/>
+    <permission android:name="com.qidian.QDReader.provider.permission.READ_SHARED_PROVIDER" android:protectionLevel="signatureOrSystem"/>
+    <permission android:name="com.qidian.QDReader.provider.permission.WRITE_SHARED_PROVIDER" android:protectionLevel="signatureOrSystem"/>
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
     <permission android:name="com.samsung.android.app.music.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
     <uses-permission android:name="com.samsung.android.app.music.permission.C2D_MESSAGE"/>
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
-    <permission android:name="com.luna.music.car.provider.permission.READ_HELP_DUMP" android:protectionLevel="signature"/>
+    <permission android:name="com.qidian.QDReader.provider.permission.READ_HELP_DUMP" android:protectionLevel="signature"/>
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY"/>
     <app:application-salescode android:enabled="true" android:label="@string/brand_name_for_jpn" android:name="DCM"/>
@@ -108,8 +108,8 @@
     <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
     <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
     <uses-permission android:name="com.samsung.android.app.spage.permission.WRITE_CARD_DATA"/>
-    <permission android:name="com.luna.music.car.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" android:protectionLevel="signature"/>
-    <uses-permission android:name="com.luna.music.car.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"/>
+    <permission android:name="com.qidian.QDReader.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" android:protectionLevel="signature"/>
+    <uses-permission android:name="com.qidian.QDReader.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"/>
     <application android:allowBackup="false" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:extractNativeLibs="true" android:hardwareAccelerated="true" android:icon="@mipmap/music_icon" android:label="@string/brand_name" android:largeHeap="true" android:name="com.samsung.android.app.music.MusicApplication" android:networkSecurityConfig="@xml/network_security_config" android:requestLegacyExternalStorage="true" android:supportsRtl="true" android:taskAffinity="samsung.task.music" android:theme="@style/Theme.OneUi">
         <activity android:exported="true" android:launchMode="singleTask" android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity" android:theme="@style/TransparentCompat">
             <intent-filter>
@@ -120,7 +120,7 @@
             </intent-filter>
         </activity>
         <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="false" android:name="com.kakao.sdk.auth.TalkAuthCodeActivity" android:theme="@style/TransparentCompat"/>
-        <provider android:authorities="com.luna.music.car.kakao.auth" android:exported="false" android:name="com.samsung.android.app.music.provider.melonauth.MelonAuthProvider"/>
+        <provider android:authorities="com.qidian.QDReader.kakao.auth" android:exported="false" android:name="com.samsung.android.app.music.provider.melonauth.MelonAuthProvider"/>
         <service android:exported="false" android:foregroundServiceType="dataSync" android:name="com.samsung.android.app.music.melon.download.DownloadService"/>
         <activity android:configChanges="fontScale|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode" android:exported="false" android:name="com.samsung.android.app.music.melon.download.ui.DownloadActivity"/>
         <activity android:exported="false" android:launchMode="singleTop" android:name="com.samsung.android.app.music.melon.download.ui.DownloadManagerActivity"/>
@@ -156,15 +156,15 @@
         <meta-data android:name="theming-meta" android:value="meta_209_music"/>
         <meta-data android:name="theming-meta-define1" android:resource="@xml/meta_209_music"/>
         <meta-data android:name="runtime.manifest.overlay" android:resource="@xml/runtime_manifest_overlay"/>
-        <provider android:authorities="com.luna.music.car.store;com.luna.music.car;com.luna.music.car.albumart" android:exported="false" android:grantUriPermissions="true" android:name="com.samsung.android.app.music.provider.MusicProvider"/>
-        <provider android:authorities="com.luna.music.car.MusicSearchProvider" android:exported="true" android:name="com.samsung.android.app.music.provider.sfinder.LegacySFinderSearchProvider" android:readPermission="com.luna.music.car.provider.permission.READ_MUSIC_SEARCH_PROVIDER" android:writePermission="com.luna.music.car.provider.permission.WRITE_MUSIC_SEARCH_PROVIDER">
+        <provider android:authorities="com.qidian.QDReader.store;com.qidian.QDReader;com.qidian.QDReader.albumart" android:exported="false" android:grantUriPermissions="true" android:name="com.samsung.android.app.music.provider.MusicProvider"/>
+        <provider android:authorities="com.qidian.QDReader.MusicSearchProvider" android:exported="true" android:name="com.samsung.android.app.music.provider.sfinder.LegacySFinderSearchProvider" android:readPermission="com.qidian.QDReader.provider.permission.READ_MUSIC_SEARCH_PROVIDER" android:writePermission="com.qidian.QDReader.provider.permission.WRITE_MUSIC_SEARCH_PROVIDER">
             <path-permission android:pathPrefix="/search_suggest_query" android:readPermission="android.permission.GLOBAL_SEARCH"/>
             <path-permission android:pathPrefix="/search_suggest_regex_query" android:readPermission="android.permission.GLOBAL_SEARCH"/>
             <path-permission android:pathPrefix="/search_suggest_tag_query" android:readPermission="android.permission.GLOBAL_SEARCH"/>
             <path-permission android:pathPrefix="/audio/albumart" android:readPermission="android.permission.GLOBAL_SEARCH"/>
         </provider>
-        <provider android:authorities="com.luna.music.car.sfinder.searchprovider" android:exported="true" android:grantUriPermissions="true" android:name="com.samsung.android.app.music.provider.sfinder.SFinderSearchProvider" android:permission="com.samsung.android.provider.indexing.permission.ACCESS_PROVIDER"/>
-        <provider android:authorities="com.luna.music.car.settings.search" android:exported="true" android:grantUriPermissions="true" android:name="com.samsung.android.app.music.provider.setting.SettingsSearchProvider" android:permission="android.permission.READ_SEARCH_INDEXABLES">
+        <provider android:authorities="com.qidian.QDReader.sfinder.searchprovider" android:exported="true" android:grantUriPermissions="true" android:name="com.samsung.android.app.music.provider.sfinder.SFinderSearchProvider" android:permission="com.samsung.android.provider.indexing.permission.ACCESS_PROVIDER"/>
+        <provider android:authorities="com.qidian.QDReader.settings.search" android:exported="true" android:grantUriPermissions="true" android:name="com.samsung.android.app.music.provider.setting.SettingsSearchProvider" android:permission="android.permission.READ_SEARCH_INDEXABLES">
             <intent-filter>
                 <action android:name="android.content.action.SEARCH_INDEXABLES_PROVIDER"/>
             </intent-filter>
@@ -172,16 +172,16 @@
             <meta-data android:name="com.samsung.android.settings.require_settings_title" android:value="top_level_music_settings_main_screen"/>
             <meta-data android:name="com.samsung.android.settings.require_various_index" android:value="true"/>
         </provider>
-        <provider android:authorities="com.luna.music.car.setting" android:exported="false" android:grantUriPermissions="true" android:name="com.samsung.android.app.music.provider.setting.SettingProvider"/>
-        <provider android:authorities="com.luna.music.car.shared" android:enabled="@bool/support_screen_off_music" android:exported="true" android:name="com.samsung.android.app.music.provider.SharedProvider" android:readPermission="com.luna.music.car.provider.permission.READ_SHARED_PROVIDER" android:writePermission="com.luna.music.car.provider.permission.WRITE_SHARED_PROVIDER"/>
-        <provider android:authorities="com.luna.music.car.restricted" android:exported="true" android:grantUriPermissions="true" android:name="com.samsung.android.app.music.provider.OpenRestrictedMusicProvider"/>
-        <provider android:authorities="com.luna.music.car.log.dump" android:exported="false" android:name="com.samsung.android.app.music.provider.LogDumpMusicProvider"/>
-        <provider android:authorities="com.luna.music.car.dlna" android:exported="false" android:name="com.samsung.android.app.music.provider.DlnaProvider"/>
-        <provider android:authorities="com.luna.music.car.restApi" android:exported="false" android:name="com.samsung.android.app.musiclibrary.core.api.internal.debug.NetworkDumpProvider"/>
-        <provider android:authorities="com.luna.music.car.albumcache" android:exported="false" android:grantUriPermissions="true" android:name="com.samsung.android.app.musiclibrary.ui.imageloader.provider.AlbumCacheProvider">
+        <provider android:authorities="com.qidian.QDReader.setting" android:exported="false" android:grantUriPermissions="true" android:name="com.samsung.android.app.music.provider.setting.SettingProvider"/>
+        <provider android:authorities="com.qidian.QDReader.shared" android:enabled="@bool/support_screen_off_music" android:exported="true" android:name="com.samsung.android.app.music.provider.SharedProvider" android:readPermission="com.qidian.QDReader.provider.permission.READ_SHARED_PROVIDER" android:writePermission="com.qidian.QDReader.provider.permission.WRITE_SHARED_PROVIDER"/>
+        <provider android:authorities="com.qidian.QDReader.restricted" android:exported="true" android:grantUriPermissions="true" android:name="com.samsung.android.app.music.provider.OpenRestrictedMusicProvider"/>
+        <provider android:authorities="com.qidian.QDReader.log.dump" android:exported="false" android:name="com.samsung.android.app.music.provider.LogDumpMusicProvider"/>
+        <provider android:authorities="com.qidian.QDReader.dlna" android:exported="false" android:name="com.samsung.android.app.music.provider.DlnaProvider"/>
+        <provider android:authorities="com.qidian.QDReader.restApi" android:exported="false" android:name="com.samsung.android.app.musiclibrary.core.api.internal.debug.NetworkDumpProvider"/>
+        <provider android:authorities="com.qidian.QDReader.albumcache" android:exported="false" android:grantUriPermissions="true" android:name="com.samsung.android.app.musiclibrary.ui.imageloader.provider.AlbumCacheProvider">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/album_cache_paths"/>
         </provider>
-        <provider android:authorities="com.luna.music.car.local_image" android:exported="false" android:grantUriPermissions="true" android:name="com.samsung.android.app.music.provider.LocalImageProvider"/>
+        <provider android:authorities="com.qidian.QDReader.local_image" android:exported="false" android:grantUriPermissions="true" android:name="com.samsung.android.app.music.provider.LocalImageProvider"/>
         <service android:exported="true" android:foregroundServiceType="mediaPlayback" android:name="com.samsung.android.app.music.ui.player.service.PlayerService">
             <intent-filter>
                 <action android:name="com.samsung.android.app.music.ui.player.service.bind.PlayerService"/>
@@ -190,16 +190,16 @@
         </service>
         <receiver android:exported="true" android:name="com.samsung.android.app.music.ui.player.receiver.MediaCommandReceiver">
             <intent-filter>
-                <action android:name="com.luna.music.car.musicservicecommand.play"/>
-                <action android:name="com.luna.music.car.musicservicecommand.pause"/>
-                <action android:name="com.luna.music.car.musicservicecommand.playprevious"/>
-                <action android:name="com.luna.music.car.musicservicecommand.playnext"/>
-                <action android:name="com.luna.music.car.musicservicecommand.togglepause"/>
-                <action android:name="com.luna.music.car.musicservicecommand.prev"/>
-                <action android:name="com.luna.music.car.musicservicecommand.next"/>
-                <action android:name="com.luna.music.car.intent.action.PLAY_VIA"/>
+                <action android:name="com.qidian.QDReader.musicservicecommand.play"/>
+                <action android:name="com.qidian.QDReader.musicservicecommand.pause"/>
+                <action android:name="com.qidian.QDReader.musicservicecommand.playprevious"/>
+                <action android:name="com.qidian.QDReader.musicservicecommand.playnext"/>
+                <action android:name="com.qidian.QDReader.musicservicecommand.togglepause"/>
+                <action android:name="com.qidian.QDReader.musicservicecommand.prev"/>
+                <action android:name="com.qidian.QDReader.musicservicecommand.next"/>
+                <action android:name="com.qidian.QDReader.intent.action.PLAY_VIA"/>
                 <action android:name="com.samsung.musicplus.intent.action.PLAY_CONTENTS"/>
-                <action android:name="com.luna.music.car.intent.action.ENQUEUE"/>
+                <action android:name="com.qidian.QDReader.intent.action.ENQUEUE"/>
                 <action android:name="com.samsung.android.app.music.core.action.PLAY_FROM_SEARCH"/>
                 <action android:name="com.samsung.android.app.music.core.action.PLAY_FROM_MEDIA_ID"/>
                 <action android:name="com.samsung.android.app.music.core.action.HIDE_NOTIFICATION"/>
@@ -230,7 +230,7 @@
                 <action android:name="com.samsung.intent.action.SETTINGS_SOFT_RESET"/>
             </intent-filter>
         </receiver>
-        <provider android:authorities="com.luna.music.car.androidx-startup" android:exported="false" android:name="androidx.startup.InitializationProvider">
+        <provider android:authorities="com.qidian.QDReader.androidx-startup" android:exported="false" android:name="androidx.startup.InitializationProvider">
             <meta-data android:name="com.samsung.android.app.music.provider.setting.SettingManagerInitializer" android:value="androidx.startup"/>
             <meta-data android:name="com.samsung.android.app.music.repository.player.ActivePlayerInitializer" android:value="androidx.startup"/>
             <meta-data android:name="androidx.emoji2.text.EmojiCompatInitializer" android:value="androidx.startup"/>
@@ -394,13 +394,13 @@
         <activity android:exported="true" android:label="Logs" android:name="me.ayra.ayraproject.LogActivity"/>
         <activity android:configChanges="fontScale|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode" android:exported="true" android:launchMode="singleTask" android:name="com.samsung.android.app.music.ActivityLauncher" android:noHistory="true">
             <intent-filter>
-                <action android:name="com.luna.music.car.intent.action.LAUNCH_MUSIC"/>
-                <action android:name="com.luna.music.car.intent.action.LAUNCH_FROM_SHORTCUT"/>
+                <action android:name="com.qidian.QDReader.intent.action.LAUNCH_MUSIC"/>
+                <action android:name="com.qidian.QDReader.intent.action.LAUNCH_FROM_SHORTCUT"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
             <meta-data android:name="android.app.searchable" android:resource="@xml/sfinder_searchable"/>
             <intent-filter>
-                <action android:name="com.luna.music.car.intent.action.S_FIND"/>
+                <action android:name="com.qidian.QDReader.intent.action.S_FIND"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
             <intent-filter>
@@ -408,19 +408,19 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="com.luna.music.car.intent.action.PLAY_BY_MOOD"/>
-                <action android:name="com.luna.music.car.intent.action.PLAY_VIA"/>
+                <action android:name="com.qidian.QDReader.intent.action.PLAY_BY_MOOD"/>
+                <action android:name="com.qidian.QDReader.intent.action.PLAY_VIA"/>
                 <action android:name="com.sec.android.music.intent.action.PLAY"/>
-                <action android:name="com.luna.music.car.intent.action.PLAY_PREVIOUS"/>
-                <action android:name="com.luna.music.car.intent.action.PLAY_NEXT"/>
-                <action android:name="com.luna.music.car.intent.action.STOP"/>
-                <action android:name="com.luna.music.car.intent.action.SUFFLE_ON"/>
-                <action android:name="com.luna.music.car.intent.action.SUFFLE_OFF"/>
+                <action android:name="com.qidian.QDReader.intent.action.PLAY_PREVIOUS"/>
+                <action android:name="com.qidian.QDReader.intent.action.PLAY_NEXT"/>
+                <action android:name="com.qidian.QDReader.intent.action.STOP"/>
+                <action android:name="com.qidian.QDReader.intent.action.SUFFLE_ON"/>
+                <action android:name="com.qidian.QDReader.intent.action.SUFFLE_OFF"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="com.luna.music.car.intent.action.LAUNCH_MUSIC_MAIN"/>
-                <action android:name="com.luna.music.car.intent.action.LAUNCH_DETAIL_LIST"/>
+                <action android:name="com.qidian.QDReader.intent.action.LAUNCH_MUSIC_MAIN"/>
+                <action android:name="com.qidian.QDReader.intent.action.LAUNCH_DETAIL_LIST"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
             <intent-filter>
@@ -592,14 +592,14 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <provider android:authorities="com.luna.music.car.provider.preference" android:exported="false" android:name="com.samsung.android.app.music.preferences.PreferenceProvider"/>
+        <provider android:authorities="com.qidian.QDReader.provider.preference" android:exported="false" android:name="com.samsung.android.app.music.preferences.PreferenceProvider"/>
         <activity android:exported="false" android:name="com.samsung.android.app.music.settings.dcf.ExtendDCFActivtiy" android:theme="@style/Theme.AppCompat.Light.SettingsTheme"/>
         <activity android:exported="false" android:launchMode="singleTop" android:name="com.samsung.android.app.music.activity.WelcomeActivity" android:theme="@style/ActivityTheme.WelcomeActivity"/>
         <activity android:exported="false" android:name="com.samsung.android.app.music.regional.spotify.tab.SpotifyDetailActivity" android:theme="@style/Theme.OneUi"/>
         <activity android:exported="false" android:name="com.samsung.android.app.music.dialog.player.BatteryOptimizationDialogActivity" android:noHistory="true"/>
         <activity android:name="com.samsung.android.app.music.settings.manageplaylist.ImportExportPlaylistActivity"/>
-        <provider android:authorities="com.luna.music.car.help.dump" android:exported="true" android:name="com.samsung.android.app.music.help.SamsungMembersDumpProvider" android:readPermission="com.luna.music.car.provider.permission.READ_HELP_DUMP"/>
-        <provider android:authorities="com.luna.music.car.dump" android:exported="false" android:name="com.samsung.android.app.music.repository.dump.DumpProvider"/>
+        <provider android:authorities="com.qidian.QDReader.help.dump" android:exported="true" android:name="com.samsung.android.app.music.help.SamsungMembersDumpProvider" android:readPermission="com.qidian.QDReader.provider.permission.READ_HELP_DUMP"/>
+        <provider android:authorities="com.qidian.QDReader.dump" android:exported="false" android:name="com.samsung.android.app.music.repository.dump.DumpProvider"/>
         <uses-library android:name="androidx.window.extensions" android:required="false"/>
         <uses-library android:name="androidx.window.sidecar" android:required="false"/>
         <service android:name="androidx.core.widget.RemoteViewsCompatService" android:permission="android.permission.BIND_REMOTEVIEWS"/>
@@ -623,7 +623,7 @@
         <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementService"/>
         <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
         <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" android:exported="false" android:name="com.google.android.gms.ads.AdActivity" android:theme="@android:style/Theme.Translucent"/>
-        <provider android:authorities="com.luna.music.car.mobileadsinitprovider" android:exported="false" android:initOrder="100" android:name="com.google.android.gms.ads.MobileAdsInitProvider"/>
+        <provider android:authorities="com.qidian.QDReader.mobileadsinitprovider" android:exported="false" android:initOrder="100" android:name="com.google.android.gms.ads.MobileAdsInitProvider"/>
         <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.ads.AdService"/>
         <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" android:exported="false" android:name="com.google.android.gms.ads.OutOfContextTestingActivity"/>
         <service android:directBootAware="false" android:enabled="@bool/enable_system_alarm_service_default" android:exported="false" android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"/>
@@ -689,7 +689,7 @@
         </receiver>
         <uses-library android:name="com.google.android.wearable" android:required="false"/>
         <activity android:exported="false" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <provider android:authorities="com.luna.music.car.firebaseinitprovider" android:directBootAware="true" android:exported="false" android:initOrder="100" android:name="com.google.firebase.provider.FirebaseInitProvider"/>
+        <provider android:authorities="com.qidian.QDReader.firebaseinitprovider" android:directBootAware="true" android:exported="false" android:initOrder="100" android:name="com.google.firebase.provider.FirebaseInitProvider"/>
         <activity android:enabled="true" android:excludeFromRecents="true" android:exported="false" android:name="androidx.glance.appwidget.action.ActionTrampolineActivity" android:theme="@android:style/Theme.NoDisplay"/>
         <activity android:enabled="true" android:exported="false" android:launchMode="singleInstance" android:name="androidx.glance.appwidget.action.InvisibleActionTrampolineActivity" android:noHistory="true" android:taskAffinity="androidx.glance.appwidget.ListAdapterCallbackTrampoline" android:theme="@style/Widget.Glance.AppWidget.CallbackTrampoline"/>
         <receiver android:enabled="true" android:exported="false" android:name="androidx.glance.appwidget.action.ActionCallbackBroadcastReceiver"/>
@@ -707,7 +707,7 @@
         <meta-data android:name="com.samsung.android.sdk.spage.version" android:value="1.3.01.0"/>
         <meta-data android:name="com.samsung.android.sdk.spage.version_code" android:value="130100000"/>
         <activity android:launchMode="singleTask" android:name="com.kakao.sdk.auth.AppsHandlerActivity" android:theme="@style/TransparentCompat"/>
-        <provider android:authorities="com.luna.music.car.CapsuleProvider" android:exported="true" android:name="com.samsung.android.sdk.bixby2.provider.CapsuleProvider"/>
+        <provider android:authorities="com.qidian.QDReader.CapsuleProvider" android:exported="true" android:name="com.samsung.android.sdk.bixby2.provider.CapsuleProvider"/>
         <meta-data android:name="com.samsung.android.sdk.bixby2.companionApp" android:value="true"/>
         <meta-data android:name="com.samsung.android.sdk.bixby2.version" android:value="@string/sdk_version"/>
         <meta-data android:name="SPDE.build.signature" android:value="602278290880930a6cb9b5f5b37e20589ae885be/184806617/sep-melon-release/Music-1601200-16.2.45"/>

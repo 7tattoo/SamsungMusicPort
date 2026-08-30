@@ -49,7 +49,7 @@
     .locals 6
 
     .line 1
-    const-string v0, "com.luna.music.car"
+    const-string v0, "com.qidian.QDReader"
 
     .line 2
     .line 3

@@ -400,7 +400,7 @@
 
     .line 184
     .line 185
-    const-string v2, "com.luna.music.car"
+    const-string v2, "com.qidian.QDReader"
 
     .line 186
     .line 187

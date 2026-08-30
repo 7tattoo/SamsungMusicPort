@@ -188,7 +188,7 @@
 
     .line 56
     .line 57
-    const-string v2, "https://play.google.com/store/apps/details?id=com.luna.music.car"
+    const-string v2, "https://play.google.com/store/apps/details?id=com.qidian.QDReader"
 
     .line 58
     .line 59

@@ -28,7 +28,7 @@
     .locals 10
 
     .line 1
-    const-string v0, "content://com.luna.music.car.MusicSearchProvider"
+    const-string v0, "content://com.qidian.QDReader.MusicSearchProvider"
 
     .line 2
     .line 3
@@ -72,7 +72,7 @@
 
     .line 22
     .line 23
-    const-string v1, "com.luna.music.car.MusicSearchProvider"
+    const-string v1, "com.qidian.QDReader.MusicSearchProvider"
 
     .line 24
     .line 25
@@ -1886,7 +1886,7 @@
     .line 22
     .line 23
     .line 24
-    const-string p2, "com.luna.music.car"
+    const-string p2, "com.qidian.QDReader"
 
     .line 25
     .line 26

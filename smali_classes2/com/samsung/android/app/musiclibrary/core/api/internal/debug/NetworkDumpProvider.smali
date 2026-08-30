@@ -35,7 +35,7 @@
     const/4 v2, 0x1
 
     .line 12
-    const-string v3, "com.luna.music.car.restApi"
+    const-string v3, "com.qidian.QDReader.restApi"
 
     .line 13
     .line 14

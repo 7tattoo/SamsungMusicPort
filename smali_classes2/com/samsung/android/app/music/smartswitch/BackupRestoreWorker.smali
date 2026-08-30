@@ -2036,7 +2036,7 @@
     .line 267
     .line 268
     :cond_b
-    const-string v1, "com.luna.music.car.KEY_MANAGE_PLAYLISTS_BADGE"
+    const-string v1, "com.qidian.QDReader.KEY_MANAGE_PLAYLISTS_BADGE"
 
     .line 269
     .line 270
@@ -5780,7 +5780,7 @@
     move-result-object v9
 
     .line 496
-    const-string v10, "com.luna.music.car.KEY_MANAGE_PLAYLISTS_BADGE"
+    const-string v10, "com.qidian.QDReader.KEY_MANAGE_PLAYLISTS_BADGE"
 
     .line 497
     .line 498
@@ -6420,7 +6420,7 @@
     .line 812
     .line 813
     .line 814
-    const-string v2, "content://com.luna.music.car/"
+    const-string v2, "content://com.qidian.QDReader/"
 
     .line 815
     .line 816

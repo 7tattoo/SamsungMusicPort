@@ -13310,7 +13310,7 @@
     .line 199
     .line 200
     .line 201
-    const-string v0, "content://com.luna.music.car/audio"
+    const-string v0, "content://com.qidian.QDReader/audio"
 
     .line 202
     .line 203

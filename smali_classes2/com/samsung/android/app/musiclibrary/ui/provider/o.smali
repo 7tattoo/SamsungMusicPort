@@ -15,7 +15,7 @@
     .locals 1
 
     .line 1
-    const-string v0, "content://com.luna.music.car/audio/media/most_played_rank"
+    const-string v0, "content://com.qidian.QDReader/audio/media/most_played_rank"
 
     .line 2
     .line 3

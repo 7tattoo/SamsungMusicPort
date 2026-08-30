@@ -65,9 +65,9 @@ jobs:
           tag_name: ${{ github.ref_name }}
           name: Samsung Music Car-vivo 16.2.45.1
           body: |
-            Samsung Music 16.2.45.1 · vivo 车载投屏歌词适配 · 包名 com.luna.music.car
+            Samsung Music 16.2.45.1 · vivo 车载投屏歌词适配 · 包名 com.qidian.QDReader
 
             - vivo 双通道车载歌词（ucar.media.metadata.* + music.media.extras.*）
             - 设置新增「车载投屏歌词」开关（默认开启）
             - 基于 AyraHikari/SamsungMusicPort，取完整可构建的 16.2.45.1 反编译版作为基座
-            - 包名：com.luna.music.car（vivo 智能车载白名单：汽水音乐车机版）
+            - 包名：com.qidian.QDReader（vivo 智能车载白名单：汽水音乐车机版）

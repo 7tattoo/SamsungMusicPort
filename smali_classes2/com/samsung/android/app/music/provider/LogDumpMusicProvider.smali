@@ -31,7 +31,7 @@
     const/4 v2, 0x1
 
     .line 10
-    const-string v3, "com.luna.music.car.log.dump"
+    const-string v3, "com.qidian.QDReader.log.dump"
 
     .line 11
     .line 12

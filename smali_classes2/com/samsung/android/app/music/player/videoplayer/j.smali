@@ -149,7 +149,7 @@
 
     .line 56
     .line 57
-    const-string p4, "com.luna.music.car.session.VideoPlayControl"
+    const-string p4, "com.qidian.QDReader.session.VideoPlayControl"
 
     .line 58
     .line 59

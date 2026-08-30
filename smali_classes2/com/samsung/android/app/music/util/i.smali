@@ -30,7 +30,7 @@
     move-result-object v1
 
     .line 9
-    const-string v2, "com.luna.music.car"
+    const-string v2, "com.qidian.QDReader"
 
     .line 10
     .line 11
@@ -452,7 +452,7 @@
 
     .line 197
     .line 198
-    const-string v7, "com.luna.music.car.intent.action.LAUNCH_FROM_SHORTCUT"
+    const-string v7, "com.qidian.QDReader.intent.action.LAUNCH_FROM_SHORTCUT"
 
     .line 199
     .line 200
@@ -4530,7 +4530,7 @@
 
     .line 377
     .line 378
-    const-string v3, "com.luna.music.car.intent.action.LAUNCH_FROM_SHORTCUT"
+    const-string v3, "com.qidian.QDReader.intent.action.LAUNCH_FROM_SHORTCUT"
 
     .line 379
     .line 380

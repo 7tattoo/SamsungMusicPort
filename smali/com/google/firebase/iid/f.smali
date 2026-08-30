@@ -180,7 +180,7 @@
     .line 53
     new-instance v1, Landroid/content/IntentFilter;
 
-    const-string v2, "com.luna.music.car.THUMBNAIL_URI_CHANGED"
+    const-string v2, "com.qidian.QDReader.THUMBNAIL_URI_CHANGED"
 
     invoke-direct {v1, v2}, Landroid/content/IntentFilter;-><init>(Ljava/lang/String;)V
 

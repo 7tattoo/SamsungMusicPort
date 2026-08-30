@@ -6905,7 +6905,7 @@
 
     .line 852
     .line 853
-    const-string v12, "content://com.luna.music.car/"
+    const-string v12, "content://com.qidian.QDReader/"
 
     .line 854
     .line 855

@@ -350,7 +350,7 @@
     .line 97
     .line 98
     :cond_2
-    const-string v9, "com.luna.music.car.THUMBNAIL_URI_CHANGED"
+    const-string v9, "com.qidian.QDReader.THUMBNAIL_URI_CHANGED"
 
     .line 99
     .line 100

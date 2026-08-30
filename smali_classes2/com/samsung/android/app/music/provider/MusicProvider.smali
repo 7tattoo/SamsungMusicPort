@@ -44,7 +44,7 @@
 
     .line 12
     .line 13
-    const-string v3, "com.luna.music.car"
+    const-string v3, "com.qidian.QDReader"
 
     .line 14
     .line 15
@@ -1305,7 +1305,7 @@
 
     .line 135
     .line 136
-    const-string v17, "content://com.luna.music.car/audio"
+    const-string v17, "content://com.qidian.QDReader/audio"
 
     .line 137
     .line 138
@@ -4476,7 +4476,7 @@
 
     .line 178
     .line 179
-    const-string p2, "content://com.luna.music.car/audio"
+    const-string p2, "content://com.qidian.QDReader/audio"
 
     .line 180
     .line 181

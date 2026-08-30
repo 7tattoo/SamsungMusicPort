@@ -71,7 +71,7 @@
     move-result-object p1
 
     .line 20
-    const-string v0, "com.luna.music.car.dlna.flat.searching.info"
+    const-string v0, "com.qidian.QDReader.dlna.flat.searching.info"
 
     .line 21
     .line 22
@@ -131,7 +131,7 @@
     .line 48
     .line 49
     :cond_0
-    const-string v0, "com.luna.music.car.dlna.flat.searching.extra.what"
+    const-string v0, "com.qidian.QDReader.dlna.flat.searching.extra.what"
 
     .line 50
     .line 51
@@ -251,7 +251,7 @@
 
     .line 106
     :cond_5
-    const-string v0, "com.luna.music.car.dlna.flat.searching.error"
+    const-string v0, "com.qidian.QDReader.dlna.flat.searching.error"
 
     .line 107
     .line 108
@@ -267,7 +267,7 @@
 
     .line 113
     .line 114
-    const-string v0, "com.luna.music.car.dlna.flat.searching.extra.error"
+    const-string v0, "com.qidian.QDReader.dlna.flat.searching.extra.error"
 
     .line 115
     .line 116
@@ -279,7 +279,7 @@
     move-result v0
 
     .line 120
-    const-string v4, "com.luna.music.car.dlna.extra.deviceId"
+    const-string v4, "com.qidian.QDReader.dlna.extra.deviceId"
 
     .line 121
     .line 122
@@ -438,7 +438,7 @@
     move-result-object p1
 
     .line 203
-    const-string v0, "com.luna.music.car.dlna.connectivitychanged"
+    const-string v0, "com.qidian.QDReader.dlna.connectivitychanged"
 
     .line 204
     .line 205
@@ -454,7 +454,7 @@
 
     .line 210
     .line 211
-    const-string p1, "com.luna.music.car.dlna.connectivitychanged.extra.what"
+    const-string p1, "com.qidian.QDReader.dlna.connectivitychanged.extra.what"
 
     .line 212
     .line 213
@@ -476,7 +476,7 @@
 
     .line 220
     .line 221
-    const-string p1, "com.luna.music.car.dlna.extra.deviceId"
+    const-string p1, "com.qidian.QDReader.dlna.extra.deviceId"
 
     .line 222
     .line 223

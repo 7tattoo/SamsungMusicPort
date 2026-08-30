@@ -170,7 +170,7 @@
     .locals 8
 
     # growcar-lrc: 初始化车载歌词桥接（读取设置开关）
-    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->init(Landroid/content/Context;)V
+    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->init(Landroid/content/Context;)V
 
     invoke-static {p0}, Lme/ayra/crash/AyraCrash;->install(Landroid/app/Application;)V
 
@@ -202,7 +202,7 @@
     .line 14
     .line 15
     .line 16
-    const-string v1, "com.luna.music.car"
+    const-string v1, "com.qidian.QDReader"
 
     .line 17
     .line 18
@@ -241,7 +241,7 @@
 
     .line 33
     :cond_0
-    const-string v1, "com.luna.music.car:main"
+    const-string v1, "com.qidian.QDReader:main"
 
     .line 34
     .line 35

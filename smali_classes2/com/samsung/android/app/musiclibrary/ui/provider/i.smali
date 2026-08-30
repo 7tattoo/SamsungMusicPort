@@ -16,7 +16,7 @@
     .locals 2
 
     .line 1
-    const-string v0, "content://com.luna.music.car/audio/media/favorite_tracks"
+    const-string v0, "content://com.qidian.QDReader/audio/media/favorite_tracks"
 
     .line 2
     .line 3
@@ -64,7 +64,7 @@
 
     .line 24
     .line 25
-    const-string v0, "content://com.luna.music.car/audio/media/favorite_tracks/smpl_sync"
+    const-string v0, "content://com.qidian.QDReader/audio/media/favorite_tracks/smpl_sync"
 
     .line 26
     .line 27

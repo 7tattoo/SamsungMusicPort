@@ -1275,7 +1275,7 @@
     .line 434
     .line 435
     .line 436
-    const-string v13, "com.luna.music.car.intent.action.LAUNCH_DETAIL_LIST"
+    const-string v13, "com.qidian.QDReader.intent.action.LAUNCH_DETAIL_LIST"
 
     .line 437
     .line 438
@@ -2483,7 +2483,7 @@
 
     .line 283
     .line 284
-    const-string v4, "content://com.luna.music.car/audio/playlists_meta/cardview"
+    const-string v4, "content://com.qidian.QDReader/audio/playlists_meta/cardview"
 
     .line 285
     .line 286

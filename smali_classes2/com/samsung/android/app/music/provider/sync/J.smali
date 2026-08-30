@@ -22,7 +22,7 @@
     .locals 5
 
     .line 1
-    const-string v0, "content://com.luna.music.car/sync/local/update"
+    const-string v0, "content://com.qidian.QDReader/sync/local/update"
 
     .line 2
     .line 3
@@ -212,7 +212,7 @@
     move-result v2
 
     .line 36
-    const-string v3, "content://com.luna.music.car/audio"
+    const-string v3, "content://com.qidian.QDReader/audio"
 
     .line 37
     .line 38

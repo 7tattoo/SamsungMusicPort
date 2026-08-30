@@ -93,7 +93,7 @@
     .line 26
     .line 27
     .line 28
-    const-string v2, " com.luna.music.car:changeRound:bound"
+    const-string v2, " com.qidian.QDReader:changeRound:bound"
 
     .line 29
     .line 30
@@ -174,7 +174,7 @@
 
     .line 65
     :goto_1
-    const-string v3, "com.luna.music.car:changeRound:round"
+    const-string v3, "com.qidian.QDReader:changeRound:round"
 
     .line 66
     .line 67
@@ -234,7 +234,7 @@
     .line 94
     .line 95
     :goto_2
-    const-string v0, "com.luna.music.car:changeRound:imageSize"
+    const-string v0, "com.qidian.QDReader:changeRound:imageSize"
 
     .line 96
     .line 97
@@ -255,7 +255,7 @@
 
     .line 2
     .line 3
-    const-string v0, " com.luna.music.car:changeRound:bound"
+    const-string v0, " com.qidian.QDReader:changeRound:bound"
 
     .line 4
     .line 5
@@ -811,7 +811,7 @@
 
     .line 184
     .line 185
-    const-string v7, "com.luna.music.car:changeRound:imageSize"
+    const-string v7, "com.qidian.QDReader:changeRound:imageSize"
 
     .line 186
     .line 187
@@ -856,7 +856,7 @@
 
     .line 207
     .line 208
-    const-string v9, "com.luna.music.car:changeRound:round"
+    const-string v9, "com.qidian.QDReader:changeRound:round"
 
     .line 209
     .line 210
@@ -1053,7 +1053,7 @@
     .line 299
     .line 300
     :goto_5
-    const-string v7, " com.luna.music.car:changeRound:bound"
+    const-string v7, " com.qidian.QDReader:changeRound:bound"
 
     .line 301
     .line 302

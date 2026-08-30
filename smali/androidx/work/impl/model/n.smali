@@ -1857,7 +1857,7 @@
     .line 561
     .line 562
     :goto_6
-    const-string v10, "content://com.luna.music.car/"
+    const-string v10, "content://com.qidian.QDReader/"
 
     .line 563
     .line 564

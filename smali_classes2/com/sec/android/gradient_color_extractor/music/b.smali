@@ -9599,7 +9599,7 @@
     .line 144
     .line 145
     :cond_4
-    const-string v1, "com.luna.music.car.albumcache"
+    const-string v1, "com.qidian.QDReader.albumcache"
 
     .line 146
     .line 147

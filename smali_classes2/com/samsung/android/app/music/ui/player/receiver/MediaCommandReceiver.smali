@@ -485,7 +485,7 @@
     .line 75
     .line 76
     :sswitch_0
-    const-string v0, "com.luna.music.car.musicservicecommand.pause"
+    const-string v0, "com.qidian.QDReader.musicservicecommand.pause"
 
     .line 77
     .line 78
@@ -536,7 +536,7 @@
 
     .line 100
     :sswitch_1
-    const-string v0, "com.luna.music.car.musicservicecommand.playprevious"
+    const-string v0, "com.qidian.QDReader.musicservicecommand.playprevious"
 
     .line 101
     .line 102
@@ -610,7 +610,7 @@
 
     .line 137
     :sswitch_2
-    const-string v0, "com.luna.music.car.musicservicecommand.togglepause"
+    const-string v0, "com.qidian.QDReader.musicservicecommand.togglepause"
 
     .line 138
     .line 139
@@ -737,7 +737,7 @@
 
     .line 197
     :sswitch_4
-    const-string v0, "com.luna.music.car.musicservicecommand.playnext"
+    const-string v0, "com.qidian.QDReader.musicservicecommand.playnext"
 
     .line 198
     .line 199
@@ -937,7 +937,7 @@
 
     .line 291
     :sswitch_6
-    const-string v3, "com.luna.music.car.intent.action.PLAY_VIA"
+    const-string v3, "com.qidian.QDReader.intent.action.PLAY_VIA"
 
     .line 292
     .line 293
@@ -1050,7 +1050,7 @@
 
     .line 343
     :sswitch_8
-    const-string v3, "com.luna.music.car.intent.action.ENQUEUE"
+    const-string v3, "com.qidian.QDReader.intent.action.ENQUEUE"
 
     .line 344
     .line 345
@@ -1334,7 +1334,7 @@
 
     .line 480
     :sswitch_9
-    const-string v0, "com.luna.music.car.musicservicecommand.prev"
+    const-string v0, "com.qidian.QDReader.musicservicecommand.prev"
 
     .line 481
     .line 482
@@ -1387,7 +1387,7 @@
 
     .line 504
     :sswitch_a
-    const-string v0, "com.luna.music.car.musicservicecommand.play"
+    const-string v0, "com.qidian.QDReader.musicservicecommand.play"
 
     .line 505
     .line 506
@@ -1437,7 +1437,7 @@
 
     .line 527
     :sswitch_b
-    const-string v0, "com.luna.music.car.musicservicecommand.next"
+    const-string v0, "com.qidian.QDReader.musicservicecommand.next"
 
     .line 528
     .line 529

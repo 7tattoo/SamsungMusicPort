@@ -4,17 +4,17 @@
 
 
 # static fields
-.field private static final ALIAS_DEFAULT:Ljava/lang/String; = "com.luna.music.car.Default"
+.field private static final ALIAS_DEFAULT:Ljava/lang/String; = "com.qidian.QDReader.Default"
 
-.field private static final ALIAS_NAMEALT:Ljava/lang/String; = "com.luna.music.car.NameAlt"
+.field private static final ALIAS_NAMEALT:Ljava/lang/String; = "com.qidian.QDReader.NameAlt"
 
-.field private static final ALIAS_NAMEGALAXY:Ljava/lang/String; = "com.luna.music.car.NameGalaxy"
+.field private static final ALIAS_NAMEGALAXY:Ljava/lang/String; = "com.qidian.QDReader.NameGalaxy"
 
-.field private static final ALIAS_OLDICON:Ljava/lang/String; = "com.luna.music.car.OldIcon"
+.field private static final ALIAS_OLDICON:Ljava/lang/String; = "com.qidian.QDReader.OldIcon"
 
-.field private static final ALIAS_OLDNAMEALT:Ljava/lang/String; = "com.luna.music.car.OldNameAlt"
+.field private static final ALIAS_OLDNAMEALT:Ljava/lang/String; = "com.qidian.QDReader.OldNameAlt"
 
-.field private static final ALIAS_OLDNAMEGALAXY:Ljava/lang/String; = "com.luna.music.car.OldNameGalaxy"
+.field private static final ALIAS_OLDNAMEGALAXY:Ljava/lang/String; = "com.qidian.QDReader.OldNameGalaxy"
 
 .field private static final KEY_ALIAS:Ljava/lang/String; = "alias"
 
@@ -68,7 +68,7 @@
     .line 169
     new-instance v3, Landroid/content/ComponentName;
 
-    const-string v4, "com.luna.music.car.Default"
+    const-string v4, "com.qidian.QDReader.Default"
 
     invoke-direct {v3, v2, v4}, Landroid/content/ComponentName;-><init>(Ljava/lang/String;Ljava/lang/String;)V
 
@@ -79,7 +79,7 @@
     .line 170
     new-instance v3, Landroid/content/ComponentName;
 
-    const-string v5, "com.luna.music.car.NameAlt"
+    const-string v5, "com.qidian.QDReader.NameAlt"
 
     invoke-direct {v3, v2, v5}, Landroid/content/ComponentName;-><init>(Ljava/lang/String;Ljava/lang/String;)V
 
@@ -88,7 +88,7 @@
     .line 171
     new-instance v3, Landroid/content/ComponentName;
 
-    const-string v5, "com.luna.music.car.NameGalaxy"
+    const-string v5, "com.qidian.QDReader.NameGalaxy"
 
     invoke-direct {v3, v2, v5}, Landroid/content/ComponentName;-><init>(Ljava/lang/String;Ljava/lang/String;)V
 
@@ -97,7 +97,7 @@
     .line 172
     new-instance v3, Landroid/content/ComponentName;
 
-    const-string v5, "com.luna.music.car.OldIcon"
+    const-string v5, "com.qidian.QDReader.OldIcon"
 
     invoke-direct {v3, v2, v5}, Landroid/content/ComponentName;-><init>(Ljava/lang/String;Ljava/lang/String;)V
 
@@ -106,7 +106,7 @@
     .line 173
     new-instance v3, Landroid/content/ComponentName;
 
-    const-string v5, "com.luna.music.car.OldNameAlt"
+    const-string v5, "com.qidian.QDReader.OldNameAlt"
 
     invoke-direct {v3, v2, v5}, Landroid/content/ComponentName;-><init>(Ljava/lang/String;Ljava/lang/String;)V
 
@@ -115,7 +115,7 @@
     .line 174
     new-instance v3, Landroid/content/ComponentName;
 
-    const-string v5, "com.luna.music.car.OldNameGalaxy"
+    const-string v5, "com.qidian.QDReader.OldNameGalaxy"
 
     invoke-direct {v3, v2, v5}, Landroid/content/ComponentName;-><init>(Ljava/lang/String;Ljava/lang/String;)V
 
@@ -214,7 +214,7 @@
 
     if-eqz v0, :cond_0
 
-    const-string v0, "com.luna.music.car.Default"
+    const-string v0, "com.qidian.QDReader.Default"
 
     return-object v0
 
@@ -228,7 +228,7 @@
 
     if-eqz v0, :cond_1
 
-    const-string v0, "com.luna.music.car.NameAlt"
+    const-string v0, "com.qidian.QDReader.NameAlt"
 
     return-object v0
 
@@ -242,7 +242,7 @@
 
     if-eqz v0, :cond_2
 
-    const-string v0, "com.luna.music.car.NameGalaxy"
+    const-string v0, "com.qidian.QDReader.NameGalaxy"
 
     return-object v0
 
@@ -254,7 +254,7 @@
 
     move-result v0
 
-    const-string v1, "com.luna.music.car.OldIcon"
+    const-string v1, "com.qidian.QDReader.OldIcon"
 
     if-eqz v0, :cond_3
 
@@ -270,7 +270,7 @@
 
     if-eqz v0, :cond_4
 
-    const-string v0, "com.luna.music.car.OldNameAlt"
+    const-string v0, "com.qidian.QDReader.OldNameAlt"
 
     return-object v0
 
@@ -284,7 +284,7 @@
 
     if-eqz v0, :cond_5
 
-    const-string v0, "com.luna.music.car.OldNameGalaxy"
+    const-string v0, "com.qidian.QDReader.OldNameGalaxy"
 
     return-object v0
 
@@ -1075,7 +1075,7 @@
 
     const-string v3, "alias"
 
-    const-string v4, "com.luna.music.car.OldIcon"
+    const-string v4, "com.qidian.QDReader.OldIcon"
 
     invoke-interface {v2, v3, v4}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
@@ -1095,7 +1095,7 @@
     goto :goto_0
 
     :sswitch_0
-    const-string v3, "com.luna.music.car.NameAlt"
+    const-string v3, "com.qidian.QDReader.NameAlt"
 
     invoke-virtual {v2, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
@@ -1111,7 +1111,7 @@
     goto :goto_0
 
     :sswitch_1
-    const-string v3, "com.luna.music.car.OldNameAlt"
+    const-string v3, "com.qidian.QDReader.OldNameAlt"
 
     invoke-virtual {v2, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
@@ -1127,7 +1127,7 @@
     goto :goto_0
 
     :sswitch_2
-    const-string v3, "com.luna.music.car.NameGalaxy"
+    const-string v3, "com.qidian.QDReader.NameGalaxy"
 
     invoke-virtual {v2, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
@@ -1143,7 +1143,7 @@
     goto :goto_0
 
     :sswitch_3
-    const-string v3, "com.luna.music.car.OldNameGalaxy"
+    const-string v3, "com.qidian.QDReader.OldNameGalaxy"
 
     invoke-virtual {v2, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 

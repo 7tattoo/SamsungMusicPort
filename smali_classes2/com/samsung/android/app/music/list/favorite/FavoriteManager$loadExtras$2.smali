@@ -559,7 +559,7 @@
 
     .line 195
     .line 196
-    const-string v3, "content://com.luna.music.car/audio/playlists_meta"
+    const-string v3, "content://com.qidian.QDReader/audio/playlists_meta"
 
     .line 197
     .line 198

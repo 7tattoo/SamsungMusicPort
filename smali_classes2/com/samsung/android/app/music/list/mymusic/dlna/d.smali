@@ -2381,7 +2381,7 @@
 
     .line 1162
     .line 1163
-    const-string v7, "content://com.luna.music.car/audio/media/music_folders_info"
+    const-string v7, "content://com.qidian.QDReader/audio/media/music_folders_info"
 
     .line 1164
     .line 1165

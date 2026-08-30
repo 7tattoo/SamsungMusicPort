@@ -89,7 +89,7 @@
 
     .line 23
     .line 24
-    const-string p2, "com.luna.music.car.KEP_APP_UPDATE_CARD_NO_MORE_SEE"
+    const-string p2, "com.qidian.QDReader.KEP_APP_UPDATE_CARD_NO_MORE_SEE"
 
     .line 25
     .line 26
@@ -216,7 +216,7 @@
 
     .line 85
     .line 86
-    const-string v6, "com.luna.music.car.KEP_APP_UPDATE_TICKET"
+    const-string v6, "com.qidian.QDReader.KEP_APP_UPDATE_TICKET"
 
     .line 87
     .line 88

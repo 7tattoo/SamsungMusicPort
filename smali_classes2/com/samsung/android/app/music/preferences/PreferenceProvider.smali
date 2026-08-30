@@ -39,7 +39,7 @@
     const/4 v2, 0x1
 
     .line 12
-    const-string v3, "com.luna.music.car.provider.preference"
+    const-string v3, "com.qidian.QDReader.provider.preference"
 
     .line 13
     .line 14
@@ -169,7 +169,7 @@
 
     .line 17
     .line 18
-    const-string p0, "content://com.luna.music.car.provider.preference/long/"
+    const-string p0, "content://com.qidian.QDReader.provider.preference/long/"
 
     .line 19
     .line 20
@@ -202,7 +202,7 @@
 
     .line 33
     :cond_1
-    const-string p0, "content://com.luna.music.car.provider.preference/integer/"
+    const-string p0, "content://com.qidian.QDReader.provider.preference/integer/"
 
     .line 34
     .line 35
@@ -210,7 +210,7 @@
 
     .line 36
     :cond_2
-    const-string p0, "content://com.luna.music.car.provider.preference/string/"
+    const-string p0, "content://com.qidian.QDReader.provider.preference/string/"
 
     .line 37
     .line 38
@@ -218,7 +218,7 @@
 
     .line 39
     :cond_3
-    const-string p0, "content://com.luna.music.car.provider.preference/boolean/"
+    const-string p0, "content://com.qidian.QDReader.provider.preference/boolean/"
 
     .line 40
     .line 41

@@ -21,7 +21,7 @@
     .locals 1
 
     .line 1
-    const-string v0, "content://com.luna.music.car/audio/media/music_folders_tree"
+    const-string v0, "content://com.qidian.QDReader/audio/media/music_folders_tree"
 
     .line 2
     .line 3
@@ -37,7 +37,7 @@
 
     .line 8
     .line 9
-    const-string v0, "content://com.luna.music.car/audio/media/music_folders_tree/tracks"
+    const-string v0, "content://com.qidian.QDReader/audio/media/music_folders_tree/tracks"
 
     .line 10
     .line 11
@@ -53,7 +53,7 @@
 
     .line 16
     .line 17
-    const-string v0, "content://com.luna.music.car/audio/media/music_folders_tree_hide"
+    const-string v0, "content://com.qidian.QDReader/audio/media/music_folders_tree_hide"
 
     .line 18
     .line 19

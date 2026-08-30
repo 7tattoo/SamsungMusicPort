@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ThemeMetaData>
-    <AppMetaData Name="SamsungMusic" TargetApi="30" TargetPackageName="com.luna.music.car">
+    <AppMetaData Name="SamsungMusic" TargetApi="30" TargetPackageName="com.qidian.QDReader">
         <Include RefName="SESL" />
         <Property Comment="App widget > BG > inside BG" DestAttribName="app_widget_inside_background_209_1_1, app_widget_inside_background_night_209_1_1" UID="209-1-1" ValueRef="8-13-1" ValueType="BgColor" />
         <Property Comment="App widget > Button icon > main primary text, icon" DestAttribName="app_widget_list_title_playing_209_2_1, app_widget_list_title_playing_night_209_2_1" UID="209-2-1" ValueRef="24-E" ValueType="Color" />

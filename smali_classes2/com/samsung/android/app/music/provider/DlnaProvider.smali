@@ -31,7 +31,7 @@
     const/4 v2, 0x4
 
     .line 10
-    const-string v3, "com.luna.music.car.dlna"
+    const-string v3, "com.qidian.QDReader.dlna"
 
     .line 11
     .line 12
