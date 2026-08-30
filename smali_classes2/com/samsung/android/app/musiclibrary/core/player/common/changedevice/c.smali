@@ -269,7 +269,7 @@
     .line 118
     .line 119
     .line 120
-    const-string v2, "com.qidian.QDReader.dlna.servicedeleted"
+    const-string v2, "com.luna.music.car.dlna.servicedeleted"
 
     .line 121
     .line 122
@@ -305,7 +305,7 @@
 
     .line 137
     :cond_2
-    const-string v2, "com.qidian.QDReader.dlna.connectivitychanged"
+    const-string v2, "com.luna.music.car.dlna.connectivitychanged"
 
     .line 138
     .line 139
@@ -321,7 +321,7 @@
 
     .line 144
     .line 145
-    const-string p1, "com.qidian.QDReader.dlna.connectivitychanged.extra.what"
+    const-string p1, "com.luna.music.car.dlna.connectivitychanged.extra.what"
 
     .line 146
     .line 147

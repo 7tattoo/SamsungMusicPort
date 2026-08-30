@@ -393,7 +393,7 @@
     .line 143
     .line 144
     .line 145
-    const-string p0, "content://com.qidian.QDReader/sync/local/update"
+    const-string p0, "content://com.luna.music.car/sync/local/update"
 
     .line 146
     .line 147

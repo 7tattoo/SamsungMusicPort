@@ -176,7 +176,7 @@
     move-result-object p2
 
     .line 64
-    const-string v0, "com.qidian.QDReader.KEP_CHECKED_DEPLOYED_VERSION"
+    const-string v0, "com.luna.music.car.KEP_CHECKED_DEPLOYED_VERSION"
 
     .line 65
     .line 66

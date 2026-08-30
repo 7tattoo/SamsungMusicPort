@@ -12,7 +12,7 @@
     .locals 1
 
     .line 1
-    const-string v0, "content://com.qidian.QDReader/audio/drm_info"
+    const-string v0, "content://com.luna.music.car/audio/drm_info"
 
     .line 2
     .line 3

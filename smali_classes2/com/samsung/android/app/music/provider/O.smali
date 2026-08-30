@@ -2017,7 +2017,7 @@
 
     .line 965
     .line 966
-    const-string v3, "com.qidian.QDReader.THUMBNAIL_URI_CHANGED"
+    const-string v3, "com.luna.music.car.THUMBNAIL_URI_CHANGED"
 
     .line 967
     .line 968

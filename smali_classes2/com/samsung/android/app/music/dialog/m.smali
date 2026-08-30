@@ -869,7 +869,7 @@
 
     .line 16
     .line 17
-    const-string v1, "com.qidian.QDReader"
+    const-string v1, "com.luna.music.car"
 
     .line 18
     .line 19

@@ -27,7 +27,7 @@
     .locals 1
 
     .line 1
-    const-string v0, "content://com.qidian.QDReader.restricted/audio/thumbnails/track"
+    const-string v0, "content://com.luna.music.car.restricted/audio/thumbnails/track"
 
     .line 2
     .line 3

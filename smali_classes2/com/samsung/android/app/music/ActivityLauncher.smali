@@ -445,7 +445,7 @@
     move-result-object v7
 
     .line 80
-    const-string v8, "com.qidian.QDReader.intent.action.LAUNCH_MUSIC"
+    const-string v8, "com.luna.music.car.intent.action.LAUNCH_MUSIC"
 
     .line 81
     .line 82
@@ -461,7 +461,7 @@
 
     .line 87
     .line 88
-    const-string v10, "com.qidian.QDReader"
+    const-string v10, "com.luna.music.car"
 
     .line 89
     .line 90
@@ -674,7 +674,7 @@
     .line 197
     .line 198
     :sswitch_0
-    const-string v0, "com.qidian.QDReader.musicservicecommand.playprevious"
+    const-string v0, "com.luna.music.car.musicservicecommand.playprevious"
 
     .line 199
     .line 200
@@ -702,7 +702,7 @@
     .line 209
     .line 210
     :sswitch_1
-    const-string v0, "com.qidian.QDReader.intent.action.SUFFLE_OFF"
+    const-string v0, "com.luna.music.car.intent.action.SUFFLE_OFF"
 
     .line 211
     .line 212
@@ -829,7 +829,7 @@
 
     .line 275
     :sswitch_3
-    const-string v0, "com.qidian.QDReader.intent.action.STOP"
+    const-string v0, "com.luna.music.car.intent.action.STOP"
 
     .line 276
     .line 277
@@ -1561,7 +1561,7 @@
 
     .line 634
     .line 635
-    const-string v0, "com.qidian.QDReader.musicservicecommand.playnext"
+    const-string v0, "com.luna.music.car.musicservicecommand.playnext"
 
     .line 636
     .line 637
@@ -1598,7 +1598,7 @@
     move-object v8, v1
 
     .line 650
-    const-string v1, "com.qidian.QDReader.intent.action.PLAY_VIA"
+    const-string v1, "com.luna.music.car.intent.action.PLAY_VIA"
 
     .line 651
     .line 652
@@ -1735,7 +1735,7 @@
     move-object v8, v1
 
     .line 720
-    const-string v1, "com.qidian.QDReader.intent.action.LAUNCH_MUSIC_MAIN"
+    const-string v1, "com.luna.music.car.intent.action.LAUNCH_MUSIC_MAIN"
 
     .line 721
     .line 722
@@ -1841,7 +1841,7 @@
 
     .line 769
     .line 770
-    const-string v1, "com.qidian.QDReader.intent.action.LAUNCH_FROM_SHORTCUT"
+    const-string v1, "com.luna.music.car.intent.action.LAUNCH_FROM_SHORTCUT"
 
     .line 771
     .line 772
@@ -5353,7 +5353,7 @@
     move-object v0, v9
 
     .line 2403
-    const-string v4, "com.qidian.QDReader.intent.action.LAUNCH_DETAIL_LIST_FROM_APP_SHORTCUT"
+    const-string v4, "com.luna.music.car.intent.action.LAUNCH_DETAIL_LIST_FROM_APP_SHORTCUT"
 
     .line 2404
     .line 2405
@@ -5445,7 +5445,7 @@
     move-object v2, v1
 
     .line 2447
-    const-string v0, "com.qidian.QDReader.intent.action.SUFFLE_ON"
+    const-string v0, "com.luna.music.car.intent.action.SUFFLE_ON"
 
     .line 2448
     .line 2449
@@ -5482,7 +5482,7 @@
     move-object v2, v1
 
     .line 2464
-    const-string v0, "com.qidian.QDReader.intent.action.LAUNCH_MUSIC_PLAYER_FROM_APP_SHORTCUT"
+    const-string v0, "com.luna.music.car.intent.action.LAUNCH_MUSIC_PLAYER_FROM_APP_SHORTCUT"
 
     .line 2465
     .line 2466
@@ -5609,7 +5609,7 @@
     move-object v0, v9
 
     .line 2528
-    const-string v1, "com.qidian.QDReader.intent.action.LAUNCH_DETAIL_LIST"
+    const-string v1, "com.luna.music.car.intent.action.LAUNCH_DETAIL_LIST"
 
     .line 2529
     .line 2530
@@ -5672,7 +5672,7 @@
     move-object v2, v1
 
     .line 2557
-    const-string v0, "com.qidian.QDReader.intent.action.S_FIND"
+    const-string v0, "com.luna.music.car.intent.action.S_FIND"
 
     .line 2558
     .line 2559
@@ -5794,7 +5794,7 @@
     move-object v2, v1
 
     .line 2614
-    const-string v0, "com.qidian.QDReader.intent.action.PLAY_NEXT"
+    const-string v0, "com.luna.music.car.intent.action.PLAY_NEXT"
 
     .line 2615
     .line 2616
@@ -5879,7 +5879,7 @@
     move-object v2, v1
 
     .line 2652
-    const-string v0, "com.qidian.QDReader.musicservicecommand.play"
+    const-string v0, "com.luna.music.car.musicservicecommand.play"
 
     .line 2653
     .line 2654
@@ -5940,7 +5940,7 @@
     move-object v2, v1
 
     .line 2680
-    const-string v0, "com.qidian.QDReader.intent.action.PLAY_PREVIOUS"
+    const-string v0, "com.luna.music.car.intent.action.PLAY_PREVIOUS"
 
     .line 2681
     .line 2682

@@ -4887,7 +4887,7 @@
 
     .line 102
     # growcar-lrc: 注入 vivo 车载双通道歌词 metadata
-    invoke-static {p1, v6}, Lcom/qidian/QDReader/CarLyricsBridge;->apply(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
+    invoke-static {p1, v6}, Lcom/luna/music/car/CarLyricsBridge;->apply(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
     move-result-object p1
     .line 103
     invoke-virtual {v6, p1}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V

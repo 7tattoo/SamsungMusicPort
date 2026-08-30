@@ -3392,7 +3392,7 @@
 
     .line 1024
     .line 1025
-    const-string v0, "com.qidian.QDReader"
+    const-string v0, "com.luna.music.car"
 
     .line 1026
     .line 1027
@@ -3509,7 +3509,7 @@
 
     .line 1077
     .line 1078
-    const-string v5, "nmpPackageEnabled(com.qidian.QDReader): "
+    const-string v5, "nmpPackageEnabled(com.luna.music.car): "
 
     .line 1079
     .line 1080

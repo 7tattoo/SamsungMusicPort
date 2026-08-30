@@ -41,7 +41,7 @@
 
     .line 10
     .line 11
-    const-string v3, "com.qidian.QDReader"
+    const-string v3, "com.luna.music.car"
 
     .line 12
     .line 13
@@ -659,7 +659,7 @@
 
     .line 131
     .line 132
-    const-string v21, "content://com.qidian.QDReader/audio"
+    const-string v21, "content://com.luna.music.car/audio"
 
     .line 133
     .line 134

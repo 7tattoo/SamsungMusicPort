@@ -12,7 +12,7 @@
     .locals 1
 
     .line 1
-    const-string v0, "content://com.qidian.QDReader/audio/playlists/export_playlist_count"
+    const-string v0, "content://com.luna.music.car/audio/playlists/export_playlist_count"
 
     .line 2
     .line 3

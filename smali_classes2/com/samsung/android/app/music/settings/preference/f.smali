@@ -291,7 +291,7 @@
     .line 133
     .line 134
     .line 135
-    const-string v3, "com.qidian.QDReader.KEY_APP_UPDATE_BADGE"
+    const-string v3, "com.luna.music.car.KEY_APP_UPDATE_BADGE"
 
     .line 136
     .line 137
@@ -409,7 +409,7 @@
     .line 16
     .line 17
     .line 18
-    const-string v2, "com.qidian.QDReader.KEY_APP_UPDATE_BADGE"
+    const-string v2, "com.luna.music.car.KEY_APP_UPDATE_BADGE"
 
     .line 19
     .line 20

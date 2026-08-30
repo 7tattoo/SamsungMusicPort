@@ -60,7 +60,7 @@
 
     .line 16
     .line 17
-    const-string v0, "content://com.qidian.QDReader/sync/local/update"
+    const-string v0, "content://com.luna.music.car/sync/local/update"
 
     .line 18
     .line 19

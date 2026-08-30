@@ -2284,7 +2284,7 @@
 
     .line 9
     .line 10
-    const-string v2, "SELECT _id, \'album\' AS mime_type, artist, _id AS album_id,  NULL AS duration, album, NULL AS title, album AS text1, artist AS text2, numsongs AS data1, NULL AS data2, album_cp_attrs AS cp_attrs, NULL AS is_secretbox, artist||\' \'||album AS match, \'content://content://com.qidian.QDReader/audio/albums/\'||_id AS suggest_intent_data, 2 AS grouporder FROM music_album_info WHERE (album!=\'<unknown>\')"
+    const-string v2, "SELECT _id, \'album\' AS mime_type, artist, _id AS album_id,  NULL AS duration, album, NULL AS title, album AS text1, artist AS text2, numsongs AS data1, NULL AS data2, album_cp_attrs AS cp_attrs, NULL AS is_secretbox, artist||\' \'||album AS match, \'content://content://com.luna.music.car/audio/albums/\'||_id AS suggest_intent_data, 2 AS grouporder FROM music_album_info WHERE (album!=\'<unknown>\')"
 
     .line 11
     .line 12
@@ -2297,7 +2297,7 @@
 
     .line 16
     .line 17
-    const-string v2, "SELECT _id, \'artist\' AS mime_type, artist, album_id, NULL AS duration, NULL AS album, NULL AS title, artist AS text1, NULL AS text2, number_of_albums AS data1, number_of_tracks AS data2, artist_cp_attrs AS cp_attrs, NULL AS is_secretbox, artist AS match, \'content://content://com.qidian.QDReader/audio/artists/\'||_id AS suggest_intent_data,1 AS grouporder FROM music_artist_info WHERE (artist!=\'<unknown>\')"
+    const-string v2, "SELECT _id, \'artist\' AS mime_type, artist, album_id, NULL AS duration, NULL AS album, NULL AS title, artist AS text1, NULL AS text2, number_of_albums AS data1, number_of_tracks AS data2, artist_cp_attrs AS cp_attrs, NULL AS is_secretbox, artist AS match, \'content://content://com.luna.music.car/audio/artists/\'||_id AS suggest_intent_data,1 AS grouporder FROM music_artist_info WHERE (artist!=\'<unknown>\')"
 
     .line 18
     .line 19
@@ -2306,7 +2306,7 @@
     .line 20
     .line 21
     .line 22
-    const-string v1, "SELECT _id, \'artist\' AS mime_type, artist, album_id, NULL AS duration, NULL AS album, NULL AS title, artist AS text1, NULL AS text2, number_of_albums AS data1, number_of_tracks AS data2, artist_cp_attrs AS cp_attrs, NULL AS is_secretbox, artist AS match, \'content://content://com.qidian.QDReader/audio/artists/\'||_id AS suggest_intent_data,1 AS grouporder FROM music_artist_info WHERE (artist!=\'<unknown>\') UNION ALL SELECT _id, \'album\' AS mime_type, artist, _id AS album_id,  NULL AS duration, album, NULL AS title, album AS text1, artist AS text2, numsongs AS data1, NULL AS data2, album_cp_attrs AS cp_attrs, NULL AS is_secretbox, artist||\' \'||album AS match, \'content://content://com.qidian.QDReader/audio/albums/\'||_id AS suggest_intent_data, 2 AS grouporder FROM music_album_info WHERE (album!=\'<unknown>\') UNION ALL "
+    const-string v1, "SELECT _id, \'artist\' AS mime_type, artist, album_id, NULL AS duration, NULL AS album, NULL AS title, artist AS text1, NULL AS text2, number_of_albums AS data1, number_of_tracks AS data2, artist_cp_attrs AS cp_attrs, NULL AS is_secretbox, artist AS match, \'content://content://com.luna.music.car/audio/artists/\'||_id AS suggest_intent_data,1 AS grouporder FROM music_artist_info WHERE (artist!=\'<unknown>\') UNION ALL SELECT _id, \'album\' AS mime_type, artist, _id AS album_id,  NULL AS duration, album, NULL AS title, album AS text1, artist AS text2, numsongs AS data1, NULL AS data2, album_cp_attrs AS cp_attrs, NULL AS is_secretbox, artist||\' \'||album AS match, \'content://content://com.luna.music.car/audio/albums/\'||_id AS suggest_intent_data, 2 AS grouporder FROM music_album_info WHERE (album!=\'<unknown>\') UNION ALL "
 
     .line 23
     .line 24

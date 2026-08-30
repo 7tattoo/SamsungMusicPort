@@ -1803,7 +1803,7 @@
     .line 110
     .line 111
     :cond_5
-    const-string v2, "com.qidian.QDReader.intent.action.LAUNCH_DETAIL_LIST"
+    const-string v2, "com.luna.music.car.intent.action.LAUNCH_DETAIL_LIST"
 
     .line 112
     .line 113

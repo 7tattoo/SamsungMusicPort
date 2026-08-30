@@ -1,4 +1,4 @@
-.class public final Lcom/qidian/QDReader/CarLyricsBridge;
+.class public final Lcom/luna/music/car/CarLyricsBridge;
 .super Ljava/lang/Object;
 .source "CarLyricsBridge.java"
 
@@ -40,21 +40,21 @@
     .line 22
     const-string v0, ""
 
-    sput-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     .line 23
     const-wide/16 v1, -0x1
 
-    sput-wide v1, Lcom/qidian/QDReader/CarLyricsBridge;->sLastPos:J
+    sput-wide v1, Lcom/luna/music/car/CarLyricsBridge;->sLastPos:J
 
     .line 24
-    sput-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     .line 28
-    sput-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sSongKey:Ljava/lang/String;
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sSongKey:Ljava/lang/String;
 
     .line 30
-    sput-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastPushKey:Ljava/lang/String;
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastPushKey:Ljava/lang/String;
 
     .line 33
     nop
@@ -66,16 +66,16 @@
 
     move-result-object v0
 
-    sput-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->TS_PAT:Ljava/util/regex/Pattern;
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->TS_PAT:Ljava/util/regex/Pattern;
 
     .line 156
     const-wide/16 v0, 0x0
 
-    sput-wide v0, Lcom/qidian/QDReader/CarLyricsBridge;->sFallbackTime:J
+    sput-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sFallbackTime:J
 
     const-wide/16 v0, -0x1
 
-    sput-wide v0, Lcom/qidian/QDReader/CarLyricsBridge;->sTrackId:J
+    sput-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sTrackId:J
 
     return-void
 .end method
@@ -101,7 +101,7 @@
 
     .line 466
     :cond_4
-    invoke-static {}, Lcom/qidian/QDReader/CarLyricsBridge;->isEnabled()Z
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->isEnabled()Z
 
     move-result v0
 
@@ -111,10 +111,10 @@
 
     .line 467
     :cond_b
-    sput-object p0, Lcom/qidian/QDReader/CarLyricsBridge;->sBaseMeta:Landroid/media/MediaMetadata;
+    sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sBaseMeta:Landroid/media/MediaMetadata;
 
     .line 468
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->ensureSongReset(Landroid/media/MediaMetadata;)V
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->ensureSongReset(Landroid/media/MediaMetadata;)V
 
     .line 469
     new-instance v0, Ljava/lang/StringBuilder;
@@ -149,16 +149,16 @@
 
     move-result-object v0
 
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 470
     if-eqz p1, :cond_35
 
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
 
     if-nez v0, :cond_35
 
-    sput-object p1, Lcom/qidian/QDReader/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
+    sput-object p1, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
 
     .line 472
     :cond_35
@@ -226,7 +226,7 @@
 
     move-result-object v0
 
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     goto :goto_6d
 
@@ -243,27 +243,27 @@
 
     if-ltz v0, :cond_83
 
-    sget-wide v7, Lcom/qidian/QDReader/CarLyricsBridge;->sLastPos:J
+    sget-wide v7, Lcom/luna/music/car/CarLyricsBridge;->sLastPos:J
 
     cmp-long v0, v3, v7
 
     if-eqz v0, :cond_83
 
     .line 483
-    sput-wide v3, Lcom/qidian/QDReader/CarLyricsBridge;->sLastPos:J
+    sput-wide v3, Lcom/luna/music/car/CarLyricsBridge;->sLastPos:J
 
     .line 484
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
-    invoke-static {v0, v3, v4}, Lcom/qidian/QDReader/CarLyricsBridge;->lineAt(Ljava/lang/String;J)Ljava/lang/String;
+    invoke-static {v0, v3, v4}, Lcom/luna/music/car/CarLyricsBridge;->lineAt(Ljava/lang/String;J)Ljava/lang/String;
 
     move-result-object v0
 
-    sput-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     .line 486
     :cond_83
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     .line 490
     :try_start_85
@@ -277,11 +277,11 @@
     nop
 
     .line 495
-    sget-object v4, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v4, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     if-eqz v4, :cond_9c
 
-    sget-object v4, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v4, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v4}, Ljava/lang/String;->trim()Ljava/lang/String;
 
@@ -306,7 +306,7 @@
     if-eqz v1, :cond_ad
 
     .line 497
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v3, v8, v1}, Landroid/media/MediaMetadata$Builder;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/media/MediaMetadata$Builder;
 
@@ -486,7 +486,7 @@
     .line 538
     const-string v1, "vivomusicmix.extra.key.lyric"
 
-    sget-object v2, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v3, v1, v2}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
@@ -525,7 +525,7 @@
 
     move-result-object p1
 
-    invoke-static {p1}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 544
     :cond_156
@@ -550,7 +550,7 @@
 
     move-result-object p1
 
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v0}, Ljava/lang/String;->length()I
 
@@ -564,7 +564,7 @@
 
     move-result-object p1
 
-    invoke-static {p1}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 545
     return-object p0
@@ -596,7 +596,7 @@
 
     move-result-object p1
 
-    invoke-static {p1}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 512
     return-object p0
@@ -628,7 +628,7 @@
 
     move-result-object p1
 
-    invoke-static {p1}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 493
     return-object p0
@@ -638,7 +638,7 @@
     .registers 1
 
     .line 550
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     return-object v0
 .end method
@@ -648,14 +648,14 @@
 
     if-eqz p0, :compat_done
 
-    invoke-static {}, Lcom/qidian/QDReader/CarLyricsBridge;->isEnabled()Z
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->isEnabled()Z
     move-result v0
     if-eqz v0, :compat_done
 
     iget-object v0, p0, Landroid/support/v4/media/MediaMetadataCompat;->a:Landroid/os/Bundle;
     if-eqz v0, :compat_done
 
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
     if-eqz v1, :compat_empty
 
     invoke-virtual {v1}, Ljava/lang/String;->trim()Ljava/lang/String;
@@ -681,7 +681,7 @@
 
     :compat_line
     const-string v1, "ucar.media.metadata.LYRICS_LINE"
-    sget-object v2, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
     if-nez v2, :compat_put_line
     const-string v2, ""
     :compat_put_line
@@ -695,16 +695,16 @@
     .registers 4
 
     .line 253
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
 
     if-eqz v0, :cond_7
 
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
 
     goto :goto_9
 
     :cond_7
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
 
     .line 254
     :goto_9
@@ -713,7 +713,7 @@
     .line 255
     const-string v0, "ensurePushed: no session yet"
 
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 256
     return-void
@@ -740,7 +740,7 @@
     :try_start_19
     const-string v0, "ensurePushed: controller null, session released?"
 
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 269
     return-void
@@ -769,11 +769,11 @@
     :try_start_29
     const-string v1, "ensurePushed: getMetadata failed"
 
-    invoke-static {v1}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 277
     :use_cached_base
-    sget-object v2, Lcom/qidian/QDReader/CarLyricsBridge;->sBaseMeta:Landroid/media/MediaMetadata;
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sBaseMeta:Landroid/media/MediaMetadata;
 
     .line 280
     :cond_2f
@@ -783,22 +783,22 @@
     .line 281
     const-string v1, "ensurePushed: no base meta, fallback extras only"
 
-    invoke-static {v1}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 282
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
-    invoke-static {v0, v1}, Lcom/qidian/QDReader/CarLyricsBridge;->pushExtrasOnly(Landroid/media/session/MediaSession;Ljava/lang/String;)V
+    invoke-static {v0, v1}, Lcom/luna/music/car/CarLyricsBridge;->pushExtrasOnly(Landroid/media/session/MediaSession;Ljava/lang/String;)V
 
     .line 283
     return-void
 
     .line 285
     :cond_3c
-    invoke-static {v2}, Lcom/qidian/QDReader/CarLyricsBridge;->ensureSongReset(Landroid/media/MediaMetadata;)V
+    invoke-static {v2}, Lcom/luna/music/car/CarLyricsBridge;->ensureSongReset(Landroid/media/MediaMetadata;)V
 
     .line 286
-    invoke-static {v2, v0}, Lcom/qidian/QDReader/CarLyricsBridge;->apply(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
+    invoke-static {v2, v0}, Lcom/luna/music/car/CarLyricsBridge;->apply(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
 
     move-result-object v1
     :try_end_43
@@ -814,7 +814,7 @@
     .line 290
     const-string v1, "ensurePushed: repushed metadata"
 
-    invoke-static {v1}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
     :try_end_4d
     .catchall {:try_start_45 .. :try_end_4d} :catchall_4e
 
@@ -845,14 +845,14 @@
 
     move-result-object v1
 
-    invoke-static {v1}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 296
     :cond_65
     :goto_65
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
-    invoke-static {v0, v1}, Lcom/qidian/QDReader/CarLyricsBridge;->pushExtrasTo(Landroid/media/session/MediaSession;Ljava/lang/String;)V
+    invoke-static {v0, v1}, Lcom/luna/music/car/CarLyricsBridge;->pushExtrasTo(Landroid/media/session/MediaSession;Ljava/lang/String;)V
 
     .line 299
     goto :goto_8d
@@ -864,7 +864,7 @@
     .line 264
     const-string v0, "ensurePushed: getController failed, session released?"
 
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
     :try_end_71
     .catchall {:try_start_4f .. :try_end_71} :catchall_72
 
@@ -898,7 +898,7 @@
 
     move-result-object v0
 
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 300
     :goto_8d
@@ -954,7 +954,7 @@
 
     if-lez v1, :cond_59
 
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sSongKey:Ljava/lang/String;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sSongKey:Ljava/lang/String;
 
     invoke-virtual {p0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
@@ -983,7 +983,7 @@
 
     move-result-object v1
 
-    sget-object v2, Lcom/qidian/QDReader/CarLyricsBridge;->sSongKey:Ljava/lang/String;
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sSongKey:Ljava/lang/String;
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -999,18 +999,18 @@
 
     move-result-object v1
 
-    invoke-static {v1}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 96
-    sput-object p0, Lcom/qidian/QDReader/CarLyricsBridge;->sSongKey:Ljava/lang/String;
+    sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sSongKey:Ljava/lang/String;
 
     .line 100
-    sput-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     .line 101
     const-wide/16 v0, -0x1
 
-    sput-wide v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastPos:J
+    sput-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sLastPos:J
     :try_end_59
     .catchall {:try_start_5 .. :try_end_59} :catchall_5a
 
@@ -1034,7 +1034,7 @@
     const/4 v0, 0x0
 
     :try_start_1
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sApp:Landroid/content/Context;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
 
     if-nez v1, :cond_6
 
@@ -1042,7 +1042,7 @@
 
     .line 74
     :cond_6
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sApp:Landroid/content/Context;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
 
     invoke-virtual {v1, v0}, Landroid/content/Context;->getExternalFilesDir(Ljava/lang/String;)Ljava/io/File;
 
@@ -1051,7 +1051,7 @@
     .line 75
     if-nez v1, :cond_14
 
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sApp:Landroid/content/Context;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getFilesDir()Ljava/io/File;
 
@@ -1074,10 +1074,10 @@
 
     invoke-direct {v2, v1, v3}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    sput-object v2, Lcom/qidian/QDReader/CarLyricsBridge;->sLogFile:Ljava/io/File;
+    sput-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLogFile:Ljava/io/File;
 
     .line 79
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLogFile:Ljava/io/File;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLogFile:Ljava/io/File;
     :try_end_25
     .catchall {:try_start_1 .. :try_end_25} :catchall_26
 
@@ -1095,7 +1095,7 @@
     .registers 1
 
     .line 457
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     return-object v0
 .end method
@@ -1112,16 +1112,16 @@
 
     move-result-object p0
 
-    sput-object p0, Lcom/qidian/QDReader/CarLyricsBridge;->sApp:Landroid/content/Context;
+    sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
 
     .line 113
     :cond_8
-    invoke-static {}, Lcom/qidian/QDReader/CarLyricsBridge;->fallbackLogFile()Ljava/io/File;
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->fallbackLogFile()Ljava/io/File;
 
     .line 114
     const-string p0, "==== CarLyricsBridge init ===="
 
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
     :try_end_10
     .catchall {:try_start_2 .. :try_end_10} :catchall_11
 
@@ -1156,7 +1156,7 @@
 
     move-result-object p0
 
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
     :try_end_2c
     .catchall {:try_start_12 .. :try_end_2c} :catchall_2d
 
@@ -1179,15 +1179,15 @@
     if-eqz p1, :cond_6
 
     .line 337
-    sput-object p1, Lcom/qidian/QDReader/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
+    sput-object p1, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
 
     .line 338
-    sput-object p1, Lcom/qidian/QDReader/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
+    sput-object p1, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
 
     .line 341
     :cond_6
     :try_start_6
-    invoke-static {}, Lcom/qidian/QDReader/CarLyricsBridge;->isEnabled()Z
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->isEnabled()Z
 
     move-result v0
 
@@ -1249,7 +1249,7 @@
     :cond_2b
     :goto_2b
     :try_start_2b
-    sget-object v2, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     .line 353
     if-eqz v2, :cond_35
@@ -1262,9 +1262,9 @@
 
     .line 354
     :cond_35
-    sget-object v2, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
-    invoke-static {v2, v0, v1}, Lcom/qidian/QDReader/CarLyricsBridge;->lineAt(Ljava/lang/String;J)Ljava/lang/String;
+    invoke-static {v2, v0, v1}, Lcom/luna/music/car/CarLyricsBridge;->lineAt(Ljava/lang/String;J)Ljava/lang/String;
 
     move-result-object v2
 
@@ -1277,7 +1277,7 @@
 
     if-lez v0, :cond_45
 
-    sput-object v2, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sput-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     .line 357
     :cond_45
@@ -1312,11 +1312,11 @@
 
     .line 362
     :cond_61
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     if-eqz v0, :cond_a4
 
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v0}, Ljava/lang/String;->length()I
 
@@ -1397,7 +1397,7 @@
     .line 376
     const-string v0, "vivomusicmix.extra.key.lyric"
 
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {p0, v0, v1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
@@ -1413,7 +1413,7 @@
 
     move-result-object p0
 
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     if-nez v0, :cond_b5
 
@@ -1422,7 +1422,7 @@
     goto :goto_bb
 
     :cond_b5
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v0}, Ljava/lang/String;->length()I
 
@@ -1456,10 +1456,10 @@
 
     move-result-object p0
 
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 380
-    invoke-static {p1}, Lcom/qidian/QDReader/CarLyricsBridge;->pushMetadata(Landroid/media/session/MediaSession;)V
+    invoke-static {p1}, Lcom/luna/music/car/CarLyricsBridge;->pushMetadata(Landroid/media/session/MediaSession;)V
     :try_end_db
     .catchall {:try_start_98 .. :try_end_db} :catchall_dc
 
@@ -1493,7 +1493,7 @@
 
     move-result-object p0
 
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 384
     :goto_f7
@@ -1504,7 +1504,7 @@
     .registers 3
 
     .line 125
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sApp:Landroid/content/Context;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
 
     const/4 v1, 0x1
 
@@ -1512,7 +1512,7 @@
 
     .line 127
     :try_start_5
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sApp:Landroid/content/Context;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
 
     .line 128
     invoke-static {v0}, Landroid/preference/PreferenceManager;->getDefaultSharedPreferences(Landroid/content/Context;)Landroid/content/SharedPreferences;
@@ -1546,7 +1546,7 @@
     .registers 7
 
     .line 136
-    sget-wide v0, Lcom/qidian/QDReader/CarLyricsBridge;->sTrackId:J
+    sget-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sTrackId:J
 
     const-wide/16 v2, -0x1
 
@@ -1565,7 +1565,7 @@
 
     :reject_track
     const-string v0, "lyrics callback ignored: stale track id"
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
     const/4 v0, 0x0
     return v0
 .end method
@@ -1574,22 +1574,22 @@
     .registers 5
 
     .line 151
-    invoke-static {}, Lcom/qidian/QDReader/CarLyricsBridge;->isEnabled()Z
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->isEnabled()Z
     move-result v0
     if-eqz v0, :set_track_done
 
-    sget-wide v0, Lcom/qidian/QDReader/CarLyricsBridge;->sTrackId:J
+    sget-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sTrackId:J
     cmp-long v2, v0, p0
     if-nez v2, :set_track_changed
     return-void
 
     :set_track_changed
-    sput-wide p0, Lcom/qidian/QDReader/CarLyricsBridge;->sTrackId:J
+    sput-wide p0, Lcom/luna/music/car/CarLyricsBridge;->sTrackId:J
     const-string v0, ""
-    sput-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
-    sput-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
     const-wide/16 v0, -0x1
-    sput-wide v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastPos:J
+    sput-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sLastPos:J
     new-instance v0, Ljava/lang/StringBuilder;
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
     const-string v1, "track id changed -> "
@@ -1599,7 +1599,7 @@
     move-result-object v0
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
     move-result-object v0
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     :set_track_done
     return-void
@@ -1649,7 +1649,7 @@
     aget-object v5, v2, v1
 
     .line 558
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->TS_PAT:Ljava/util/regex/Pattern;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->TS_PAT:Ljava/util/regex/Pattern;
 
     invoke-virtual {v0, v5}, Ljava/util/regex/Pattern;->matcher(Ljava/lang/CharSequence;)Ljava/util/regex/Matcher;
 
@@ -1889,12 +1889,12 @@
     .line 53
     :goto_4b
     :try_start_4b
-    sget-object p0, Lcom/qidian/QDReader/CarLyricsBridge;->sLogFile:Ljava/io/File;
+    sget-object p0, Lcom/luna/music/car/CarLyricsBridge;->sLogFile:Ljava/io/File;
 
     .line 54
     if-nez p0, :cond_53
 
-    invoke-static {}, Lcom/qidian/QDReader/CarLyricsBridge;->fallbackLogFile()Ljava/io/File;
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->fallbackLogFile()Ljava/io/File;
 
     move-result-object p0
 
@@ -1974,7 +1974,7 @@
 
     move-result-object p0
 
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
     :try_end_89
     .catchall {:try_start_6f .. :try_end_89} :catchall_8a
 
@@ -1994,11 +1994,11 @@
     .registers 2
 
     .line 146
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     if-eqz v0, :cond_2f
 
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v0}, Ljava/lang/String;->length()I
 
@@ -2017,7 +2017,7 @@
 
     move-result-object v0
 
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v1}, Ljava/lang/String;->length()I
 
@@ -2037,7 +2037,7 @@
 
     move-result-object v0
 
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     goto :goto_34
 
@@ -2045,21 +2045,21 @@
     :cond_2f
     const-string v0, "onSongChanged (no previous lrc)"
 
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 151
     :goto_34
     const-string v0, ""
 
-    sput-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     .line 152
-    sput-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     .line 153
     const-wide/16 v0, -0x1
 
-    sput-wide v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastPos:J
+    sput-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sLastPos:J
 
     .line 154
     return-void
@@ -2186,7 +2186,7 @@
     .line 448
     const-string p1, "vivomusicmix.extra.key.lyric"
 
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v1, p1, v0}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
@@ -2196,7 +2196,7 @@
     .line 450
     const-string p0, "pushExtrasOnly called"
 
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
     :try_end_6b
     .catchall {:try_start_57 .. :try_end_6b} :catchall_6c
 
@@ -2230,7 +2230,7 @@
 
     move-result-object p0
 
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 454
     :goto_87
@@ -2284,11 +2284,11 @@
     invoke-virtual {v0, p1, v1}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
 
     .line 312
-    sget-object p1, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object p1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     if-eqz p1, :cond_63
 
-    sget-object p1, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object p1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {p1}, Ljava/lang/String;->length()I
 
@@ -2361,7 +2361,7 @@
     .line 324
     const-string p1, "vivomusicmix.extra.key.lyric"
 
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v0, p1, v1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
@@ -2380,7 +2380,7 @@
 
     move-result-object p0
 
-    sget-object p1, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object p1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     if-nez p1, :cond_77
 
@@ -2389,7 +2389,7 @@
     goto :goto_7d
 
     :cond_77
-    sget-object p1, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object p1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {p1}, Ljava/lang/String;->length()I
 
@@ -2404,7 +2404,7 @@
 
     move-result-object p0
 
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
     :try_end_88
     .catchall {:try_start_57 .. :try_end_88} :catchall_89
 
@@ -2438,7 +2438,7 @@
 
     move-result-object p0
 
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 331
     :goto_a4
@@ -2457,7 +2457,7 @@
 
     .line 389
     :cond_5
-    invoke-static {}, Lcom/qidian/QDReader/CarLyricsBridge;->isEnabled()Z
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->isEnabled()Z
 
     move-result v1
 
@@ -2472,7 +2472,7 @@
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    sget-object v2, Lcom/qidian/QDReader/CarLyricsBridge;->sSongKey:Ljava/lang/String;
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sSongKey:Ljava/lang/String;
     :try_end_13
     .catchall {:try_start_c .. :try_end_13} :catchall_d6
 
@@ -2486,7 +2486,7 @@
 
     :cond_19
     :try_start_19
-    sget-object v2, Lcom/qidian/QDReader/CarLyricsBridge;->sSongKey:Ljava/lang/String;
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sSongKey:Ljava/lang/String;
 
     :goto_1b
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -2497,7 +2497,7 @@
 
     move-result-object v1
 
-    sget-object v2, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     const/4 v4, 0x0
 
@@ -2508,7 +2508,7 @@
     goto :goto_30
 
     :cond_2a
-    sget-object v2, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v2}, Ljava/lang/String;->length()I
 
@@ -2523,7 +2523,7 @@
 
     move-result-object v0
 
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -2534,7 +2534,7 @@
     move-result-object v0
 
     .line 392
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sLastPushKey:Ljava/lang/String;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLastPushKey:Ljava/lang/String;
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
@@ -2547,7 +2547,7 @@
 
     .line 396
     :cond_4b
-    sput-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastPushKey:Ljava/lang/String;
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastPushKey:Ljava/lang/String;
 
     .line 397
     # growcar-lrc: extras 触发补推时也优先读取当前 Session metadata
@@ -2576,7 +2576,7 @@
 
     .line 402
     :use_cached_push_meta
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sBaseMeta:Landroid/media/MediaMetadata;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sBaseMeta:Landroid/media/MediaMetadata;
 
     .line 405
     :cond_5c
@@ -2587,7 +2587,7 @@
     :try_start_5e
     const-string p0, "pushMetadata: no base, setExtras-only"
 
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 407
     return-void
@@ -2599,11 +2599,11 @@
     invoke-direct {v1, v0}, Landroid/media/MediaMetadata$Builder;-><init>(Landroid/media/MediaMetadata;)V
 
     .line 410
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     if-eqz v0, :cond_7b
 
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v0}, Ljava/lang/String;->trim()Ljava/lang/String;
 
@@ -2634,7 +2634,7 @@
 
     .line 412
     :try_start_82
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v1, v5, v0}, Landroid/media/MediaMetadata$Builder;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/media/MediaMetadata$Builder;
 
@@ -2656,11 +2656,11 @@
 
     .line 418
     :goto_95
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     if-eqz v0, :cond_ac
 
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     invoke-virtual {v0}, Ljava/lang/String;->trim()Ljava/lang/String;
 
@@ -2675,7 +2675,7 @@
     .line 419
     const-string v0, "ucar.media.metadata.LYRICS_LINE"
 
-    sget-object v2, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     invoke-virtual {v1, v0, v2}, Landroid/media/MediaMetadata$Builder;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/media/MediaMetadata$Builder;
 
@@ -2698,7 +2698,7 @@
 
     move-result-object p0
 
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     if-nez v0, :cond_c3
 
@@ -2706,7 +2706,7 @@
     goto :goto_ca
 
     :cond_c3
-    sget-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v0}, Ljava/lang/String;->length()I
 
@@ -2723,7 +2723,7 @@
 
     move-result-object p0
 
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
     :try_end_d5
     .catchall {:try_start_82 .. :try_end_d5} :catchall_d6
 
@@ -2757,7 +2757,7 @@
 
     move-result-object p0
 
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 426
     :goto_f1
@@ -2768,7 +2768,7 @@
     .registers 7
 
     .line 224
-    invoke-static {}, Lcom/qidian/QDReader/CarLyricsBridge;->ensurePushed()V
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->ensurePushed()V
 
     .line 227
     :try_start_3
@@ -2803,9 +2803,9 @@
     aget-wide v4, v2, v3
 
     .line 232
-    new-instance v6, Lcom/qidian/QDReader/CarLyricsBridge$1;
+    new-instance v6, Lcom/luna/music/car/CarLyricsBridge$1;
 
-    invoke-direct {v6}, Lcom/qidian/QDReader/CarLyricsBridge$1;-><init>()V
+    invoke-direct {v6}, Lcom/luna/music/car/CarLyricsBridge$1;-><init>()V
 
     invoke-virtual {v1, v6, v4, v5}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
     :try_end_22
@@ -2847,15 +2847,15 @@
     move-object p0, v0
 
     :cond_5
-    sput-object p0, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     .line 140
-    sput-object v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     .line 141
     const-wide/16 v0, -0x1
 
-    sput-wide v0, Lcom/qidian/QDReader/CarLyricsBridge;->sLastPos:J
+    sput-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sLastPos:J
 
     .line 142
     return-void
@@ -2874,7 +2874,7 @@
     .line 169
     const-string v0, "setLyricsFrom called"
 
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 170
     const-string v1, ""
@@ -2884,13 +2884,13 @@
     .line 171
     const-string v0, "setLyricsFrom null"
 
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 172
-    invoke-static {v1}, Lcom/qidian/QDReader/CarLyricsBridge;->setLrc(Ljava/lang/String;)V
+    invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->setLrc(Ljava/lang/String;)V
 
     .line 173
-    invoke-static {}, Lcom/qidian/QDReader/CarLyricsBridge;->ensurePushed()V
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->ensurePushed()V
 
     .line 174
     return-void
@@ -3225,7 +3225,7 @@
 
     move-result-object v0
 
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     move v7, v3
 
@@ -3259,7 +3259,7 @@
 
     move-result-object v0
 
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 216
     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
@@ -3267,7 +3267,7 @@
     move-result-object v0
 
     # growcar-lrc: 同一曲目已有更完整歌词时，拒绝迟到的短结果覆盖
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
     if-eqz v1, :car_lrc_accept_new
     invoke-virtual {v1}, Ljava/lang/String;->length()I
     move-result v3
@@ -3275,11 +3275,11 @@
     move-result v11
     if-le v3, v11, :car_lrc_accept_new
     const-string v1, "setLyricsFrom ignored shorter result"
-    invoke-static {v1}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
     return-void
 
     :car_lrc_accept_new
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->setLrc(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->setLrc(Ljava/lang/String;)V
 
     .line 217
     new-instance v0, Ljava/lang/StringBuilder;
@@ -3292,7 +3292,7 @@
 
     move-result-object v0
 
-    sget-object v1, Lcom/qidian/QDReader/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v1}, Ljava/lang/String;->length()I
 
@@ -3306,10 +3306,10 @@
 
     move-result-object v0
 
-    invoke-static {v0}, Lcom/qidian/QDReader/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     .line 219
-    invoke-static {}, Lcom/qidian/QDReader/CarLyricsBridge;->scheduleRePush()V
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->scheduleRePush()V
 
     .line 220
     return-void

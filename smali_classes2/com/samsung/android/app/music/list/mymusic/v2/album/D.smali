@@ -8565,7 +8565,7 @@
 
     .line 2133
     .line 2134
-    const-string v4, "content://com.qidian.QDReader/audio/playlists/reset_badge"
+    const-string v4, "content://com.luna.music.car/audio/playlists/reset_badge"
 
     .line 2135
     .line 2136

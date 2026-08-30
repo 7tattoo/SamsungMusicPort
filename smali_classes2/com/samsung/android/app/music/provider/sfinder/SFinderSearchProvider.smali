@@ -47,7 +47,7 @@
     const/4 v2, 0x4
 
     .line 12
-    const-string v3, "com.qidian.QDReader.sfinder.searchprovider"
+    const-string v3, "com.luna.music.car.sfinder.searchprovider"
 
     .line 13
     .line 14
@@ -56,7 +56,7 @@
     .line 15
     .line 16
     .line 17
-    const-string v0, "content://com.qidian.QDReader.sfinder.searchprovider"
+    const-string v0, "content://com.luna.music.car.sfinder.searchprovider"
 
     .line 18
     .line 19
@@ -481,7 +481,7 @@
 
     .line 85
     .line 86
-    const-string v6, "com.qidian.QDReader.intent.action.S_FIND"
+    const-string v6, "com.luna.music.car.intent.action.S_FIND"
 
     .line 87
     .line 88

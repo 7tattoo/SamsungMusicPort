@@ -94,7 +94,7 @@
 
     .line 40
     .line 41
-    const-string v0, "content://com.qidian.QDReader/audio/playlists_meta/cardview"
+    const-string v0, "content://com.luna.music.car/audio/playlists_meta/cardview"
 
     .line 42
     .line 43

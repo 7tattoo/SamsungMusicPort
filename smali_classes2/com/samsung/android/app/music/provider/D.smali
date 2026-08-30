@@ -23,7 +23,7 @@
     move-result-object v0
 
     .line 6
-    const-string v1, "SELECT search_helper_title._id AS _id, mime_type, artist, album_id, duration, album, title, title AS text1, artist AS text2, NULL AS data1, NULL AS data2, cp_attrs, is_secretbox, artist||\' \'||album||\' \'||title AS match, \'content://content://com.qidian.QDReader/external/audio/media/\'||search_helper_title._id AS suggest_intent_data, 3 AS grouporder FROM search_helper_title WHERE (title != \'\') AND "
+    const-string v1, "SELECT search_helper_title._id AS _id, mime_type, artist, album_id, duration, album, title, title AS text1, artist AS text2, NULL AS data1, NULL AS data2, cp_attrs, is_secretbox, artist||\' \'||album||\' \'||title AS match, \'content://content://com.luna.music.car/external/audio/media/\'||search_helper_title._id AS suggest_intent_data, 3 AS grouporder FROM search_helper_title WHERE (title != \'\') AND "
 
     .line 7
     .line 8

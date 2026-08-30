@@ -1029,7 +1029,7 @@
 
     .line 264
     .line 265
-    const-string p2, "com.qidian.QDReader.intent.action.NOTIFY_PLAYER_VOLUME_CONTROL"
+    const-string p2, "com.luna.music.car.intent.action.NOTIFY_PLAYER_VOLUME_CONTROL"
 
     .line 266
     .line 267

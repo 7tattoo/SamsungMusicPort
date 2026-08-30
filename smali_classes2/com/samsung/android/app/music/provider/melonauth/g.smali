@@ -12,7 +12,7 @@
     .locals 2
 
     .line 1
-    const-string v0, "content://com.qidian.QDReader.kakao.auth/user_product"
+    const-string v0, "content://com.luna.music.car.kakao.auth/user_product"
 
     .line 2
     .line 3

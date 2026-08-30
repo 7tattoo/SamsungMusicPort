@@ -609,7 +609,7 @@
 
     .line 13
     .line 14
-    const-string v1, "com.qidian.QDReader.KEY_MANAGE_PLAYLISTS_BADGE"
+    const-string v1, "com.luna.music.car.KEY_MANAGE_PLAYLISTS_BADGE"
 
     .line 15
     .line 16

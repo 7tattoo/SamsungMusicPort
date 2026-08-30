@@ -2183,7 +2183,7 @@
 
     .line 47
     .line 48
-    const-string v1, "com.qidian.QDReader.dlna.flat.searching.error"
+    const-string v1, "com.luna.music.car.dlna.flat.searching.error"
 
     .line 49
     .line 50
@@ -2192,7 +2192,7 @@
     .line 51
     .line 52
     .line 53
-    const-string v1, "com.qidian.QDReader.dlna.flat.searching.extra.error"
+    const-string v1, "com.luna.music.car.dlna.flat.searching.extra.error"
 
     .line 54
     .line 55
@@ -2201,7 +2201,7 @@
     .line 56
     .line 57
     .line 58
-    const-string p1, "com.qidian.QDReader.dlna.extra.deviceId"
+    const-string p1, "com.luna.music.car.dlna.extra.deviceId"
 
     .line 59
     .line 60

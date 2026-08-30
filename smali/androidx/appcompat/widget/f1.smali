@@ -1245,7 +1245,7 @@
 
     .line 585
     .line 586
-    const-string v1, "launchGooglePlay url: market://details?id=com.qidian.QDReader"
+    const-string v1, "launchGooglePlay url: market://details?id=com.luna.music.car"
 
     .line 587
     .line 588
@@ -1263,7 +1263,7 @@
     .line 594
     .line 595
     .line 596
-    const-string v1, "market://details?id=com.qidian.QDReader"
+    const-string v1, "market://details?id=com.luna.music.car"
 
     .line 597
     .line 598

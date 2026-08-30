@@ -18,7 +18,7 @@
     .locals 1
 
     .line 1
-    const-string v0, "content://com.qidian.QDReader.setting/setting"
+    const-string v0, "content://com.luna.music.car.setting/setting"
 
     .line 2
     .line 3
@@ -1705,7 +1705,7 @@
     .line 4
     .line 5
     .line 6
-    const-string p1, "vnd.com.qidian.QDReader.setting.dir/setting"
+    const-string p1, "vnd.com.luna.music.car.setting.dir/setting"
 
     .line 7
     .line 8

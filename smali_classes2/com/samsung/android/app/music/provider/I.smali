@@ -33,7 +33,7 @@
     .line 5
     .line 6
     .line 7
-    const-string v1, "com.qidian.QDReader"
+    const-string v1, "com.luna.music.car"
 
     .line 8
     .line 9
@@ -1044,7 +1044,7 @@
 
     .line 84
     .line 85
-    const-string v1, "SELECT _id, mime_type, artist, album_id, track_id, duration, album, title, title AS text1, artist AS text2, NULL AS data1, NULL AS data2, cp_attrs, artist||\' \'||album||\' \'||title AS match, \'content://content://com.qidian.QDReader/external/audio/media/\'||_id AS suggest_intent_data, 3 AS group_order FROM (SELECT * FROM audio ORDER BY title  COLLATE LOCALIZED ) AS audio WHERE (title != \'\') AND (cp_attrs & 1)"
+    const-string v1, "SELECT _id, mime_type, artist, album_id, track_id, duration, album, title, title AS text1, artist AS text2, NULL AS data1, NULL AS data2, cp_attrs, artist||\' \'||album||\' \'||title AS match, \'content://content://com.luna.music.car/external/audio/media/\'||_id AS suggest_intent_data, 3 AS group_order FROM (SELECT * FROM audio ORDER BY title  COLLATE LOCALIZED ) AS audio WHERE (title != \'\') AND (cp_attrs & 1)"
 
     .line 86
     .line 87
@@ -1065,7 +1065,7 @@
 
     .line 94
     :cond_2
-    const-string v1, "SELECT _id, \'album\' AS mime_type, artist, _id AS album_id, track_id,  NULL AS duration, album, NULL AS title, album AS text1, artist AS text2, numsongs AS data1, NULL AS data2, album_cp_attrs AS cp_attrs, artist||\' \'||album AS match, \'content://content://com.qidian.QDReader/audio/albums/\'||_id AS suggest_intent_data, 2 AS group_order FROM (SELECT * FROM (SELECT audio.album_id AS _id, track_id, source_album_id, album, album_unique_key, album_cp_attrs, MIN(year) AS minyear, MAX(year) AS maxyear, MAX(CASE WHEN year_name IS \'<unknown>\' THEN null ELSE year_name END) AS year_name, artist, album_artist, music_album_artist, artist_id, count(distinct(artist)) AS artist_count, bucket_id, count(*) AS numsongs, thumbnails.image_data AS album_art, MAX(date_modified) AS recently_added, MIN(substr(\'0000\'||ifnull(track, 9999), -4) || \'_\' || title  COLLATE LOCALIZED ) AS order_dummy FROM audio LEFT OUTER JOIN thumbnails ON audio.album_id=thumbnails.thumbnail_id WHERE cp_attrs & 1 GROUP BY audio.album_id) AS music_album_info ORDER BY album  COLLATE LOCALIZED ) AS music_album_info WHERE album!=\'<unknown>\'"
+    const-string v1, "SELECT _id, \'album\' AS mime_type, artist, _id AS album_id, track_id,  NULL AS duration, album, NULL AS title, album AS text1, artist AS text2, numsongs AS data1, NULL AS data2, album_cp_attrs AS cp_attrs, artist||\' \'||album AS match, \'content://content://com.luna.music.car/audio/albums/\'||_id AS suggest_intent_data, 2 AS group_order FROM (SELECT * FROM (SELECT audio.album_id AS _id, track_id, source_album_id, album, album_unique_key, album_cp_attrs, MIN(year) AS minyear, MAX(year) AS maxyear, MAX(CASE WHEN year_name IS \'<unknown>\' THEN null ELSE year_name END) AS year_name, artist, album_artist, music_album_artist, artist_id, count(distinct(artist)) AS artist_count, bucket_id, count(*) AS numsongs, thumbnails.image_data AS album_art, MAX(date_modified) AS recently_added, MIN(substr(\'0000\'||ifnull(track, 9999), -4) || \'_\' || title  COLLATE LOCALIZED ) AS order_dummy FROM audio LEFT OUTER JOIN thumbnails ON audio.album_id=thumbnails.thumbnail_id WHERE cp_attrs & 1 GROUP BY audio.album_id) AS music_album_info ORDER BY album  COLLATE LOCALIZED ) AS music_album_info WHERE album!=\'<unknown>\'"
 
     .line 95
     .line 96
@@ -1073,7 +1073,7 @@
 
     .line 97
     :cond_3
-    const-string v1, "SELECT _id, \'artist\' AS mime_type, artist, album_id, track_id, NULL AS duration, NULL AS album, NULL AS title, artist AS text1, NULL AS text2, number_of_albums AS data1, number_of_tracks AS data2, artist_cp_attrs AS cp_attrs, artist AS match, \'content://content://com.qidian.QDReader/audio/artists/\'||_id AS suggest_intent_data, 1 AS group_order FROM (SELECT * FROM ((SELECT artist_id AS _id, source_artist_id, artist, artist_cp_attrs, COUNT(*) AS number_of_tracks, COUNT(DISTINCT album_id) AS number_of_albums, is_multiple_artist, album_id, track_id, max(most_played) AS total_most_played, max(date_modified) AS recently_added, min(album || \'_\' || substr(\'00000000\'||ifnull(album_id, 0), -8) || \'_\' || substr(\'0000\'||ifnull(track, 9999), -4) || \'_\' || title  COLLATE LOCALIZED ) AS dummy FROM audio WHERE cp_attrs & 1 GROUP BY artist_id) AS music_artist_info) ORDER BY artist  COLLATE LOCALIZED ) AS music_artist_info WHERE artist!=\'<unknown>\'"
+    const-string v1, "SELECT _id, \'artist\' AS mime_type, artist, album_id, track_id, NULL AS duration, NULL AS album, NULL AS title, artist AS text1, NULL AS text2, number_of_albums AS data1, number_of_tracks AS data2, artist_cp_attrs AS cp_attrs, artist AS match, \'content://content://com.luna.music.car/audio/artists/\'||_id AS suggest_intent_data, 1 AS group_order FROM (SELECT * FROM ((SELECT artist_id AS _id, source_artist_id, artist, artist_cp_attrs, COUNT(*) AS number_of_tracks, COUNT(DISTINCT album_id) AS number_of_albums, is_multiple_artist, album_id, track_id, max(most_played) AS total_most_played, max(date_modified) AS recently_added, min(album || \'_\' || substr(\'00000000\'||ifnull(album_id, 0), -8) || \'_\' || substr(\'0000\'||ifnull(track, 9999), -4) || \'_\' || title  COLLATE LOCALIZED ) AS dummy FROM audio WHERE cp_attrs & 1 GROUP BY artist_id) AS music_artist_info) ORDER BY artist  COLLATE LOCALIZED ) AS music_artist_info WHERE artist!=\'<unknown>\'"
 
     .line 98
     .line 99
@@ -1449,7 +1449,7 @@
     move-result-object v8
 
     .line 277
-    const-string v14, "(SELECT _id, \'artist\' AS mime_type, artist, album_id, track_id, NULL AS duration, NULL AS album, NULL AS title, artist AS text1, NULL AS text2, number_of_albums AS data1, number_of_tracks AS data2, artist_cp_attrs AS cp_attrs, artist AS match, \'content://content://com.qidian.QDReader/audio/artists/\'||_id AS suggest_intent_data, 1 AS group_order FROM (SELECT * FROM ((SELECT artist_id AS _id, source_artist_id, artist, artist_cp_attrs, COUNT(*) AS number_of_tracks, COUNT(DISTINCT album_id) AS number_of_albums, is_multiple_artist, album_id, track_id, max(most_played) AS total_most_played, max(date_modified) AS recently_added, min(album || \'_\' || substr(\'00000000\'||ifnull(album_id, 0), -8) || \'_\' || substr(\'0000\'||ifnull(track, 9999), -4) || \'_\' || title  COLLATE LOCALIZED ) AS dummy FROM audio WHERE cp_attrs & 1 GROUP BY artist_id) AS music_artist_info) ORDER BY artist  COLLATE LOCALIZED ) AS music_artist_info WHERE artist!=\'<unknown>\') AS search_artist"
+    const-string v14, "(SELECT _id, \'artist\' AS mime_type, artist, album_id, track_id, NULL AS duration, NULL AS album, NULL AS title, artist AS text1, NULL AS text2, number_of_albums AS data1, number_of_tracks AS data2, artist_cp_attrs AS cp_attrs, artist AS match, \'content://content://com.luna.music.car/audio/artists/\'||_id AS suggest_intent_data, 1 AS group_order FROM (SELECT * FROM ((SELECT artist_id AS _id, source_artist_id, artist, artist_cp_attrs, COUNT(*) AS number_of_tracks, COUNT(DISTINCT album_id) AS number_of_albums, is_multiple_artist, album_id, track_id, max(most_played) AS total_most_played, max(date_modified) AS recently_added, min(album || \'_\' || substr(\'00000000\'||ifnull(album_id, 0), -8) || \'_\' || substr(\'0000\'||ifnull(track, 9999), -4) || \'_\' || title  COLLATE LOCALIZED ) AS dummy FROM audio WHERE cp_attrs & 1 GROUP BY artist_id) AS music_artist_info) ORDER BY artist  COLLATE LOCALIZED ) AS music_artist_info WHERE artist!=\'<unknown>\') AS search_artist"
 
     .line 278
     .line 279
@@ -1470,7 +1470,7 @@
     move-result-object v12
 
     .line 288
-    const-string v14, "(SELECT _id, \'album\' AS mime_type, artist, _id AS album_id, track_id,  NULL AS duration, album, NULL AS title, album AS text1, artist AS text2, numsongs AS data1, NULL AS data2, album_cp_attrs AS cp_attrs, artist||\' \'||album AS match, \'content://content://com.qidian.QDReader/audio/albums/\'||_id AS suggest_intent_data, 2 AS group_order FROM (SELECT * FROM (SELECT audio.album_id AS _id, track_id, source_album_id, album, album_unique_key, album_cp_attrs, MIN(year) AS minyear, MAX(year) AS maxyear, MAX(CASE WHEN year_name IS \'<unknown>\' THEN null ELSE year_name END) AS year_name, artist, album_artist, music_album_artist, artist_id, count(distinct(artist)) AS artist_count, bucket_id, count(*) AS numsongs, thumbnails.image_data AS album_art, MAX(date_modified) AS recently_added, MIN(substr(\'0000\'||ifnull(track, 9999), -4) || \'_\' || title  COLLATE LOCALIZED ) AS order_dummy FROM audio LEFT OUTER JOIN thumbnails ON audio.album_id=thumbnails.thumbnail_id WHERE cp_attrs & 1 GROUP BY audio.album_id) AS music_album_info ORDER BY album  COLLATE LOCALIZED ) AS music_album_info WHERE album!=\'<unknown>\') AS search_album"
+    const-string v14, "(SELECT _id, \'album\' AS mime_type, artist, _id AS album_id, track_id,  NULL AS duration, album, NULL AS title, album AS text1, artist AS text2, numsongs AS data1, NULL AS data2, album_cp_attrs AS cp_attrs, artist||\' \'||album AS match, \'content://content://com.luna.music.car/audio/albums/\'||_id AS suggest_intent_data, 2 AS group_order FROM (SELECT * FROM (SELECT audio.album_id AS _id, track_id, source_album_id, album, album_unique_key, album_cp_attrs, MIN(year) AS minyear, MAX(year) AS maxyear, MAX(CASE WHEN year_name IS \'<unknown>\' THEN null ELSE year_name END) AS year_name, artist, album_artist, music_album_artist, artist_id, count(distinct(artist)) AS artist_count, bucket_id, count(*) AS numsongs, thumbnails.image_data AS album_art, MAX(date_modified) AS recently_added, MIN(substr(\'0000\'||ifnull(track, 9999), -4) || \'_\' || title  COLLATE LOCALIZED ) AS order_dummy FROM audio LEFT OUTER JOIN thumbnails ON audio.album_id=thumbnails.thumbnail_id WHERE cp_attrs & 1 GROUP BY audio.album_id) AS music_album_info ORDER BY album  COLLATE LOCALIZED ) AS music_album_info WHERE album!=\'<unknown>\') AS search_album"
 
     .line 289
     .line 290
@@ -1491,7 +1491,7 @@
     move-result-object v7
 
     .line 299
-    const-string v14, "(SELECT _id, mime_type, artist, album_id, track_id, duration, album, title, title AS text1, artist AS text2, NULL AS data1, NULL AS data2, cp_attrs, artist||\' \'||album||\' \'||title AS match, \'content://content://com.qidian.QDReader/external/audio/media/\'||_id AS suggest_intent_data, 3 AS group_order FROM (SELECT * FROM audio ORDER BY title  COLLATE LOCALIZED ) AS audio WHERE (title != \'\') AND (cp_attrs & 1)) AS search_track"
+    const-string v14, "(SELECT _id, mime_type, artist, album_id, track_id, duration, album, title, title AS text1, artist AS text2, NULL AS data1, NULL AS data2, cp_attrs, artist||\' \'||album||\' \'||title AS match, \'content://content://com.luna.music.car/external/audio/media/\'||_id AS suggest_intent_data, 3 AS group_order FROM (SELECT * FROM audio ORDER BY title  COLLATE LOCALIZED ) AS audio WHERE (title != \'\') AND (cp_attrs & 1)) AS search_track"
 
     .line 300
     .line 301

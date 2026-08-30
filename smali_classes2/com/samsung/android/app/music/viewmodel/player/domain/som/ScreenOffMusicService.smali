@@ -1074,7 +1074,7 @@
 
     .line 2
     .line 3
-    const-string v1, "com.qidian.QDReader.intent.action.NOTIFY_SCREEN_OFF_MUSIC"
+    const-string v1, "com.luna.music.car.intent.action.NOTIFY_SCREEN_OFF_MUSIC"
 
     .line 4
     .line 5

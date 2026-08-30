@@ -438,7 +438,7 @@
     sget-object v0, Lcom/samsung/android/app/musiclibrary/ui/provider/m;->a:Landroid/net/Uri;
 
     .line 91
-    const-string v0, "content://com.qidian.QDReader/audio/media/music_folders_info"
+    const-string v0, "content://com.luna.music.car/audio/media/music_folders_info"
 
     invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
@@ -500,7 +500,7 @@
     sget-object v0, Lcom/samsung/android/app/musiclibrary/ui/provider/l;->a:Landroid/net/Uri;
 
     .line 101
-    const-string v0, "content://com.qidian.QDReader/audio/media/music_folders_tree"
+    const-string v0, "content://com.luna.music.car/audio/media/music_folders_tree"
 
     invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
@@ -743,7 +743,7 @@
     sget-object p2, Lcom/samsung/android/app/musiclibrary/ui/provider/r;->a:Landroid/net/Uri;
 
     .line 147
-    const-string p2, "content://com.qidian.QDReader/audio/search/integrated"
+    const-string p2, "content://com.luna.music.car/audio/search/integrated"
 
     invoke-static {p2}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
@@ -778,7 +778,7 @@
     .line 150
     new-instance v0, Ljava/lang/StringBuilder;
 
-    const-string v2, "content://com.qidian.QDReader/audio/search/detail/"
+    const-string v2, "content://com.luna.music.car/audio/search/detail/"
 
     invoke-direct {v0, v2}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
 

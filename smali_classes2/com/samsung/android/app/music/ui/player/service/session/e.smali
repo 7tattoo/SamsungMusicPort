@@ -695,7 +695,7 @@
 
     .line 217
     .line 218
-    const-string v6, "com.qidian.QDReader.EXTRA_SHUFFLE"
+    const-string v6, "com.luna.music.car.EXTRA_SHUFFLE"
 
     .line 219
     .line 220
@@ -716,7 +716,7 @@
     .line 227
     .line 228
     .line 229
-    const-string v4, "com.qidian.QDReader.EXTRA_REPEAT"
+    const-string v4, "com.luna.music.car.EXTRA_REPEAT"
 
     .line 230
     .line 231
@@ -765,7 +765,7 @@
 
     .line 253
     # growcar-lrc: 车载/后台 MediaSession 更新 extras 前注入歌词(含 vivomusicmix)
-    invoke-static {v4, v5}, Lcom/qidian/QDReader/CarLyricsBridge;->injectExtras(Landroid/os/Bundle;Landroid/media/session/MediaSession;)V
+    invoke-static {v4, v5}, Lcom/luna/music/car/CarLyricsBridge;->injectExtras(Landroid/os/Bundle;Landroid/media/session/MediaSession;)V
     .line 254
     invoke-virtual {v5, v4}, Landroid/media/session/MediaSession;->setExtras(Landroid/os/Bundle;)V
 

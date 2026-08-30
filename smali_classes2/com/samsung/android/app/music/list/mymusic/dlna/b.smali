@@ -786,7 +786,7 @@
     .line 129
     .line 130
     .line 131
-    const-string v0, "com.qidian.QDReader.dlna.connectivitychanged"
+    const-string v0, "com.luna.music.car.dlna.connectivitychanged"
 
     .line 132
     .line 133
@@ -1066,7 +1066,7 @@
     .line 7
     .line 8
     .line 9
-    const-string v1, "com.qidian.QDReader.dlna.flat.searching.info"
+    const-string v1, "com.luna.music.car.dlna.flat.searching.info"
 
     .line 10
     .line 11
@@ -1075,7 +1075,7 @@
     .line 12
     .line 13
     .line 14
-    const-string v1, "com.qidian.QDReader.dlna.flat.searching.error"
+    const-string v1, "com.luna.music.car.dlna.flat.searching.error"
 
     .line 15
     .line 16

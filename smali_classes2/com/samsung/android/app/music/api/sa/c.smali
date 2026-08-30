@@ -20,7 +20,7 @@
 
     .line 6
     :cond_0
-    const-string p3, "com.qidian.QDReader"
+    const-string p3, "com.luna.music.car"
 
     .line 7
     .line 8

@@ -3095,7 +3095,7 @@
     const/4 v3, -0x1
 
     .line 55
-    const-string v4, "com.qidian.QDReader.dlna.servicecreated"
+    const-string v4, "com.luna.music.car.dlna.servicecreated"
 
     .line 56
     .line 57
@@ -3200,7 +3200,7 @@
     const/4 v4, -0x1
 
     .line 33
-    const-string v5, "com.qidian.QDReader.dlna.servicedeleted"
+    const-string v5, "com.luna.music.car.dlna.servicedeleted"
 
     .line 34
     .line 35

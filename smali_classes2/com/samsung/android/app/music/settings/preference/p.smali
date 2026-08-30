@@ -844,7 +844,7 @@
     .line 94
     .line 95
     .line 96
-    const-string v0, "content://com.qidian.QDReader/sync/local/update"
+    const-string v0, "content://com.luna.music.car/sync/local/update"
 
     .line 97
     .line 98

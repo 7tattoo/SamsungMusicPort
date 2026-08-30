@@ -292,7 +292,7 @@
     .line 86
     .line 87
     .line 88
-    const-string v2, "com.qidian.QDReader.intent.action.LAUNCH_MUSIC"
+    const-string v2, "com.luna.music.car.intent.action.LAUNCH_MUSIC"
 
     .line 89
     .line 90
@@ -310,7 +310,7 @@
     .line 96
     .line 97
     .line 98
-    const-string v2, "com.qidian.QDReader"
+    const-string v2, "com.luna.music.car"
 
     .line 99
     .line 100

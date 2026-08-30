@@ -1099,7 +1099,7 @@
 
     .line 402
     .line 403
-    const-string p1, "content://com.qidian.QDReader/audio/media/favorites/reset_badge"
+    const-string p1, "content://com.luna.music.car/audio/media/favorites/reset_badge"
 
     .line 404
     .line 405

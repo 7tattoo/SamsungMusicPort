@@ -17,7 +17,7 @@
     .locals 1
 
     .line 1
-    const-string v0, "content://com.qidian.QDReader/audio/playlists_meta"
+    const-string v0, "content://com.luna.music.car/audio/playlists_meta"
 
     .line 2
     .line 3
@@ -33,7 +33,7 @@
 
     .line 8
     .line 9
-    const-string v0, "content://com.qidian.QDReader/audio/playlists_meta/cardview"
+    const-string v0, "content://com.luna.music.car/audio/playlists_meta/cardview"
 
     .line 10
     .line 11

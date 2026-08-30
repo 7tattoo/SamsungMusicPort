@@ -1101,7 +1101,7 @@
     move-result-object p1
 
     .line 133
-    const-string p2, "content://com.qidian.QDReader/audio"
+    const-string p2, "content://com.luna.music.car/audio"
 
     .line 134
     .line 135

@@ -567,7 +567,7 @@
 
     .line 95
     .line 96
-    const-string v15, "content://com.qidian.QDReader/"
+    const-string v15, "content://com.luna.music.car/"
 
     .line 97
     .line 98
@@ -611,7 +611,7 @@
 
     .line 117
     .line 118
-    const-string v20, "content://com.qidian.QDReader/audio"
+    const-string v20, "content://com.luna.music.car/audio"
 
     .line 119
     .line 120

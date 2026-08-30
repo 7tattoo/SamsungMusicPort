@@ -35,7 +35,7 @@
     .line 5
     .line 6
     .line 7
-    const-string v1, "com.qidian.QDReader"
+    const-string v1, "com.luna.music.car"
 
     .line 8
     .line 9

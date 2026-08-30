@@ -19,7 +19,7 @@
     .locals 2
 
     .line 1
-    const-string v0, "content://com.qidian.QDReader/audio/playlists"
+    const-string v0, "content://com.luna.music.car/audio/playlists"
 
     .line 2
     .line 3
@@ -67,7 +67,7 @@
 
     .line 24
     .line 25
-    const-string v0, "content://com.qidian.QDReader/audio/playlists/multiple_members"
+    const-string v0, "content://com.luna.music.car/audio/playlists/multiple_members"
 
     .line 26
     .line 27
@@ -94,7 +94,7 @@
 
     .line 2
     .line 3
-    const-string v1, "content://com.qidian.QDReader/audio/playlists/cover_image/"
+    const-string v1, "content://com.luna.music.car/audio/playlists/cover_image/"
 
     .line 4
     .line 5

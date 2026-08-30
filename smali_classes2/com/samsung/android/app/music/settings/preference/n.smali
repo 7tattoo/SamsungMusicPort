@@ -355,7 +355,7 @@
 
     .line 4
     .line 5
-    const-string v2, "content://com.qidian.QDReader/"
+    const-string v2, "content://com.luna.music.car/"
 
     .line 6
     .line 7

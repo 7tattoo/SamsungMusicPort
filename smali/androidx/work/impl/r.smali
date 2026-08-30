@@ -2422,7 +2422,7 @@
     .line 433
     .line 434
     .line 435
-    const-string v2, "com.qidian.QDReader.intent.action.LAUNCH_MUSIC"
+    const-string v2, "com.luna.music.car.intent.action.LAUNCH_MUSIC"
 
     .line 436
     .line 437
@@ -2440,7 +2440,7 @@
     .line 443
     .line 444
     .line 445
-    const-string v2, "com.qidian.QDReader"
+    const-string v2, "com.luna.music.car"
 
     .line 446
     .line 447

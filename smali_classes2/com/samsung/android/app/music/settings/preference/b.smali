@@ -52,13 +52,13 @@
 
     move-result-object p1
 
-    const-string v0, "com.qidian.QDReader.KEP_APP_UPDATE_TICKET"
+    const-string v0, "com.luna.music.car.KEP_APP_UPDATE_TICKET"
 
     const/4 v2, 0x0
 
     invoke-interface {p1, v0, v2}, Landroid/content/SharedPreferences$Editor;->putBoolean(Ljava/lang/String;Z)Landroid/content/SharedPreferences$Editor;
 
-    const-string v0, "com.qidian.QDReader.KEP_APP_UPDATE_CARD_NO_MORE_SEE"
+    const-string v0, "com.luna.music.car.KEP_APP_UPDATE_CARD_NO_MORE_SEE"
 
     const/4 v2, 0x1
 

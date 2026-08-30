@@ -3999,7 +3999,7 @@
     const/4 v0, 0x2
 
     .line 47
-    const-string v1, "com.qidian.QDReader.dlna.connectivitychanged"
+    const-string v1, "com.luna.music.car.dlna.connectivitychanged"
 
     .line 48
     .line 49
@@ -4113,7 +4113,7 @@
     const/4 v0, 0x3
 
     .line 52
-    const-string v1, "com.qidian.QDReader.dlna.connectivitychanged"
+    const-string v1, "com.luna.music.car.dlna.connectivitychanged"
 
     .line 53
     .line 54

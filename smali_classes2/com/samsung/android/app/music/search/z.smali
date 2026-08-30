@@ -469,7 +469,7 @@
     .line 23
     .line 24
     .line 25
-    const-string v4, "com.qidian.QDReader.KEY_APP_UPDATE_BADGE"
+    const-string v4, "com.luna.music.car.KEY_APP_UPDATE_BADGE"
 
     .line 26
     .line 27

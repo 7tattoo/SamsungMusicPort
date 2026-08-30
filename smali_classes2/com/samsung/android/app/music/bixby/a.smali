@@ -121,7 +121,7 @@
     .line 11
     .line 12
     .line 13
-    const-string v1, "com.qidian.QDReader"
+    const-string v1, "com.luna.music.car"
 
     .line 14
     .line 15
@@ -229,7 +229,7 @@
     .line 4
     .line 5
     .line 6
-    const-string v1, "com.qidian.QDReader.intent.action.LAUNCH_MUSIC"
+    const-string v1, "com.luna.music.car.intent.action.LAUNCH_MUSIC"
 
     .line 7
     .line 8
@@ -247,7 +247,7 @@
     .line 14
     .line 15
     .line 16
-    const-string v1, "com.qidian.QDReader"
+    const-string v1, "com.luna.music.car"
 
     .line 17
     .line 18
@@ -1679,7 +1679,7 @@
 
     .line 637
     .line 638
-    const-string v0, "com.qidian.QDReader.intent.action.LAUNCH_DETAIL_LIST"
+    const-string v0, "com.luna.music.car.intent.action.LAUNCH_DETAIL_LIST"
 
     .line 639
     .line 640
@@ -1688,7 +1688,7 @@
     .line 641
     .line 642
     .line 643
-    const-string v0, "com.qidian.QDReader"
+    const-string v0, "com.luna.music.car"
 
     .line 644
     .line 645
