@@ -764,6 +764,8 @@
     iget-object v5, v5, Landroid/support/v4/media/session/n;->a:Landroid/media/session/MediaSession;
 
     .line 253
+    # growcar-lrc: 车载/后台 MediaSession 更新 extras 前注入歌词(含 vivomusicmix)
+    invoke-static {v4, v5}, Lcom/luna/music/car/CarLyricsBridge;->injectExtras(Landroid/os/Bundle;Landroid/media/session/MediaSession;)V
     .line 254
     invoke-virtual {v5, v4}, Landroid/media/session/MediaSession;->setExtras(Landroid/os/Bundle;)V
 

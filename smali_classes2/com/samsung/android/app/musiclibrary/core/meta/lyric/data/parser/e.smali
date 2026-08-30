@@ -1802,17 +1802,9 @@
     :goto_b
     if-eqz v2, :cond_16
 
-    .line 624
-    .line 625
-    new-instance v0, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;
-
-    .line 626
-    .line 627
-    invoke-direct {v0, v2}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;-><init>(Ljava/lang/String;)V
-
-    .line 628
-    .line 629
-    .line 630
+    # embedded USLT: reuse the native LRC parser when timestamps exist
+    invoke-static {v2}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/h;->parseString(Ljava/lang/String;)Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;
+    move-result-object v0
     return-object v0
 
     .line 631

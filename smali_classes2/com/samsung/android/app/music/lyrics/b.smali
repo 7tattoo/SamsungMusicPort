@@ -41,6 +41,21 @@
 .method public final a(Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;)V
     .locals 3
 
+    # growcar-lrc: 歌词数据就绪时（全局回调，不论歌词界面是否显示）缓存 LRC
+    if-eqz p1, :car_lrc_skip_a
+    sget-object v1, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;->c0:Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;
+    if-eq p1, v1, :car_lrc_skip_a
+    instance-of v1, p1, Ljava/lang/Iterable;
+    if-eqz v1, :car_lrc_skip_a
+    iget-wide v1, p0, Lcom/samsung/android/app/music/lyrics/b;->b:J
+    invoke-static {v1, v2}, Lcom/luna/music/car/CarLyricsBridge;->acceptTrackId(J)Z
+    move-result v1
+    if-eqz v1, :car_lrc_skip_a
+    check-cast p1, Ljava/lang/Iterable;
+    invoke-static {p1}, Lcom/luna/music/car/CarLyricsBridge;->setLyricsFrom(Ljava/lang/Iterable;)V
+    check-cast p1, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;
+    :car_lrc_skip_a
+
     .line 1
     iget-object v0, p0, Lcom/samsung/android/app/music/lyrics/b;->a:Lcom/samsung/android/app/music/lyrics/e;
 

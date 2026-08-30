@@ -1309,17 +1309,9 @@
     :goto_8
     if-eqz v9, :cond_10
 
-    .line 376
-    .line 377
-    new-instance v0, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;
-
-    .line 378
-    .line 379
-    invoke-direct {v0, v9}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;-><init>(Ljava/lang/String;)V
-
-    .line 380
-    .line 381
-    .line 382
+    # embedded ULT: reuse the native LRC parser when timestamps exist
+    invoke-static {v9}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/h;->parseString(Ljava/lang/String;)Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;
+    move-result-object v0
     return-object v0
 
     .line 383

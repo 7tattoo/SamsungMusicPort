@@ -684,14 +684,8 @@
 
     .line 223
     :cond_9
-    new-instance v0, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;
-
-    .line 224
-    .line 225
-    invoke-direct {v0, v1}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;-><init>(Ljava/lang/String;)V
-
-    .line 226
-    .line 227
-    .line 228
+    # embedded M4A ©lyr: reuse the native LRC parser when timestamps exist
+    invoke-static {v1}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/h;->parseString(Ljava/lang/String;)Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;
+    move-result-object v0
     return-object v0
 .end method

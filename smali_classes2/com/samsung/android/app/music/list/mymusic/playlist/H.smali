@@ -540,39 +540,42 @@
 
     .line 245
     :pswitch_a
-    sget-object v0, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/i;->d:Ljava/lang/Class;
-
+    # External LRC file parser (parser/f)
+    move-object v0, v3
+    
     .line 246
+    # ID3v2 USLT parser (parser/e)
+    sget-object v1, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/i;->b:Ljava/lang/Class;
+
     .line 247
-    sget-object v1, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/i;->e:Ljava/lang/Class;
+    # ID3v2 ULT parser (parser/d)
+    sget-object v2, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/i;->c:Ljava/lang/Class;
 
     .line 248
+    # MP4 ©lyr parser (parser/m)
+    sget-object v3, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/i;->d:Ljava/lang/Class;
+
     .line 249
-    sget-object v2, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/i;->b:Ljava/lang/Class;
+    # APE LYRICS= parser (parser/a)
+    sget-object v4, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/i;->e:Ljava/lang/Class;
 
     .line 250
+    # FLAC Vorbis comment parser
+    const-class v5, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/FlacParser;
+
     .line 251
-    sget-object v4, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/i;->c:Ljava/lang/Class;
+    filled-new-array/range {v0 .. v5}, [Ljava/lang/Class;
 
     .line 252
-    .line 253
-    filled-new-array {v3, v2, v4, v0, v1}, [Ljava/lang/Class;
-
-    .line 254
-    .line 255
-    .line 256
     move-result-object v0
 
-    .line 257
+    .line 253
     new-instance v1, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/j;
 
-    .line 258
-    .line 259
+    .line 254
     invoke-direct {v1, v7, v0}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/j;-><init>(Landroid/content/Context;[Ljava/lang/Class;)V
 
-    .line 260
-    .line 261
-    .line 262
+    .line 255
     return-object v1
 
     .line 263

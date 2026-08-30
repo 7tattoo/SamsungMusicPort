@@ -198,17 +198,15 @@
     if-eqz v0, :cond_0
 
     .line 15
+    # Parse LRC timestamps into timed lyric object (same as v27 MP3/M4A fix)
+    invoke-static {v0}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/h;->parseString(Ljava/lang/String;)Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;
+
     .line 16
-    new-instance v1, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;
-
     .line 17
-    .line 18
-    invoke-direct {v1, v0}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;-><init>(Ljava/lang/String;)V
+    move-result-object v0
 
-    .line 19
-    .line 20
-    .line 21
-    return-object v1
+    .line 18
+    return-object v0
 
     .line 22
     :cond_0

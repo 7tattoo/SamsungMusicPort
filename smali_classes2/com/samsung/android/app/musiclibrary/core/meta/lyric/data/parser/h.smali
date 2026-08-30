@@ -694,6 +694,56 @@
     return v2
 .end method
 
+.method public static parseString(Ljava/lang/String;)Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;
+    .locals 5
+
+    if-nez p0, :parse_string_start
+    sget-object p0, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;->c0:Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;
+    return-object p0
+
+    :parse_string_start
+    :try_start_parse_string
+    const-string v3, "\\[([0-9]{2}):([0-9]{2}):([0-9]{1,3})\\]"
+    const-string v4, "[$1:$2.$3]"
+    invoke-virtual {p0, v3, v4}, Ljava/lang/String;->replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    move-result-object p0
+    const-string v3, "\\[([0-9]{2}):([0-9]{2})\\]"
+    const-string v4, "[$1:$2.00]"
+    invoke-virtual {p0, v3, v4}, Ljava/lang/String;->replaceAll(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    move-result-object p0
+
+    new-instance v0, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/h;
+    invoke-direct {v0}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/h;-><init>()V
+
+    new-instance v1, Ljava/io/BufferedReader;
+    new-instance v2, Ljava/io/StringReader;
+    invoke-direct {v2, p0}, Ljava/io/StringReader;-><init>(Ljava/lang/String;)V
+    invoke-direct {v1, v2}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
+    iput-object v1, v0, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/h;->i:Ljava/io/BufferedReader;
+
+    invoke-virtual {v0}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/h;->e()Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;
+    move-result-object v1
+    invoke-virtual {v0}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/parser/h;->b()V
+
+    invoke-interface {v1}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;->getCount()I
+    move-result v2
+    if-lez v2, :parse_string_plain
+    return-object v1
+
+    :parse_string_plain
+    new-instance v2, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;
+    invoke-direct {v2, p0}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;-><init>(Ljava/lang/String;)V
+    return-object v2
+    :try_end_parse_string
+    .catchall {:try_start_parse_string .. :try_end_parse_string} :catch_parse_string
+
+    :catch_parse_string
+    move-exception v0
+    new-instance v1, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;
+    invoke-direct {v1, p0}, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/f;-><init>(Ljava/lang/String;)V
+    return-object v1
+.end method
+
 .method public final e()Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;
     .locals 13
 

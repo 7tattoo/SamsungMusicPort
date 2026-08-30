@@ -1129,6 +1129,8 @@
 
     # growcar-lrc: 歌词就绪时缓存 LRC 供车载双通道使用
     if-eqz p1, :car_lrc_skip
+    instance-of v1, p1, Ljava/lang/Iterable;
+    if-eqz v1, :car_lrc_skip
     check-cast p1, Ljava/lang/Iterable;
     invoke-static {p1}, Lcom/luna/music/car/CarLyricsBridge;->setLyricsFrom(Ljava/lang/Iterable;)V
     check-cast p1, Lcom/samsung/android/app/musiclibrary/core/meta/lyric/data/c;

@@ -2593,7 +2593,13 @@
 
     .line 119
     :goto_4
+    # growcar-lrc: 先清理旧曲歌词，再发布当前歌曲 metadata
+    invoke-virtual {v2}, Lcom/samsung/android/app/music/repository/model/player/music/Music;->getMediaId()J
+    move-result-wide v6
+    invoke-static {v6, v7}, Lcom/luna/music/car/CarLyricsBridge;->setTrackId(J)V
+
     check-cast p3, Landroid/support/v4/media/MediaMetadataCompat;
+    invoke-static {p3}, Lcom/luna/music/car/CarLyricsBridge;->applyCompat(Landroid/support/v4/media/MediaMetadataCompat;)Landroid/support/v4/media/MediaMetadataCompat;
 
     .line 120
     .line 121
@@ -2612,6 +2618,11 @@
     .line 128
     .line 129
     iget-wide p2, p1, Lcom/samsung/android/app/music/repository/model/player/queue/d;->a:J
+
+    # growcar-lrc: 使用 Music.mediaId（不是 queue item 主键）锁定当前曲目
+    invoke-virtual {v2}, Lcom/samsung/android/app/music/repository/model/player/music/Music;->getMediaId()J
+    move-result-wide v6
+    invoke-static {v6, v7}, Lcom/luna/music/car/CarLyricsBridge;->setTrackId(J)V
 
     .line 130
     .line 131
@@ -2637,6 +2648,19 @@
     .line 141
     .line 142
     invoke-virtual {v8, p2}, Landroid/support/v4/media/session/s;->Q(Landroid/support/v4/media/session/PlaybackStateCompat;)V
+
+    # growcar-lrc: 车载后台切歌后主动走 Samsung 原生歌词查询链
+    invoke-virtual {v2}, Lcom/samsung/android/app/music/repository/model/player/music/Music;->getMediaId()J
+    move-result-wide p2
+    invoke-static {p2, p3}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
+    move-result-object p2
+    new-instance v0, Landroid/os/Bundle;
+    invoke-direct {v0}, Landroid/os/Bundle;-><init>()V
+    const-string p3, "com.samsung.android.servicebox.mediasession.extra.MEDIA_ID"
+    invoke-virtual {v0, p3, p2}, Landroid/os/BaseBundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
+    const-string p3, "com.samsung.android.servicebox.mediasession.action.REQUEST_LYRIC"
+    iget-object p2, v1, Lcom/samsung/android/app/music/ui/player/service/session/i;->b:Lcom/samsung/android/app/music/ui/player/service/session/p;
+    invoke-virtual {p2, p3, v0}, Lcom/samsung/android/app/music/ui/player/service/session/p;->h(Ljava/lang/String;Landroid/os/Bundle;)V
 
     .line 143
     .line 144
