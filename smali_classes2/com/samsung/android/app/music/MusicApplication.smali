@@ -170,7 +170,7 @@
     .locals 8
 
     # growcar-lrc: 初始化车载歌词桥接（读取设置开关）
-    invoke-static {p0}, Lcom/qidian/QDReader/CarLyricsBridge;->init(Landroid/content/Context;)V
+    invoke-static {p0}, Lcom/luna/music/car/DynamicLoader;->init(Landroid/content/Context;)V
 
     invoke-static {p0}, Lme/ayra/crash/AyraCrash;->install(Landroid/app/Application;)V
 
