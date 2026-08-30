@@ -14,6 +14,8 @@ public class QueueInjector {
                     .getDeclaredField("sCarSession").get(null);
             
             if (session != null) {
+                CarLogger.log(context, "QueueInjector: Injecting via TransportControls. URL=" + url);
+                
                 // 构造 Metadata
                 MediaMetadata.Builder builder = new MediaMetadata.Builder();
                 builder.putString(MediaMetadata.METADATA_KEY_MEDIA_ID, String.valueOf(System.currentTimeMillis()));
@@ -31,8 +33,12 @@ public class QueueInjector {
                 
                 // 触发播放控制
                 session.getController().getTransportControls().playFromUri(android.net.Uri.parse(url), null);
+                CarLogger.log(context, "QueueInjector: playFromUri invoked");
+            } else {
+                CarLogger.log(context, "QueueInjector: session is null, injection failed");
             }
         } catch (Exception e) {
+            CarLogger.log(context, "QueueInjector error: " + e.getMessage());
             e.printStackTrace();
         }
     }
