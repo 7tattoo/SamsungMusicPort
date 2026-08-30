@@ -177,8 +177,8 @@ public final class NeteaseTestActivity extends Activity {
                                 status.setText("无可用播放地址（版权或会员限制）");
                                 return;
                             }
-                            PlayIntentHelper.playNow(NeteaseTestActivity.this, url, title, artist);
-                            status.setText("已发送到 Samsung Music 播放");
+                            QueueInjector.injectAndPlay(NeteaseTestActivity.this, url, title, artist);
+                            status.setText("已注入 Samsung Music 队列");
                         }
                     });
                 } catch (final Exception error) {

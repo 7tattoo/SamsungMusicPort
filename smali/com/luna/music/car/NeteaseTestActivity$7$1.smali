@@ -99,7 +99,7 @@
 
     iget-object v3, v3, Lcom/luna/music/car/NeteaseTestActivity$7;->val$artist:Ljava/lang/String;
 
-    invoke-static {v0, v1, v2, v3}, Lcom/luna/music/car/PlayIntentHelper;->playNow(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    invoke-static {v0, v1, v2, v3}, Lcom/luna/music/car/QueueInjector;->injectAndPlay(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 
     .line 181
     iget-object v0, p0, Lcom/luna/music/car/NeteaseTestActivity$7$1;->this$1:Lcom/luna/music/car/NeteaseTestActivity$7;
@@ -110,7 +110,7 @@
 
     move-result-object v0
 
-    const-string v1, "\u5df2\u53d1\u9001\u5230 Samsung Music \u64ad\u653e"
+    const-string v1, "\u5df2\u6ce8\u5165 Samsung Music \u961f\u5217"
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
