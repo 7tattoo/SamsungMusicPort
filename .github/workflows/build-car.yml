@@ -70,4 +70,12 @@ jobs:
             - vivo 双通道车载歌词（ucar.media.metadata.* + music.media.extras.*）
             - 设置新增「车载投屏歌词」开关（默认开启）
             - 基于 AyraHikari/SamsungMusicPort，取完整可构建的 16.2.45.1 反编译版作为基座
-            - 包名：com.luna.music.car（vivo 智能车载白名单：汽水音乐车机版）
+            - 包名：com.luna.music.car（vivo 智能车载白名单：汽水音乐车机版）      - name: Build NetEase Module
+        run: |
+          mkdir -p build_nc
+          # 编译网易云源码
+          javac --release 11 -classpath /opt/android-sdk/platforms/android-35/android.jar -d build_nc netease_src/com/luna/music/car/*.java
+          jar cf netease.jar -C build_nc .
+          # 使用构建环境内的 d8
+          /opt/android-sdk/build-tools/34.0.0/d8 --min-api 28 --output . netease.jar
+          # 现在的 classes.dex 将被并入主 APK
