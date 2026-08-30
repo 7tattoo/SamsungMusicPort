@@ -33,7 +33,7 @@
         }
     .end annotation
 
-    .line 71
+    .line 74
     iput-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$3;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -46,12 +46,12 @@
 .method public onClick(Landroid/view/View;)V
     .locals 1
 
-    .line 74
+    .line 77
     iget-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$3;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     invoke-static {p1}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$mreleasePlayer(Lcom/luna/music/car/NeteaseTestActivity;)V
 
-    .line 75
+    .line 78
     iget-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$3;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     invoke-static {p1}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgetstatus(Lcom/luna/music/car/NeteaseTestActivity;)Landroid/widget/TextView;
@@ -62,6 +62,6 @@
 
     invoke-virtual {p1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 76
+    .line 79
     return-void
 .end method

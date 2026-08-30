@@ -33,7 +33,7 @@
         }
     .end annotation
 
-    .line 56
+    .line 59
     iput-object p1, p0, Lcom/luna/music/car/NeteaseLoginActivity$2;->this$0:Lcom/luna/music/car/NeteaseLoginActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -44,39 +44,12 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 1
-
-    .line 59
-    iget-object p1, p0, Lcom/luna/music/car/NeteaseLoginActivity$2;->this$0:Lcom/luna/music/car/NeteaseLoginActivity;
-
-    invoke-static {p1}, Lcom/luna/music/car/NeteaseSession;->clear(Landroid/content/Context;)V
-
-    .line 60
-    invoke-static {}, Landroid/webkit/CookieManager;->getInstance()Landroid/webkit/CookieManager;
-
-    move-result-object p1
-
-    const/4 v0, 0x0
-
-    invoke-virtual {p1, v0}, Landroid/webkit/CookieManager;->removeAllCookies(Landroid/webkit/ValueCallback;)V
-
-    .line 61
-    invoke-static {}, Landroid/webkit/CookieManager;->getInstance()Landroid/webkit/CookieManager;
-
-    move-result-object p1
-
-    invoke-virtual {p1}, Landroid/webkit/CookieManager;->flush()V
+    .locals 0
 
     .line 62
     iget-object p1, p0, Lcom/luna/music/car/NeteaseLoginActivity$2;->this$0:Lcom/luna/music/car/NeteaseLoginActivity;
 
-    invoke-static {p1}, Lcom/luna/music/car/NeteaseLoginActivity;->-$$Nest$fgetstatus(Lcom/luna/music/car/NeteaseLoginActivity;)Landroid/widget/TextView;
-
-    move-result-object p1
-
-    const-string v0, "\u5df2\u6e05\u9664\u767b\u5f55\u72b6\u6001"
-
-    invoke-virtual {p1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    invoke-static {p1}, Lcom/luna/music/car/NeteaseLoginActivity;->-$$Nest$mcaptureCookie(Lcom/luna/music/car/NeteaseLoginActivity;)V
 
     .line 63
     return-void

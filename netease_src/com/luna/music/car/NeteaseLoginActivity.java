@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -33,6 +34,16 @@ public final class NeteaseLoginActivity extends Activity {
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         root.setBackgroundColor(Color.WHITE);
+        root.setFitsSystemWindows(true);
+        root.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsets onApplyWindowInsets(View view, WindowInsets insets) {
+                view.setPadding(0, insets.getSystemWindowInsetTop(), 0,
+                        insets.getSystemWindowInsetBottom());
+                return insets;
+            }
+        });
+        root.requestApplyInsets();
 
         status = new TextView(this);
         status.setPadding(32, 32, 32, 16);

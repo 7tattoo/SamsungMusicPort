@@ -56,7 +56,7 @@
         }
     .end annotation
 
-    .line 141
+    .line 170
     const-string v0, "UTF-8"
 
     invoke-static {p0, v0}, Ljava/net/URLEncoder;->encode(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
@@ -69,7 +69,7 @@
 .method private static levelName(I)Ljava/lang/String;
     .locals 1
 
-    .line 145
+    .line 174
     const/4 v0, 0x2
 
     if-ne p0, v0, :cond_0
@@ -78,7 +78,7 @@
 
     return-object p0
 
-    .line 146
+    .line 175
     :cond_0
     const/4 v0, 0x3
 
@@ -88,7 +88,7 @@
 
     return-object p0
 
-    .line 147
+    .line 176
     :cond_1
     const/4 v0, 0x4
 
@@ -98,7 +98,7 @@
 
     return-object p0
 
-    .line 148
+    .line 177
     :cond_2
     const-string p0, "standard"
 
@@ -113,7 +113,7 @@
         }
     .end annotation
 
-    .line 98
+    .line 127
     invoke-virtual {p2}, Lorg/json/JSONObject;->toString()Ljava/lang/String;
 
     move-result-object p2
@@ -144,7 +144,7 @@
 
     move-result-object p2
 
-    .line 99
+    .line 128
     const-string v0, "/api/"
 
     const-string v1, "/eapi/"
@@ -186,7 +186,7 @@
         }
     .end annotation
 
-    .line 92
+    .line 121
     invoke-virtual {p2}, Lorg/json/JSONObject;->toString()Ljava/lang/String;
 
     move-result-object p2
@@ -195,7 +195,7 @@
 
     move-result-object p2
 
-    .line 93
+    .line 122
     const/4 v0, 0x0
 
     aget-object v0, p2, v0
@@ -240,7 +240,7 @@
 
     move-result-object p2
 
-    .line 94
+    .line 123
     const-string v0, "/api/"
 
     const-string v1, "/weapi/"
@@ -282,14 +282,14 @@
         }
     .end annotation
 
-    .line 130
+    .line 159
     if-nez p0, :cond_0
 
     const-string p0, "{}"
 
     return-object p0
 
-    .line 131
+    .line 160
     :cond_0
     if-eqz p1, :cond_1
 
@@ -299,7 +299,7 @@
 
     move-object p0, p1
 
-    .line 132
+    .line 161
     :cond_1
     new-instance p1, Ljava/io/BufferedReader;
 
@@ -311,12 +311,12 @@
 
     invoke-direct {p1, v0}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
 
-    .line 133
+    .line 162
     new-instance p0, Ljava/lang/StringBuilder;
 
     invoke-direct {p0}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 135
+    .line 164
     :goto_0
     invoke-virtual {p1}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
 
@@ -328,11 +328,11 @@
 
     goto :goto_0
 
-    .line 136
+    .line 165
     :cond_2
     invoke-virtual {p1}, Ljava/io/BufferedReader;->close()V
 
-    .line 137
+    .line 166
     invoke-virtual {p0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object p0
@@ -348,7 +348,7 @@
         }
     .end annotation
 
-    .line 103
+    .line 132
     new-instance v0, Ljava/net/URL;
 
     invoke-direct {v0, p1}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
@@ -359,62 +359,62 @@
 
     check-cast p1, Ljava/net/HttpURLConnection;
 
-    .line 104
+    .line 133
     const/16 v0, 0x3a98
 
     invoke-virtual {p1, v0}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
 
-    .line 105
+    .line 134
     const/16 v0, 0x4e20
 
     invoke-virtual {p1, v0}, Ljava/net/HttpURLConnection;->setReadTimeout(I)V
 
-    .line 106
+    .line 135
     const-string v0, "POST"
 
     invoke-virtual {p1, v0}, Ljava/net/HttpURLConnection;->setRequestMethod(Ljava/lang/String;)V
 
-    .line 107
+    .line 136
     const/4 v0, 0x1
 
     invoke-virtual {p1, v0}, Ljava/net/HttpURLConnection;->setDoOutput(Z)V
 
-    .line 108
+    .line 137
     const-string v0, "Accept"
 
     const-string v1, "*/*"
 
     invoke-virtual {p1, v0, v1}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 109
+    .line 138
     const-string v0, "Content-Type"
 
     const-string v1, "application/x-www-form-urlencoded"
 
     invoke-virtual {p1, v0, v1}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 110
+    .line 139
     const-string v0, "User-Agent"
 
     const-string v1, "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36"
 
     invoke-virtual {p1, v0, v1}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 111
+    .line 140
     const-string v0, "Referer"
 
     const-string v1, "https://music.163.com/"
 
     invoke-virtual {p1, v0, v1}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 112
+    .line 141
     iget-object v0, p0, Lcom/luna/music/car/NeteaseClient;->context:Landroid/content/Context;
 
     invoke-static {v0}, Lcom/luna/music/car/NeteaseSession;->get(Landroid/content/Context;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 113
+    .line 142
     if-eqz p3, :cond_0
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
@@ -427,13 +427,13 @@
 
     invoke-virtual {p1, p3, v0}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 114
+    .line 143
     :cond_0
     invoke-virtual {p1}, Ljava/net/HttpURLConnection;->getOutputStream()Ljava/io/OutputStream;
 
     move-result-object p3
 
-    .line 115
+    .line 144
     sget-object v0, Lcom/luna/music/car/NeteaseClient;->UTF8:Ljava/nio/charset/Charset;
 
     invoke-virtual {p2, v0}, Ljava/lang/String;->getBytes(Ljava/nio/charset/Charset;)[B
@@ -442,18 +442,18 @@
 
     invoke-virtual {p3, p2}, Ljava/io/OutputStream;->write([B)V
 
-    .line 116
+    .line 145
     invoke-virtual {p3}, Ljava/io/OutputStream;->flush()V
 
-    .line 117
+    .line 146
     invoke-virtual {p3}, Ljava/io/OutputStream;->close()V
 
-    .line 118
+    .line 147
     invoke-virtual {p1}, Ljava/net/HttpURLConnection;->getResponseCode()I
 
     move-result p2
 
-    .line 119
+    .line 148
     const/16 p3, 0x190
 
     if-lt p2, p3, :cond_1
@@ -469,7 +469,7 @@
 
     move-result-object p3
 
-    .line 120
+    .line 149
     :goto_0
     const-string v0, "gzip"
 
@@ -485,10 +485,10 @@
 
     move-result-object p3
 
-    .line 121
+    .line 150
     invoke-virtual {p1}, Ljava/net/HttpURLConnection;->disconnect()V
 
-    .line 122
+    .line 151
     const/16 p1, 0xc8
 
     if-lt p2, p1, :cond_3
@@ -497,27 +497,27 @@
 
     if-ge p2, v0, :cond_3
 
-    .line 123
+    .line 152
     new-instance v1, Lorg/json/JSONObject;
 
     invoke-direct {v1, p3}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
 
-    .line 124
+    .line 153
     const-string p3, "code"
 
     invoke-virtual {v1, p3, p2}, Lorg/json/JSONObject;->optInt(Ljava/lang/String;I)I
 
     move-result p2
 
-    .line 125
+    .line 154
     if-lt p2, p1, :cond_2
 
     if-ge p2, v0, :cond_2
 
-    .line 126
+    .line 155
     return-object v1
 
-    .line 125
+    .line 154
     :cond_2
     new-instance p1, Ljava/io/IOException;
 
@@ -549,7 +549,7 @@
 
     throw p1
 
-    .line 122
+    .line 151
     :cond_3
     new-instance p1, Ljava/io/IOException;
 
@@ -579,7 +579,7 @@
 .method public static searchTracks(Lorg/json/JSONObject;)[Ljava/lang/String;
     .locals 10
 
-    .line 70
+    .line 99
     const/4 v0, 0x0
 
     if-nez p0, :cond_0
@@ -588,7 +588,7 @@
 
     return-object p0
 
-    .line 71
+    .line 100
     :cond_0
     const-string v1, "result"
 
@@ -596,7 +596,7 @@
 
     move-result-object p0
 
-    .line 72
+    .line 101
     if-nez p0, :cond_1
 
     const/4 p0, 0x0
@@ -610,7 +610,7 @@
 
     move-result-object p0
 
-    .line 73
+    .line 102
     :goto_0
     if-nez p0, :cond_2
 
@@ -618,7 +618,7 @@
 
     return-object p0
 
-    .line 74
+    .line 103
     :cond_2
     invoke-virtual {p0}, Lorg/json/JSONArray;->length()I
 
@@ -626,7 +626,7 @@
 
     new-array v1, v1, [Ljava/lang/String;
 
-    .line 75
+    .line 104
     move v2, v0
 
     :goto_1
@@ -636,37 +636,37 @@
 
     if-ge v2, v3, :cond_6
 
-    .line 76
+    .line 105
     invoke-virtual {p0, v2}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
 
     move-result-object v3
 
-    .line 77
+    .line 106
     if-nez v3, :cond_3
 
     goto :goto_3
 
-    .line 78
+    .line 107
     :cond_3
     new-instance v4, Ljava/lang/StringBuilder;
 
     invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 79
+    .line 108
     const-string v5, "artists"
 
     invoke-virtual {v3, v5}, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
 
     move-result-object v5
 
-    .line 80
+    .line 109
     const-string v6, ""
 
     const-string v7, "name"
 
     if-eqz v5, :cond_5
 
-    .line 81
+    .line 110
     move v8, v0
 
     :goto_2
@@ -676,7 +676,7 @@
 
     if-ge v8, v9, :cond_5
 
-    .line 82
+    .line 111
     invoke-virtual {v4}, Ljava/lang/StringBuilder;->length()I
 
     move-result v9
@@ -687,7 +687,7 @@
 
     invoke-virtual {v4, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 83
+    .line 112
     :cond_4
     invoke-virtual {v5, v8}, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
 
@@ -699,12 +699,12 @@
 
     invoke-virtual {v4, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 81
+    .line 110
     add-int/lit8 v8, v8, 0x1
 
     goto :goto_2
 
-    .line 86
+    .line 115
     :cond_5
     const-string v5, "id"
 
@@ -754,15 +754,70 @@
 
     aput-object v3, v1, v2
 
-    .line 75
+    .line 104
     :goto_3
     add-int/lit8 v2, v2, 0x1
 
     goto :goto_1
 
-    .line 88
+    .line 117
     :cond_6
     return-object v1
+.end method
+
+.method public static secureUrl(Ljava/lang/String;)Ljava/lang/String;
+    .locals 2
+
+    .line 93
+    invoke-static {p0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    const-string p0, ""
+
+    return-object p0
+
+    .line 94
+    :cond_0
+    const-string v0, "http://"
+
+    invoke-virtual {p0, v0}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_1
+
+    const/4 v0, 0x7
+
+    invoke-virtual {p0, v0}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object p0
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "https://"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object p0
+
+    invoke-virtual {p0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p0
+
+    return-object p0
+
+    .line 95
+    :cond_1
+    return-object p0
 .end method
 
 
@@ -775,7 +830,7 @@
         }
     .end annotation
 
-    .line 59
+    .line 75
     new-instance v0, Lorg/json/JSONObject;
 
     invoke-direct {v0}, Lorg/json/JSONObject;-><init>()V
@@ -794,7 +849,7 @@
 .method public firstPlayableUrl(Lorg/json/JSONObject;)Ljava/lang/String;
     .locals 2
 
-    .line 63
+    .line 79
     if-nez p1, :cond_0
 
     const/4 p1, 0x0
@@ -808,7 +863,7 @@
 
     move-result-object p1
 
-    .line 64
+    .line 80
     :goto_0
     const-string v0, ""
 
@@ -820,9 +875,9 @@
 
     if-nez v1, :cond_1
 
-    goto :goto_2
+    goto :goto_1
 
-    .line 65
+    .line 81
     :cond_1
     const/4 v1, 0x0
 
@@ -830,24 +885,28 @@
 
     move-result-object p1
 
-    .line 66
+    .line 82
     if-nez p1, :cond_2
 
-    goto :goto_1
+    return-object v0
 
+    .line 83
     :cond_2
     const-string v1, "url"
 
     invoke-virtual {p1, v1, v0}, Lorg/json/JSONObject;->optString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v0
+    move-result-object p1
 
-    :goto_1
-    return-object v0
+    invoke-static {p1}, Lcom/luna/music/car/NeteaseClient;->secureUrl(Ljava/lang/String;)Ljava/lang/String;
 
-    .line 64
+    move-result-object p1
+
+    return-object p1
+
+    .line 80
     :cond_3
-    :goto_2
+    :goto_1
     return-object v0
 .end method
 
@@ -859,7 +918,7 @@
         }
     .end annotation
 
-    .line 54
+    .line 70
     new-instance v0, Lorg/json/JSONObject;
 
     invoke-direct {v0}, Lorg/json/JSONObject;-><init>()V
@@ -896,7 +955,7 @@
 
     move-result-object p1
 
-    .line 55
+    .line 71
     const-string p2, "/api/song/lyric/v1"
 
     const/4 v0, 0x1
@@ -978,6 +1037,90 @@
     move-result-object p1
 
     return-object p1
+.end method
+
+.method public resolvePlayUrl(J)Ljava/lang/String;
+    .locals 6
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/lang/Exception;
+        }
+    .end annotation
+
+    .line 55
+    nop
+
+    .line 56
+    const/4 v0, 0x1
+
+    const/4 v1, 0x2
+
+    const/4 v2, 0x3
+
+    filled-new-array {v0, v1, v2}, [I
+
+    move-result-object v0
+
+    .line 57
+    const/4 v1, 0x0
+
+    const/4 v3, 0x0
+
+    :goto_0
+    if-ge v3, v2, :cond_1
+
+    aget v4, v0, v3
+
+    .line 59
+    :try_start_0
+    invoke-virtual {p0, p1, p2, v4}, Lcom/luna/music/car/NeteaseClient;->playUrl(JI)Lorg/json/JSONObject;
+
+    move-result-object v4
+
+    invoke-virtual {p0, v4}, Lcom/luna/music/car/NeteaseClient;->firstPlayableUrl(Lorg/json/JSONObject;)Ljava/lang/String;
+
+    move-result-object v4
+
+    .line 60
+    invoke-static {v4}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v5
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    if-nez v5, :cond_0
+
+    return-object v4
+
+    .line 63
+    :cond_0
+    goto :goto_1
+
+    .line 61
+    :catch_0
+    move-exception v1
+
+    .line 62
+    nop
+
+    .line 57
+    :goto_1
+    add-int/lit8 v3, v3, 0x1
+
+    goto :goto_0
+
+    .line 65
+    :cond_1
+    if-nez v1, :cond_2
+
+    .line 66
+    const-string p1, ""
+
+    return-object p1
+
+    .line 65
+    :cond_2
+    throw v1
 .end method
 
 .method public search(Ljava/lang/String;I)Lorg/json/JSONObject;

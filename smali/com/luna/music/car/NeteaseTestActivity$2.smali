@@ -33,7 +33,7 @@
         }
     .end annotation
 
-    .line 62
+    .line 65
     iput-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$2;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -46,7 +46,7 @@
 .method public onClick(Landroid/view/View;)V
     .locals 3
 
-    .line 65
+    .line 68
     iget-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$2;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     new-instance v0, Landroid/content/Intent;
@@ -59,6 +59,6 @@
 
     invoke-virtual {p1, v0}, Lcom/luna/music/car/NeteaseTestActivity;->startActivity(Landroid/content/Intent;)V
 
-    .line 67
+    .line 70
     return-void
 .end method

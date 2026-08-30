@@ -10,6 +10,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -41,6 +42,8 @@ public final class NeteaseTestActivity extends Activity {
         root.setOrientation(LinearLayout.VERTICAL);
         root.setBackgroundColor(Color.WHITE);
         root.setPadding(24, 24, 24, 24);
+        root.setFitsSystemWindows(true);
+        applyStatusBarInset(root);
 
         input = new EditText(this);
         input.setHint("输入歌名");
@@ -108,8 +111,21 @@ public final class NeteaseTestActivity extends Activity {
         setContentView(root);
     }
 
-    private void runSearch(final String keyword) {
-        if (TextUtils.isEmpty(keyword)) return;
+    /** Keeps the content below the status bar / cutout on edge-to-edge devices. */
+    private void applyStatusBarInset(final View target) {
+        target.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsets onApplyWindowInsets(View view, WindowInsets insets) {
+                int top = insets.getSystemWindowInsetTop();
+                int bottom = insets.getSystemWindowInsetBottom();
+                view.setPadding(24, 24 + top, 24, 24 + bottom);
+                return insets;
+            }
+        });
+        target.requestApplyInsets();
+    }
+
+    private void runSearch(final String keyword) {        if (TextUtils.isEmpty(keyword)) return;
         status.setText("搜索中…");
         new Thread(new Runnable() {
             @Override
@@ -148,7 +164,7 @@ public final class NeteaseTestActivity extends Activity {
             public void run() {
                 try {
                     NeteaseClient client = new NeteaseClient(NeteaseTestActivity.this);
-                    final String url = client.firstPlayableUrl(client.playUrl(songId, 1));
+                    final String url = client.resolvePlayUrl(songId);
                     main.post(new Runnable() {
                         @Override
                         public void run() {

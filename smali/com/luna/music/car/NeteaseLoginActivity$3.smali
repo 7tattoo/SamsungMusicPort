@@ -1,6 +1,9 @@
 .class Lcom/luna/music/car/NeteaseLoginActivity$3;
-.super Landroid/webkit/WebViewClient;
+.super Ljava/lang/Object;
 .source "NeteaseLoginActivity.java"
+
+# interfaces
+.implements Landroid/view/View$OnClickListener;
 
 
 # annotations
@@ -30,62 +33,51 @@
         }
     .end annotation
 
-    .line 81
+    .line 67
     iput-object p1, p0, Lcom/luna/music/car/NeteaseLoginActivity$3;->this$0:Lcom/luna/music/car/NeteaseLoginActivity;
 
-    invoke-direct {p0}, Landroid/webkit/WebViewClient;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public onPageFinished(Landroid/webkit/WebView;Ljava/lang/String;)V
-    .locals 0
+.method public onClick(Landroid/view/View;)V
+    .locals 1
 
-    .line 89
+    .line 70
+    iget-object p1, p0, Lcom/luna/music/car/NeteaseLoginActivity$3;->this$0:Lcom/luna/music/car/NeteaseLoginActivity;
+
+    invoke-static {p1}, Lcom/luna/music/car/NeteaseSession;->clear(Landroid/content/Context;)V
+
+    .line 71
     invoke-static {}, Landroid/webkit/CookieManager;->getInstance()Landroid/webkit/CookieManager;
 
     move-result-object p1
 
-    const-string p2, "https://music.163.com"
+    const/4 v0, 0x0
 
-    invoke-virtual {p1, p2}, Landroid/webkit/CookieManager;->getCookie(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {p1, v0}, Landroid/webkit/CookieManager;->removeAllCookies(Landroid/webkit/ValueCallback;)V
+
+    .line 72
+    invoke-static {}, Landroid/webkit/CookieManager;->getInstance()Landroid/webkit/CookieManager;
 
     move-result-object p1
 
-    .line 90
-    if-eqz p1, :cond_0
+    invoke-virtual {p1}, Landroid/webkit/CookieManager;->flush()V
 
-    const-string p2, "MUSIC_U="
-
-    invoke-virtual {p1, p2}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
-
-    move-result p1
-
-    if-eqz p1, :cond_0
-
-    .line 91
+    .line 73
     iget-object p1, p0, Lcom/luna/music/car/NeteaseLoginActivity$3;->this$0:Lcom/luna/music/car/NeteaseLoginActivity;
 
     invoke-static {p1}, Lcom/luna/music/car/NeteaseLoginActivity;->-$$Nest$fgetstatus(Lcom/luna/music/car/NeteaseLoginActivity;)Landroid/widget/TextView;
 
     move-result-object p1
 
-    const-string p2, "\u68c0\u6d4b\u5230\u767b\u5f55\u72b6\u6001\uff0c\u53ef\u70b9\u51fb\u300c\u5b8c\u6210\u767b\u5f55\u300d\u4fdd\u5b58"
+    const-string v0, "\u5df2\u6e05\u9664\u767b\u5f55\u72b6\u6001"
 
-    invoke-virtual {p1, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+    invoke-virtual {p1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 93
-    :cond_0
+    .line 74
     return-void
-.end method
-
-.method public shouldOverrideUrlLoading(Landroid/webkit/WebView;Landroid/webkit/WebResourceRequest;)Z
-    .locals 0
-
-    .line 84
-    const/4 p1, 0x0
-
-    return p1
 .end method

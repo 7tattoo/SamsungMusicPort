@@ -3,7 +3,7 @@
 .source "NeteaseLoginActivity.java"
 
 # interfaces
-.implements Landroid/view/View$OnClickListener;
+.implements Landroid/view/View$OnApplyWindowInsetsListener;
 
 
 # annotations
@@ -33,7 +33,7 @@
         }
     .end annotation
 
-    .line 48
+    .line 38
     iput-object p1, p0, Lcom/luna/music/car/NeteaseLoginActivity$1;->this$0:Lcom/luna/music/car/NeteaseLoginActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -43,14 +43,24 @@
 
 
 # virtual methods
-.method public onClick(Landroid/view/View;)V
-    .locals 0
+.method public onApplyWindowInsets(Landroid/view/View;Landroid/view/WindowInsets;)Landroid/view/WindowInsets;
+    .locals 3
 
-    .line 51
-    iget-object p1, p0, Lcom/luna/music/car/NeteaseLoginActivity$1;->this$0:Lcom/luna/music/car/NeteaseLoginActivity;
+    .line 41
+    invoke-virtual {p2}, Landroid/view/WindowInsets;->getSystemWindowInsetTop()I
 
-    invoke-static {p1}, Lcom/luna/music/car/NeteaseLoginActivity;->-$$Nest$mcaptureCookie(Lcom/luna/music/car/NeteaseLoginActivity;)V
+    move-result v0
 
-    .line 52
-    return-void
+    .line 42
+    invoke-virtual {p2}, Landroid/view/WindowInsets;->getSystemWindowInsetBottom()I
+
+    move-result v1
+
+    .line 41
+    const/4 v2, 0x0
+
+    invoke-virtual {p1, v2, v0, v2, v1}, Landroid/view/View;->setPadding(IIII)V
+
+    .line 43
+    return-object p2
 .end method

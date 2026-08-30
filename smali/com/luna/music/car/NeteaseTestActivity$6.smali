@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/luna/music/car/NeteaseTestActivity;->runPlay(J)V
+    value = Lcom/luna/music/car/NeteaseTestActivity;->runSearch(Ljava/lang/String;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,11 +20,11 @@
 # instance fields
 .field final synthetic this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
-.field final synthetic val$songId:J
+.field final synthetic val$keyword:Ljava/lang/String;
 
 
 # direct methods
-.method constructor <init>(Lcom/luna/music/car/NeteaseTestActivity;J)V
+.method constructor <init>(Lcom/luna/music/car/NeteaseTestActivity;Ljava/lang/String;)V
     .locals 0
     .annotation system Ldalvik/annotation/MethodParameters;
         accessFlags = {
@@ -43,10 +43,10 @@
         }
     .end annotation
 
-    .line 146
+    .line 130
     iput-object p1, p0, Lcom/luna/music/car/NeteaseTestActivity$6;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
-    iput-wide p2, p0, Lcom/luna/music/car/NeteaseTestActivity$6;->val$songId:J
+    iput-object p2, p0, Lcom/luna/music/car/NeteaseTestActivity$6;->val$keyword:Ljava/lang/String;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -56,9 +56,9 @@
 
 # virtual methods
 .method public run()V
-    .locals 4
+    .locals 3
 
-    .line 150
+    .line 134
     :try_start_0
     new-instance v0, Lcom/luna/music/car/NeteaseClient;
 
@@ -66,20 +66,21 @@
 
     invoke-direct {v0, v1}, Lcom/luna/music/car/NeteaseClient;-><init>(Landroid/content/Context;)V
 
-    .line 151
-    iget-wide v1, p0, Lcom/luna/music/car/NeteaseTestActivity$6;->val$songId:J
+    iget-object v1, p0, Lcom/luna/music/car/NeteaseTestActivity$6;->val$keyword:Ljava/lang/String;
 
-    const/4 v3, 0x1
+    .line 135
+    const/16 v2, 0x1e
 
-    invoke-virtual {v0, v1, v2, v3}, Lcom/luna/music/car/NeteaseClient;->playUrl(JI)Lorg/json/JSONObject;
-
-    move-result-object v1
-
-    invoke-virtual {v0, v1}, Lcom/luna/music/car/NeteaseClient;->firstPlayableUrl(Lorg/json/JSONObject;)Ljava/lang/String;
+    invoke-virtual {v0, v1, v2}, Lcom/luna/music/car/NeteaseClient;->search(Ljava/lang/String;I)Lorg/json/JSONObject;
 
     move-result-object v0
 
-    .line 152
+    .line 136
+    invoke-static {v0}, Lcom/luna/music/car/NeteaseClient;->searchTracks(Lorg/json/JSONObject;)[Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 137
     iget-object v1, p0, Lcom/luna/music/car/NeteaseTestActivity$6;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
     invoke-static {v1}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$fgetmain(Lcom/luna/music/car/NeteaseTestActivity;)Landroid/os/Handler;
@@ -88,27 +89,27 @@
 
     new-instance v2, Lcom/luna/music/car/NeteaseTestActivity$6$1;
 
-    invoke-direct {v2, p0, v0}, Lcom/luna/music/car/NeteaseTestActivity$6$1;-><init>(Lcom/luna/music/car/NeteaseTestActivity$6;Ljava/lang/String;)V
+    invoke-direct {v2, p0, v0}, Lcom/luna/music/car/NeteaseTestActivity$6$1;-><init>(Lcom/luna/music/car/NeteaseTestActivity$6;[Ljava/lang/String;)V
 
     invoke-virtual {v1, v2}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 164
+    .line 155
     goto :goto_0
 
-    .line 162
+    .line 153
     :catch_0
     move-exception v0
 
-    .line 163
+    .line 154
     iget-object v1, p0, Lcom/luna/music/car/NeteaseTestActivity$6;->this$0:Lcom/luna/music/car/NeteaseTestActivity;
 
-    const-string v2, "\u89e3\u6790\u5931\u8d25"
+    const-string v2, "\u641c\u7d22\u5931\u8d25"
 
     invoke-static {v1, v2, v0}, Lcom/luna/music/car/NeteaseTestActivity;->-$$Nest$mpostError(Lcom/luna/music/car/NeteaseTestActivity;Ljava/lang/String;Ljava/lang/Exception;)V
 
-    .line 165
+    .line 156
     :goto_0
     return-void
 .end method

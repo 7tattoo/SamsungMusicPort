@@ -50,6 +50,22 @@ public final class NeteaseClient {
         return postEapi("/api/song/enhance/player/url/v1", data, true);
     }
 
+    /** Tries several quality levels and returns the first playable https url. */
+    public String resolvePlayUrl(long id) throws Exception {
+        Exception last = null;
+        int[] levels = new int[] {1, 2, 3};
+        for (int level : levels) {
+            try {
+                String url = firstPlayableUrl(playUrl(id, level));
+                if (!TextUtils.isEmpty(url)) return url;
+            } catch (Exception error) {
+                last = error;
+            }
+        }
+        if (last != null) throw last;
+        return "";
+    }
+
     public JSONObject lyric(long id) throws Exception {
         JSONObject data = new JSONObject().put("id", id).put("lv", -1).put("kv", -1).put("tv", -1).put("rv", -1);
         return postEapi("/api/song/lyric/v1", data, true);
@@ -63,7 +79,20 @@ public final class NeteaseClient {
         JSONArray data = response == null ? null : response.optJSONArray("data");
         if (data == null || data.length() == 0) return "";
         JSONObject item = data.optJSONObject(0);
-        return item == null ? "" : item.optString("url", "");
+        if (item == null) return "";
+        return secureUrl(item.optString("url", ""));
+    }
+
+    /**
+     * NetEase hands out plain http CDN links. Playback runs in the platform media
+     * process, which does not honour this app's network security config, so the
+     * cleartext request is refused (MEDIA_ERROR_SYSTEM). The same host serves the
+     * identical object over TLS, so upgrade the scheme before handing it to the player.
+     */
+    public static String secureUrl(String url) {
+        if (TextUtils.isEmpty(url)) return "";
+        if (url.startsWith("http://")) return "https://" + url.substring(7);
+        return url;
     }
 
     public static String[] searchTracks(JSONObject response) {
