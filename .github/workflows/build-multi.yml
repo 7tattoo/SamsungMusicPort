@@ -1,0 +1,120 @@
+name: Build Multi-Package Car Release
+
+on:
+  push:
+    tags:
+      - 'car-multi-v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        include:
+          - package: com.tencent.ibg.joox
+            label: joox
+          - package: com.spotify.music
+            label: spotify
+          - package: com.apple.android.music
+            label: apple
+          - package: com.luna.music.car
+            label: luna
+          - package: com.kugou.android.auto
+            label: kugou
+          - package: cn.kuwo.kwmusiccar
+            label: kuwo
+          - package: com.qidian.QDReader
+            label: qidian
+          - package: com.tencent.weread
+            label: weread
+          - package: cn.aqzscn.stream_music
+            label: aqzscn
+          - package: com.tencent.wecarflow
+            label: wecarflow
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install apktool
+        run: |
+          mkdir -p /opt/apktool
+          wget -q https://github.com/iBotPeaches/Apktool/releases/download/v2.9.3/apktool_2.9.3.jar -O /opt/apktool/apktool.jar
+          echo "APKTOOL=/opt/apktool/apktool.jar" >> $GITHUB_ENV
+
+      - name: Install Android build-tools (apksigner)
+        run: |
+          mkdir -p /opt/bt && cd /opt/bt
+          wget -q https://dl.google.com/android/repository/build-tools_r34-linux.zip -O bt.zip
+          unzip -q bt.zip -d /opt/bt
+          echo "APKSIGNER=$(find /opt/bt -name apksigner | head -1)" >> $GITHUB_ENV
+
+      - name: Repackage (change applicationId)
+        if: matrix.package != 'com.luna.music.car'
+        run: |
+          python3 tools/repackage.py ${{ matrix.package }} .
+          echo "Verifying package change..."
+          grep -q 'package="${{ matrix.package }}"' AndroidManifest.xml || { echo "ERROR: Package not changed correctly"; exit 1; }
+          echo "Package changed to ${{ matrix.package }}"
+
+      - name: Build APK (apktool, x86_64 native aapt2)
+        run: |
+          java -jar "$APKTOOL" b . -o /tmp/unsigned.apk --use-aapt2
+          ls -la /tmp/unsigned.apk
+
+      - name: Zipalign (4-byte alignment for resources.arsc)
+        run: |
+          ZIPALIGN=$(find /opt/bt -name zipalign | head -1)
+          "$ZIPALIGN" -f -p 4 /tmp/unsigned.apk /tmp/aligned.apk
+          "$ZIPALIGN" -c -p 4 /tmp/aligned.apk
+          echo "Zipalign verification passed"
+
+      - name: Sign APK
+        run: |
+          base64 -d keystore/car-release.keystore.b64 > /tmp/car-release.keystore
+          chmod 600 /tmp/car-release.keystore
+          OUTNAME="SamsungMusic_Car_${{ matrix.label }}_16.2.45.1.apk"
+          "$APKSIGNER" sign --ks /tmp/car-release.keystore \
+            --ks-key-alias luna_car \
+            --ks-pass pass:grow-car-2026 \
+            --key-pass pass:grow-car-2026 \
+            --out "/tmp/$OUTNAME" /tmp/aligned.apk
+          ls -la "/tmp/$OUTNAME"
+          echo "OUTNAME=$OUTNAME" >> $GITHUB_ENV
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: /tmp/${{ env.OUTNAME }}
+          tag_name: ${{ github.ref_name }}
+          name: Samsung Music Car-vivo 16.2.45.1 (Multi-Package)
+          body: |
+            Samsung Music 16.2.45.1 · vivo 车载投屏歌词适配 · 10 个不同包名版本
+
+            所有版本功能相同，仅 applicationId 不同，可同时安装互不冲突。
+
+            包名列表：
+            - com.tencent.ibg.joox (JOOX)
+            - com.spotify.music (Spotify)
+            - com.apple.android.music (Apple Music)
+            - com.luna.music.car (汽水音乐车机版)
+            - com.kugou.android.auto (酷狗车机版)
+            - cn.kuwo.kwmusiccar (酷我车机版)
+            - com.qidian.QDReader (QQ 阅读)
+            - com.tencent.weread (微信读书)
+            - cn.aqzscn.stream_music (Aqzscn Music)
+            - com.tencent.wecarflow (腾讯车联)
+
+            基于 Build #4 baseline (commit 431bd26d)，包含 zipalign 4 字节对齐修复。
