@@ -32,12 +32,6 @@
 
 .field private static volatile sSongKey:Ljava/lang/String;
 
-# Ticker state
-.field private static volatile sTickerActive:Z
-.field private static volatile sTickerHandler:Landroid/os/Handler;
-.field private static volatile sTickerRunnable:Lcom/luna/music/car/CarLyricsBridge$1;
-.field private static volatile sLrcCache:Ljava/util/HashMap;
-
 
 # direct methods
 .method static constructor <clinit>()V
@@ -82,10 +76,6 @@
     const-wide/16 v0, -0x1
 
     sput-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sTrackId:J
-
-    new-instance v0, Ljava/util/HashMap;
-    invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
-    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrcCache:Ljava/util/HashMap;
 
     return-void
 .end method
@@ -1595,26 +1585,8 @@
 
     :set_track_changed
     sput-wide p0, Lcom/luna/music/car/CarLyricsBridge;->sTrackId:J
-    # Don't wipe sLrc/sLastLine - preserve previous song's lyrics for instant re-display
-    # Try to restore from cache first
-    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrcCache:Ljava/util/HashMap;
-    if-eqz v0, :try_cache_restore
-    goto :no_cache
-
-    :try_cache_restore
-    invoke-static {p0, p1}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
-    move-result-object v1
-    invoke-virtual {v0, v1}, Ljava/util/HashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
-    move-result-object v1
-    if-eqz v1, :no_cache
-    instance-of v2, v1, Ljava/lang/String;
-    if-eqz v2, :no_cache
-    check-cast v1, Ljava/lang/String;
-    sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
-    goto :no_cache
-
-    :no_cache
     const-string v0, ""
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
     sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
     const-wide/16 v0, -0x1
     sput-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sLastPos:J
@@ -2077,10 +2049,11 @@
 
     .line 151
     :goto_34
-    # Don't wipe sLrc - preserve it so song switch back still shows lyrics
-    # Just reset line/position for fresh parsing when new lyrics arrive
     const-string v0, ""
 
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+
+    .line 152
     sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     .line 153
@@ -2863,56 +2836,6 @@
     .end array-data
 .end method
 
-
-.method private static startTicker()V
-    .registers 4
-
-    # Get main looper handler
-    :try_start
-    invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
-    move-result-object v0
-    if-eqz v0, :cond_done
-    new-instance v1, Landroid/os/Handler;
-    invoke-direct {v1, v0}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
-    sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sTickerHandler:Landroid/os/Handler;
-
-    # Create ticker runnable if not exists
-    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sTickerRunnable:Lcom/luna/music/car/CarLyricsBridge$1;
-    if-eqz v2, :cond_has_runnable
-    new-instance v2, Lcom/luna/music/car/CarLyricsBridge$1;
-    invoke-direct {v2}, Lcom/luna/music/car/CarLyricsBridge$1;-><init>()V
-    sput-object v2, Lcom/luna/music/car/CarLyricsBridge;->sTickerRunnable:Lcom/luna/music/car/CarLyricsBridge$1;
-
-    :cond_has_runnable
-    # Set active and post
-    const/4 v3, 0x1
-    sput-boolean v3, Lcom/luna/music/car/CarLyricsBridge;->sTickerActive:Z
-    const-wide/16 v0, 0xfa
-    invoke-virtual {v1, v2, v0, v1}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
-
-    :cond_done
-    :try_end
-    .catch Ljava/lang/Throwable; {:try_start .. :try_end} :catch_ignored
-    :catch_ignored
-    return-void
-.end method
-
-.method private static stopTicker()V
-    .registers 3
-
-    const/4 v0, 0x0
-    sput-boolean v0, Lcom/luna/music/car/CarLyricsBridge;->sTickerActive:Z
-
-    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sTickerHandler:Landroid/os/Handler;
-    if-eqz v1, :cond_done
-    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sTickerRunnable:Lcom/luna/music/car/CarLyricsBridge$1;
-    if-eqz v2, :cond_done
-    invoke-virtual {v1, v2}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
-
-    :cond_done
-    return-void
-.end method
-
 .method public static setLrc(Ljava/lang/String;)V
     .registers 3
 
@@ -3384,29 +3307,6 @@
     move-result-object v0
 
     invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
-
-    # Cache the built LRC by current trackId
-    :cache_lrc_start
-    sget-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sTrackId:J
-    const-wide/16 v2, -0x1
-    cmp-long v4, v0, v2
-    if-eqz v4, :cache_lrc_end
-    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrcCache:Ljava/util/HashMap;
-    if-eqz v0, :cache_lrc_end
-    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
-    if-eqz v1, :cache_lrc_end
-    invoke-virtual {v1}, Ljava/lang/String;->length()I
-    move-result v1
-    if-lez v1, :cache_lrc_end
-    sget-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sTrackId:J
-    invoke-static {v0, v1}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
-    move-result-object v0
-    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
-    invoke-virtual {v0, v1}, Ljava/util/HashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-
-    :cache_lrc_end
-    # Start periodic ticker for continuous LYRICS_LINE updates
-    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->startTicker()V
 
     .line 219
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->scheduleRePush()V
