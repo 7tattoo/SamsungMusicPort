@@ -17,12 +17,6 @@
     </androidx.preference.PreferenceCategory>
     <androidx.preference.PreferenceCategory android:title="@string/general" android:key="category_general" android:textAllCaps="true">
         <SwitchPreferenceCompat android:title="车载投屏歌词" android:key="car_lyrics_enabled" android:defaultValue="true" android:summary="开启后将当前歌曲歌词投送到 vivo 智能车载" />
-        <androidx.preference.Preference android:title="网易云音乐登录" android:key="netease_login">
-            <intent android:targetPackage="com.luna.music.car" android:action="android.intent.action.VIEW" android:targetClass="com.luna.music.car.NeteaseLoginActivity" />
-        </androidx.preference.Preference>
-        <androidx.preference.Preference android:title="网易云音乐搜索" android:key="netease_search">
-            <intent android:targetPackage="com.luna.music.car" android:action="android.intent.action.VIEW" android:targetClass="com.luna.music.car.NeteaseTestActivity" />
-        </androidx.preference.Preference>
         <SwitchPreferenceCompat android:title="@string/mobile_data" android:key="mobile_data" />
         <androidx.preference.Preference android:title="@string/manage_tabs" android:key="manage_tabs" />
         <SwitchPreferenceCompat android:title="@string/setting_dark_mode" android:key="dark_theme" />
