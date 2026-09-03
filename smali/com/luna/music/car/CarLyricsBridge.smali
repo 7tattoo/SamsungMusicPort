@@ -12,11 +12,11 @@
 
 .field private static volatile sBaseMeta:Landroid/media/MediaMetadata;
 
-.field private static volatile sCarSession:Landroid/media/session/MediaSession;
+.field static volatile sCarSession:Landroid/media/session/MediaSession;
 
 .field static sFallbackTime:J
 
-.field private static volatile sLastLine:Ljava/lang/String;
+.field static volatile sLastLine:Ljava/lang/String;
 
 .field private static volatile sLastPos:J
 
@@ -26,7 +26,7 @@
 
 .field private static volatile sLrc:Ljava/lang/String;
 
-.field private static volatile sSession:Landroid/media/session/MediaSession;
+.field static volatile sSession:Landroid/media/session/MediaSession;
 
 .field private static volatile sTrackId:J
 
