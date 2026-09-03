@@ -85,6 +85,29 @@
 .method public static a(Landroid/content/Context;Ljava/lang/String;)Z
     .locals 10
 
+    # growcar-lrc: 放行 vivo 原子随身听 / 车联，使其 MediaBrowser 可连接
+    const-string v9, "com.vivo.musicwidgetmix"
+
+    invoke-virtual {v9, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v9
+
+    if-nez v9, :vivo_allow
+
+    const-string v9, "com.vivo.car.networking"
+
+    invoke-virtual {v9, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v9
+
+    if-eqz v9, :vivo_check_done
+
+    :vivo_allow
+    const/4 v0, 0x1
+
+    return v0
+
+    :vivo_check_done
     .line 1
     const/4 v0, 0x0
 
