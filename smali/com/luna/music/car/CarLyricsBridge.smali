@@ -37,6 +37,9 @@
 .field static sTickerHandler:Landroid/os/Handler;
 .field private static volatile sTickerRunnable:Lcom/luna/music/car/CarLyricsBridge$1;
 
+# Atomic widget state
+.field static volatile sAtomicLrcSent:Z
+
 # direct methods
 .method static constructor <clinit>()V
     .registers 3
@@ -2255,21 +2258,21 @@
 .end method
 
 .method static pushExtrasTo(Landroid/media/session/MediaSession;Ljava/lang/String;)V
-    .registers 5
+    .registers 6
 
-    .line 304
+    # line 304
     if-nez p0, :cond_3
 
     return-void
 
-    .line 306
+    # line 306
     :cond_3
     :try_start_3
     new-instance v0, Landroid/os/Bundle;
 
     invoke-direct {v0}, Landroid/os/Bundle;-><init>()V
 
-    .line 307
+    # line 307
     if-eqz p1, :cond_19
 
     invoke-virtual {p1}, Ljava/lang/String;->trim()Ljava/lang/String;
@@ -2282,12 +2285,12 @@
 
     if-lez v1, :cond_19
 
-    .line 308
+    # line 308
     const-string v1, "music.media.extras.LYRIC"
 
     invoke-virtual {v0, v1, p1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 310
+    # line 310
     :cond_19
     const-string p1, "music.media.extras.LYRIC_IS_ALLOWED"
 
@@ -2295,15 +2298,19 @@
 
     invoke-virtual {v0, p1, v1}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
 
-    .line 311
+    # line 311
     const-string p1, "music.media.extras.NOTICE_CAR"
 
     invoke-virtual {v0, p1, v1}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
 
-    .line 312
+    # line 312: Only send lrc_change if not already sent for this song
+    sget-boolean p1, Lcom/luna/music/car/CarLyricsBridge;->sAtomicLrcSent:Z
+    if-nez p1, :cond_50
+
+    # Check if we have lyrics
     sget-object p1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
-    if-eqz p1, :cond_63
+    if-eqz p1, :cond_50
 
     sget-object p1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
@@ -2311,16 +2318,16 @@
 
     move-result p1
 
-    if-lez p1, :cond_63
+    if-lez p1, :cond_50
 
-    .line 313
+    # Send lrc_change event
     const-string p1, "vivomusicmix.meida.extra.key.action"
 
     const-string v1, "vivomusicmix.extra.lrc_change"
 
     invoke-virtual {v0, p1, v1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 314
+    # Get media ID
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
     move-result-wide v1
@@ -2331,7 +2338,6 @@
     :try_end_3f
     .catchall {:try_start_3 .. :try_end_3f} :catchall_89
 
-    .line 316
     :try_start_3f
     invoke-virtual {p0}, Landroid/media/session/MediaSession;->getController()Landroid/media/session/MediaController;
 
@@ -2341,17 +2347,17 @@
 
     move-result-object v1
 
-    .line 317
+    # line 317
     if-eqz v1, :cond_55
 
-    .line 318
+    # line 318
     const-string v2, "android.media.metadata.MEDIA_ID"
 
     invoke-virtual {v1, v2}, Landroid/media/MediaMetadata;->getText(Ljava/lang/String;)Ljava/lang/CharSequence;
 
     move-result-object v1
 
-    .line 319
+    # line 319
     if-eqz v1, :cond_55
 
     invoke-interface {v1}, Ljava/lang/CharSequence;->toString()Ljava/lang/String;
@@ -2360,30 +2366,35 @@
     :try_end_55
     .catchall {:try_start_3f .. :try_end_55} :catchall_56
 
-    .line 322
+    # line 322
     :cond_55
     goto :goto_57
 
-    .line 321
+    # line 321
     :catchall_56
     move-exception v1
 
-    .line 323
+    # line 323
     :goto_57
     :try_start_57
     const-string v1, "vivomusicmix.extra.key.meidia_id"
 
     invoke-virtual {v0, v1, p1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 324
+    # line 324
     const-string p1, "vivomusicmix.extra.key.lyric"
 
     sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     invoke-virtual {v0, p1, v1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 326
-    :cond_63
+    # Mark lrc_change as sent
+    const/4 p1, 0x1
+
+    sput-boolean p1, Lcom/luna/music/car/CarLyricsBridge;->sAtomicLrcSent:Z
+
+    :cond_50
+    # line 326
     invoke-virtual {p0, v0}, Landroid/media/session/MediaSession;->setExtras(Landroid/os/Bundle;)V
 
     .line 327
@@ -2848,7 +2859,7 @@
 .method public static setLrc(Ljava/lang/String;)V
     .registers 3
 
-    .line 139
+    # line 139
     const-string v0, ""
 
     if-nez p0, :cond_5
@@ -2858,18 +2869,23 @@
     :cond_5
     sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
+    # Clear atomic lrc_sent flag so next pushExtrasTo sends lrc_change
+    const/4 v1, 0x0
+
+    sput-boolean v1, Lcom/luna/music/car/CarLyricsBridge;->sAtomicLrcSent:Z
+
     # Start ticker when new lyrics arrive
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->scheduleRePush()V
 
-    .line 140
+    # line 140
     sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
-    .line 141
+    # line 141
     const-wide/16 v0, -0x1
 
     sput-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sLastPos:J
 
-    .line 142
+    # line 142
     return-void
 .end method
 
