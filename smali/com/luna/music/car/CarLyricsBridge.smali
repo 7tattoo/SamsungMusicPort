@@ -33,8 +33,8 @@
 .field private static volatile sSongKey:Ljava/lang/String;
 
 # Ticker state
-.field private static volatile sTickerActive:Z
-.field private static volatile sTickerHandler:Landroid/os/Handler;
+.field static final sTickerActive:Z
+.field static sTickerHandler:Landroid/os/Handler;
 .field private static volatile sTickerRunnable:Lcom/luna/music/car/CarLyricsBridge$1;
 
 # direct methods
