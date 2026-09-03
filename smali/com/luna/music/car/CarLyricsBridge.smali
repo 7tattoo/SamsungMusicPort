@@ -32,6 +32,10 @@
 
 .field private static volatile sSongKey:Ljava/lang/String;
 
+# Ticker state
+.field private static volatile sTickerActive:Z
+.field private static volatile sTickerHandler:Landroid/os/Handler;
+.field private static volatile sTickerRunnable:Lcom/luna/music/car/CarLyricsBridge$1;
 
 # direct methods
 .method static constructor <clinit>()V
@@ -1585,6 +1589,8 @@
 
     :set_track_changed
     sput-wide p0, Lcom/luna/music/car/CarLyricsBridge;->sTrackId:J
+    # Stop previous ticker on track change
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->stopTicker()V
     const-string v0, ""
     sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
     sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
@@ -2818,6 +2824,10 @@
 
     .line 243
     :cond_25
+    # Save handler for ticker control
+    sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sTickerHandler:Landroid/os/Handler;
+    const/4 v0, 0x1
+    sput-boolean v0, Lcom/luna/music/car/CarLyricsBridge;->sTickerActive:Z
     goto :goto_27
 
     .line 242
@@ -2836,6 +2846,20 @@
     .end array-data
 .end method
 
+# 停止 ticker 的方法
+.method private static stopTicker()V
+    .registers 2
+
+    const/4 v0, 0x0
+    sput-boolean v0, Lcom/luna/music/car/CarLyricsBridge;->sTickerActive:Z
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sTickerHandler:Landroid/os/Handler;
+    if-eqz v0, :cond_done
+    const/4 v1, 0x0
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacksAndMessages(Ljava/lang/Object;)V
+    :cond_done
+    return-void
+.end method
+
 .method public static setLrc(Ljava/lang/String;)V
     .registers 3
 
@@ -2848,6 +2872,9 @@
 
     :cond_5
     sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+
+    # Start ticker when new lyrics arrive
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->scheduleRePush()V
 
     .line 140
     sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
