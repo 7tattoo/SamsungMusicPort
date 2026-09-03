@@ -38,7 +38,8 @@
 .field private static volatile sTickerRunnable:Lcom/luna/music/car/CarLyricsBridge$1;
 
 # Atomic widget state
-.field static volatile sAtomicLrcSent:Z
+# Atomic lrc_change timestamp (periodic resend ~25s)
+.field static volatile sAtomicLrcAt:J
 
 # direct methods
 .method static constructor <clinit>()V
@@ -2303,22 +2304,31 @@
 
     invoke-virtual {v0, p1, v1}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
 
-    # line 312: Only send lrc_change if not already sent for this song
-    sget-boolean p1, Lcom/luna/music/car/CarLyricsBridge;->sAtomicLrcSent:Z
-    if-nez p1, :cond_50
+    # line 312: Send lrc_change every ~25s (atomic reconnect / background resume)
+    sget-wide v1, Lcom/luna/music/car/CarLyricsBridge;->sAtomicLrcAt:J
+
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v3
+
+    sub-long/2addr v3, v1
+
+    const-wide/16 v1, 0x61a8    # 25000 ms = 25s
+
+    cmp-long p1, v3, v1
+
+    if-gez p1, :skip_lrc
 
     # Check if we have lyrics
     sget-object p1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
-    if-eqz p1, :cond_50
-
-    sget-object p1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    if-eqz p1, :skip_lrc
 
     invoke-virtual {p1}, Ljava/lang/String;->length()I
 
     move-result p1
 
-    if-lez p1, :cond_50
+    if-lez p1, :skip_lrc
 
     # Send lrc_change event
     const-string p1, "vivomusicmix.meida.extra.key.action"
@@ -2388,12 +2398,14 @@
 
     invoke-virtual {v0, p1, v1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
 
-    # Mark lrc_change as sent
-    const/4 p1, 0x1
+    # Update timestamp
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
-    sput-boolean p1, Lcom/luna/music/car/CarLyricsBridge;->sAtomicLrcSent:Z
+    move-result-wide v1
 
-    :cond_50
+    sput-wide v1, Lcom/luna/music/car/CarLyricsBridge;->sAtomicLrcAt:J
+
+    :skip_lrc
     # line 326
     invoke-virtual {p0, v0}, Landroid/media/session/MediaSession;->setExtras(Landroid/os/Bundle;)V
 
@@ -2869,10 +2881,10 @@
     :cond_5
     sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
-    # Clear atomic lrc_sent flag so next pushExtrasTo sends lrc_change
-    const/4 v1, 0x0
+    # Clear atomic lrc timestamp so next pushExtrasTo sends lrc_change immediately
+    const-wide/16 v1, 0x0
 
-    sput-boolean v1, Lcom/luna/music/car/CarLyricsBridge;->sAtomicLrcSent:Z
+    sput-wide v1, Lcom/luna/music/car/CarLyricsBridge;->sAtomicLrcAt:J
 
     # Start ticker when new lyrics arrive
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->scheduleRePush()V

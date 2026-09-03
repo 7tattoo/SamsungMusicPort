@@ -34,6 +34,17 @@
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sTickerHandler:Landroid/os/Handler;
     if-eqz v0, :cond_done
 
+    # ========== fix: 如果 sLrc 为空，跳过推送但继续 reschedule ==========
+    # 这样 setLrc() 被调用后，ticker 会在下一轮自动开始推送
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    if-eqz v1, :schedule_next
+    invoke-virtual {v1}, Ljava/lang/String;->isEmpty()Z
+    move-result v1
+    if-eqz v1, :check_lrc
+    goto :schedule_next
+
+    :check_lrc
+    # sLrc has content — proceed
     # Get session
     sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
     if-nez v1, :skip_update
