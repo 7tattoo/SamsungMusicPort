@@ -2811,7 +2811,7 @@
 .end method
 
 .method private static scheduleRePush()V
-    .registers 5
+    .registers 7
 
     # Ensure we have a valid line to push
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->ensurePushed()V
@@ -2832,16 +2832,18 @@
 
     # Save handler
     sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sTickerHandler:Landroid/os/Handler;
-    const/4 v0, 0x1
-    sput-boolean v0, Lcom/luna/music/car/CarLyricsBridge;->sTickerActive:Z
+
+    # Mark active — use v2 for boolean to avoid type conflict with v0/v1 references
+    const/4 v2, 0x1
+    sput-boolean v2, Lcom/luna/music/car/CarLyricsBridge;->sTickerActive:Z
 
     # Create ticker
-    new-instance v2, Lcom/luna/music/car/CarLyricsBridge$1;
-    invoke-direct {v2}, Lcom/luna/music/car/CarLyricsBridge$1;-><init>()V
+    new-instance v3, Lcom/luna/music/car/CarLyricsBridge$1;
+    invoke-direct {v3}, Lcom/luna/music/car/CarLyricsBridge$1;-><init>()V
 
-    # Post with 500ms delay (not too fast)
-    const-wide/16 v3, 0x1f4
-    invoke-virtual {v1, v2, v3, v4}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
+    # Post with 500ms delay
+    const-wide/16 v4, 0x1f4
+    invoke-virtual {v1, v3, v4, v5}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
     :try_end_22
     .catchall {:try_start_3 .. :try_end_22} :catchall_26
 
@@ -2856,22 +2858,24 @@
 
 # 停止 ticker 的方法
 .method private static stopTicker()V
-    .registers 2
+    .registers 3
 
+    # Use v0 for boolean, v1 for Handler — never mix types in same register
     const/4 v0, 0x0
     sput-boolean v0, Lcom/luna/music/car/CarLyricsBridge;->sTickerActive:Z
-    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sTickerHandler:Landroid/os/Handler;
-    if-eqz v0, :cond_done
-    const/4 v1, 0x0
-    invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacksAndMessages(Ljava/lang/Object;)V
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sTickerHandler:Landroid/os/Handler;
+    if-eqz v1, :cond_done
+    const/4 v2, 0x0
+    invoke-virtual {v1, v2}, Landroid/os/Handler;->removeCallbacksAndMessages(Ljava/lang/Object;)V
     :cond_done
     return-void
 .end method
 
 .method public static setLrc(Ljava/lang/String;)V
-    .registers 3
+    .registers 5
 
-    # line 139
+    # p0 = String argument; use v0..v3 as temporaries (no type conflict with wide ops)
+
     const-string v0, ""
 
     if-nez p0, :cond_5
@@ -2882,19 +2886,18 @@
     sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
 
     # Clear atomic lrc timestamp so next pushExtrasTo sends lrc_change immediately
-    const-wide/16 v1, 0x0
-
-    sput-wide v1, Lcom/luna/music/car/CarLyricsBridge;->sAtomicLrcAt:J
+    const-wide/16 v0, 0x0
+    sput-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sAtomicLrcAt:J
 
     # Start ticker when new lyrics arrive
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->scheduleRePush()V
 
     # line 140
+    const-string v0, ""
     sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     # line 141
     const-wide/16 v0, -0x1
-
     sput-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sLastPos:J
 
     # line 142
