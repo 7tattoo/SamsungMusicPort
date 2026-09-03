@@ -18,13 +18,13 @@
 
 .field static volatile sLastLine:Ljava/lang/String;
 
-.field private static volatile sLastPos:J
+.field static volatile sLastPos:J
 
 .field private static volatile sLastPushKey:Ljava/lang/String;
 
 .field private static volatile sLogFile:Ljava/io/File;
 
-.field private static volatile sLrc:Ljava/lang/String;
+.field static volatile sLrc:Ljava/lang/String;
 
 .field static volatile sSession:Landroid/media/session/MediaSession;
 
@@ -1611,7 +1611,7 @@
     return-void
 .end method
 
-.method private static lineAt(Ljava/lang/String;J)Ljava/lang/String;
+.method static lineAt(Ljava/lang/String;J)Ljava/lang/String;
     .registers 19
 
     .line 554
@@ -2071,7 +2071,7 @@
     return-void
 .end method
 
-.method private static pushExtrasOnly(Landroid/media/session/MediaSession;Ljava/lang/String;)V
+.method static pushExtrasOnly(Landroid/media/session/MediaSession;Ljava/lang/String;)V
     .registers 6
 
     .line 430
@@ -2243,7 +2243,7 @@
     return-void
 .end method
 
-.method private static pushExtrasTo(Landroid/media/session/MediaSession;Ljava/lang/String;)V
+.method static pushExtrasTo(Landroid/media/session/MediaSession;Ljava/lang/String;)V
     .registers 5
 
     .line 304
