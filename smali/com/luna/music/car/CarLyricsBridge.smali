@@ -2267,21 +2267,21 @@
     sub-long/2addr v2, v0
 
     const-wide/16 v0, 0x61a8
-    cmp-long p0, v2, v0
-    if-gez p0, :no_resend
+    cmp-long v4, v2, v0
+    if-gez v4, :no_resend
 
-    sget-object p0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
-    if-eqz p0, :no_resend
-    invoke-virtual {p0}, Ljava/lang/String;->length()I
-    move-result p0
-    if-lez p0, :no_resend
+    sget-object v4, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    if-eqz v4, :no_resend
+    invoke-virtual {v4}, Ljava/lang/String;->length()I
+    move-result v4
+    if-lez v4, :no_resend
 
-    const/4 p0, 0x1
-    return p0
+    const/4 v4, 0x1
+    return v4
 
     :no_resend
-    const/4 p0, 0x0
-    return p0
+    const/4 v4, 0x0
+    return v4
 .end method
 
 .method static pushExtrasTo(Landroid/media/session/MediaSession;Ljava/lang/String;)V
