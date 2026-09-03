@@ -26,19 +26,30 @@
 .method public run()V
     .registers 4
 
-    # Call ensurePushed() to update lyric line based on current position
-    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->ensurePushed()V
-
     # Check if ticker is still active
     sget-boolean v0, Lcom/luna/music/car/CarLyricsBridge;->sTickerActive:Z
     if-eqz v0, :cond_done
 
-    # Get handler
+    # Get handler and check it exists
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sTickerHandler:Landroid/os/Handler;
     if-eqz v0, :cond_done
 
-    # Post self again after 250ms (0xFA)
-    const-wide/16 v1, 0xFA
+    # Get the current session
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
+    if-nez v1, :skip_push
+
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
+
+    :skip_push
+    if-nez v1, :schedule_next
+
+    # Push current line to session extras
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    invoke-static {v1, v2}, Lcom/luna/music/car/CarLyricsBridge;->pushExtrasTo(Landroid/media/session/MediaSession;Ljava/lang/String;)V
+
+    :schedule_next
+    # Post self again after 500ms (0x1f4)
+    const-wide/16 v1, 0x1f4
     invoke-virtual {v0, p0, v1, v2}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
     :cond_done

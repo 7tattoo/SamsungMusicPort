@@ -2771,79 +2771,47 @@
 .end method
 
 .method private static scheduleRePush()V
-    .registers 7
+    .registers 5
 
-    .line 224
+    # Ensure we have a valid line to push
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->ensurePushed()V
 
-    .line 227
     :try_start_3
-    invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
+    # Stop existing ticker first
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->stopTicker()V
 
+    invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
     move-result-object v0
 
-    .line 228
     if-nez v0, :cond_a
-
     return-void
 
-    .line 229
     :cond_a
     new-instance v1, Landroid/os/Handler;
-
     invoke-direct {v1, v0}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
 
-    .line 230
-    const/4 v0, 0x3
-
-    new-array v2, v0, [J
-
-    fill-array-data v2, :array_28
-
-    .line 231
-    const/4 v3, 0x0
-
-    :goto_16
-    if-ge v3, v0, :cond_25
-
-    aget-wide v4, v2, v3
-
-    .line 232
-    new-instance v6, Lcom/luna/music/car/CarLyricsBridge$1;
-
-    invoke-direct {v6}, Lcom/luna/music/car/CarLyricsBridge$1;-><init>()V
-
-    invoke-virtual {v1, v6, v4, v5}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
-    :try_end_22
-    .catchall {:try_start_3 .. :try_end_22} :catchall_26
-
-    .line 231
-    add-int/lit8 v3, v3, 0x1
-
-    goto :goto_16
-
-    .line 243
-    :cond_25
-    # Save handler for ticker control
+    # Save handler
     sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sTickerHandler:Landroid/os/Handler;
     const/4 v0, 0x1
     sput-boolean v0, Lcom/luna/music/car/CarLyricsBridge;->sTickerActive:Z
+
+    # Create ticker
+    new-instance v2, Lcom/luna/music/car/CarLyricsBridge$1;
+    invoke-direct {v2}, Lcom/luna/music/car/CarLyricsBridge$1;-><init>()V
+
+    # Post with 500ms delay (not too fast)
+    const-wide/16 v3, 0x1f4
+    invoke-virtual {v1, v2, v3, v4}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
+    :try_end_22
+    .catchall {:try_start_3 .. :try_end_22} :catchall_26
+
     goto :goto_27
 
-    .line 242
     :catchall_26
     move-exception v0
 
-    .line 244
     :goto_27
     return-void
-
-    :array_28
-    .array-data 8
-        0x1f4
-        0x4b0
-        0x9c4
-    .end array-data
 .end method
 
 # 停止 ticker 的方法
