@@ -1,4 +1,3 @@
-\
 .class public Lcom/luna/music/car/CarLyricsBridge$1;
 .super Ljava/lang/Object;
 .source "CarLyricsBridge.java"
