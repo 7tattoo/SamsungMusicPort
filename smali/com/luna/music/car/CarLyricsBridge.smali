@@ -349,6 +349,12 @@
 
     .line 509
     :cond_c6
+
+    # Add vivo atomic widget capability bits: 7 (base) | 8 (lyrics) | 16 (seek) = 31
+    const-string v1, "vivomusicmix.media.metadata.support_event"
+    const-wide/16 v5, 0x1f
+    invoke-virtual {v3, v1, v5, v6}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
+
     :try_start_c6
     invoke-virtual {v3}, Landroid/media/MediaMetadata$Builder;->build()Landroid/media/MediaMetadata;
 
@@ -690,6 +696,11 @@
     const-string v2, ""
     :compat_put_line
     invoke-virtual {v0, v1, v2}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
+
+    # Add vivo atomic widget capability bits: 7 (base) | 8 (lyrics) | 16 (seek) = 31
+    const-string v1, "vivomusicmix.media.metadata.support_event"
+    const-wide/16 v2, 0x1f
+    invoke-virtual {v0, v1, v2, v3}, Landroid/os/BaseBundle;->putLong(Ljava/lang/String;J)V
 
     :compat_done
     return-object p0
@@ -2687,6 +2698,12 @@
 
     .line 421
     :cond_ac
+
+    # Add vivo atomic widget capability bits: 7 (base) | 8 (lyrics) | 16 (seek) = 31
+    const-string v0, "vivomusicmix.media.metadata.support_event"
+    const-wide/16 v2, 0x1f
+    invoke-virtual {v1, v0, v2, v3}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
+
     invoke-virtual {v1}, Landroid/media/MediaMetadata$Builder;->build()Landroid/media/MediaMetadata;
 
     move-result-object v0

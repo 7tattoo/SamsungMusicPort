@@ -186,6 +186,7 @@
             <intent-filter>
                 <action android:name="com.samsung.android.app.music.ui.player.service.bind.PlayerService"/>
                 <action android:name="android.media.browse.MediaBrowserService"/>
+                <action android:name="com.vivo.musicwidgetmix.support.service"/>
             </intent-filter>
         </service>
         <receiver android:exported="true" android:name="com.samsung.android.app.music.ui.player.receiver.MediaCommandReceiver">
