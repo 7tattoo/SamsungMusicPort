@@ -1090,6 +1090,12 @@
     .line 42
     .line 43
     :goto_0
+    # growcar-lrc: 所有 MediaSessionCompat metadata 推送的统一出口 —— 后台刷新
+    # 也会经过这里，必须重新注入 ucar 歌词字段，否则整段歌词被冲掉只剩单行
+    invoke-static {p1, v0}, Lcom/luna/music/car/CarLyricsBridge;->applyRaw(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
+
+    move-result-object p1
+
     invoke-virtual {v0, p1}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
 
     .line 44

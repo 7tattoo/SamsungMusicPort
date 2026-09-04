@@ -41,9 +41,15 @@
 # Atomic lrc_change timestamp (periodic resend ~25s)
 .field static volatile sAtomicLrcAt:J
 
+.field static volatile sTickCount:I
+
+.field static volatile sLrcKeep:Ljava/lang/String;
+
+.field static volatile sLrcKeepTrack:J
+
 # direct methods
 .method static constructor <clinit>()V
-    .registers 3
+    .registers 6
 
     .line 22
     const-string v0, ""
@@ -63,6 +69,16 @@
 
     .line 30
     sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastPushKey:Ljava/lang/String;
+
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrcKeep:Ljava/lang/String;
+
+    const-wide/16 v3, -0x1
+
+    sput-wide v3, Lcom/luna/music/car/CarLyricsBridge;->sLrcKeepTrack:J
+
+    const/4 v5, 0x0
+
+    sput v5, Lcom/luna/music/car/CarLyricsBridge;->sTickCount:I
 
     .line 33
     nop
@@ -2258,6 +2274,259 @@
     return-void
 .end method
 
+# growcar-lrc: 歌词整段保活 —— 后台时 LyricsView 被销毁会回调 setLyrics(null)，
+# 导致同一首歌的 sLrc 被清空、车机整段歌词消失只剩单行。这里缓存 (trackId, lrc)，
+# 同一首歌被误清空后由 ticker 自动恢复。
+.method static keepLrcSync()V
+    .registers 6
+
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    if-eqz v0, :keep_try_restore
+    invoke-virtual {v0}, Ljava/lang/String;->length()I
+    move-result v1
+    if-lez v1, :keep_try_restore
+
+    # sLrc 有内容 -> 刷新保活缓存
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrcKeep:Ljava/lang/String;
+    sget-wide v2, Lcom/luna/music/car/CarLyricsBridge;->sTrackId:J
+    sput-wide v2, Lcom/luna/music/car/CarLyricsBridge;->sLrcKeepTrack:J
+    return-void
+
+    :keep_try_restore
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrcKeep:Ljava/lang/String;
+    if-eqz v0, :keep_done
+    invoke-virtual {v0}, Ljava/lang/String;->length()I
+    move-result v1
+    if-lez v1, :keep_done
+
+    # 仅同一首歌才恢复（trackId 相同）
+    sget-wide v2, Lcom/luna/music/car/CarLyricsBridge;->sLrcKeepTrack:J
+    sget-wide v4, Lcom/luna/music/car/CarLyricsBridge;->sTrackId:J
+    cmp-long v1, v2, v4
+    if-nez v1, :keep_done
+
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+
+    :keep_done
+    return-void
+.end method
+
+# growcar-lrc: 轻量版 apply()（无日志），供 MediaSessionCompat 统一出口和 ticker 补推使用
+.method public static applyRaw(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
+    .registers 9
+
+    if-nez p0, :raw_go
+    return-object p0
+
+    :raw_go
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->isEnabled()Z
+    move-result v0
+    if-nez v0, :raw_enabled
+    return-object p0
+
+    :raw_enabled
+    :try_start_raw
+    sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sBaseMeta:Landroid/media/MediaMetadata;
+
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->ensureSongReset(Landroid/media/MediaMetadata;)V
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->keepLrcSync()V
+
+    if-eqz p1, :raw_no_sess
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
+    if-nez v1, :raw_no_sess
+    sput-object p1, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
+
+    :raw_no_sess
+    new-instance v0, Landroid/media/MediaMetadata$Builder;
+    invoke-direct {v0, p0}, Landroid/media/MediaMetadata$Builder;-><init>(Landroid/media/MediaMetadata;)V
+
+    const-string v1, "ucar.media.metadata.LYRICS_WHOLE"
+    const-string v2, "ucar.media.metadata.LYRICS_STATUS"
+
+    sget-object v3, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    if-eqz v3, :raw_empty
+    invoke-virtual {v3}, Ljava/lang/String;->length()I
+    move-result v4
+    if-lez v4, :raw_empty
+
+    invoke-virtual {v0, v1, v3}, Landroid/media/MediaMetadata$Builder;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/media/MediaMetadata$Builder;
+    const-wide/16 v5, 0x0
+    invoke-virtual {v0, v2, v5, v6}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
+    goto :raw_line
+
+    :raw_empty
+    const-string v3, ""
+    invoke-virtual {v0, v1, v3}, Landroid/media/MediaMetadata$Builder;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/media/MediaMetadata$Builder;
+    const-wide/16 v5, 0x2
+    invoke-virtual {v0, v2, v5, v6}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
+
+    :raw_line
+    sget-object v3, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
+    if-nez v3, :raw_put_line
+    const-string v3, ""
+
+    :raw_put_line
+    const-string v1, "ucar.media.metadata.LYRICS_LINE"
+    invoke-virtual {v0, v1, v3}, Landroid/media/MediaMetadata$Builder;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/media/MediaMetadata$Builder;
+
+    const-string v1, "vivomusicmix.media.metadata.support_event"
+    const-wide/16 v5, 0x1f
+    invoke-virtual {v0, v1, v5, v6}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
+
+    invoke-virtual {v0}, Landroid/media/MediaMetadata$Builder;->build()Landroid/media/MediaMetadata;
+    move-result-object v0
+
+    # 有歌词但 ticker 已停（后台被 setTrackId 停掉且 setLrc 未再触发）-> 重启 ticker
+    sget-object v3, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    if-eqz v3, :raw_ret
+    invoke-virtual {v3}, Ljava/lang/String;->length()I
+    move-result v4
+    if-lez v4, :raw_ret
+    sget-boolean v4, Lcom/luna/music/car/CarLyricsBridge;->sTickerActive:Z
+    if-nez v4, :raw_ret
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->startTickerOnly()V
+
+    :raw_ret
+    nop
+    :try_end_raw
+    .catchall {:try_start_raw .. :try_end_raw} :catchall_raw
+
+    return-object v0
+
+    :catchall_raw
+    move-exception v0
+    return-object p0
+.end method
+
+# growcar-lrc: 后台时 PlaybackState.getPosition() 是快照值，必须自己按 elapsedRealtime 插值
+.method static currentPos()J
+    .registers 12
+
+    const-wide/16 v0, -0x1
+
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
+    if-nez v2, :cp_have
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
+
+    :cp_have
+    if-nez v2, :cp_go
+    return-wide v0
+
+    :cp_go
+    :try_start_cp
+    invoke-virtual {v2}, Landroid/media/session/MediaSession;->getController()Landroid/media/session/MediaController;
+    move-result-object v2
+    if-eqz v2, :cp_ret
+
+    invoke-virtual {v2}, Landroid/media/session/MediaController;->getPlaybackState()Landroid/media/session/PlaybackState;
+    move-result-object v2
+    if-eqz v2, :cp_ret
+
+    invoke-virtual {v2}, Landroid/media/session/PlaybackState;->getPosition()J
+    move-result-wide v0
+
+    # 只在 STATE_PLAYING(3) 时插值
+    invoke-virtual {v2}, Landroid/media/session/PlaybackState;->getState()I
+    move-result v3
+    const/4 v4, 0x3
+    if-ne v3, v4, :cp_ret
+
+    invoke-virtual {v2}, Landroid/media/session/PlaybackState;->getLastPositionUpdateTime()J
+    move-result-wide v4
+    const-wide/16 v8, 0x0
+    cmp-long v3, v4, v8
+    if-lez v3, :cp_ret
+
+    invoke-static {}, Landroid/os/SystemClock;->elapsedRealtime()J
+    move-result-wide v6
+    sub-long/2addr v6, v4
+    cmp-long v3, v6, v8
+    if-lez v3, :cp_ret
+
+    # 漂移上限 1 小时，防止 lastPositionUpdateTime 异常导致越界
+    const-wide/32 v8, 0x36ee80
+    cmp-long v3, v6, v8
+    if-gtz v3, :cp_ret
+
+    add-long/2addr v0, v6
+
+    :cp_ret
+    return-wide v0
+    :try_end_cp
+    .catchall {:try_start_cp .. :try_end_cp} :catchall_cp
+
+    :catchall_cp
+    move-exception v2
+    const-wide/16 v0, -0x1
+    return-wide v0
+.end method
+
+# growcar-lrc: 检查车载 Session metadata 里 LYRICS_WHOLE 是否被别的 setMetadata 冲掉了，
+# 被冲掉就补推一次（自愈后条件不成立，不会形成推送环路）
+.method static repushMeta()V
+    .registers 8
+
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
+    if-nez v0, :rp_have
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
+
+    :rp_have
+    if-nez v0, :rp_go
+    return-void
+
+    :rp_go
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->keepLrcSync()V
+
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    if-eqz v1, :rp_ret_a
+    invoke-virtual {v1}, Ljava/lang/String;->length()I
+    move-result v2
+    if-lez v2, :rp_ret_a
+
+    :try_start_rp
+    invoke-virtual {v0}, Landroid/media/session/MediaSession;->getController()Landroid/media/session/MediaController;
+    move-result-object v3
+    if-eqz v3, :rp_use_cache
+    invoke-virtual {v3}, Landroid/media/session/MediaController;->getMetadata()Landroid/media/MediaMetadata;
+    move-result-object v4
+    if-nez v4, :rp_check
+
+    :rp_use_cache
+    sget-object v4, Lcom/luna/music/car/CarLyricsBridge;->sBaseMeta:Landroid/media/MediaMetadata;
+
+    :rp_check
+    if-eqz v4, :rp_ret_b
+
+    const-string v5, "ucar.media.metadata.LYRICS_WHOLE"
+    invoke-virtual {v4, v5}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v6
+    if-eqz v6, :rp_push
+    invoke-virtual {v6}, Ljava/lang/String;->length()I
+    move-result v7
+    if-lez v7, :rp_push
+
+    # 整段歌词还在，无需补推
+    goto :rp_ret_b
+
+    :rp_push
+    invoke-static {v4, v0}, Lcom/luna/music/car/CarLyricsBridge;->applyRaw(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
+    move-result-object v6
+    if-eqz v6, :rp_ret_b
+    invoke-virtual {v0, v6}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
+
+    :rp_ret_b
+    return-void
+    :try_end_rp
+    .catchall {:try_start_rp .. :try_end_rp} :catchall_rp
+
+    :catchall_rp
+    move-exception v1
+    return-void
+
+    :rp_ret_a
+    return-void
+.end method
+
 .method private static shouldResendLrc()Z
     .registers 6
 
@@ -2712,6 +2981,15 @@
 
     # Ensure we have a valid line to push
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->ensurePushed()V
+
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->startTickerOnly()V
+
+    return-void
+.end method
+
+# growcar-lrc: 只启动 ticker，不调 ensurePushed()（避免 applyRaw -> ensurePushed -> apply 递归）
+.method static startTickerOnly()V
+    .registers 5
 
     :try_start_3
     # Stop existing ticker first
