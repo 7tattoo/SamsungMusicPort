@@ -2207,6 +2207,19 @@
 .method public static applyRaw(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
     .registers 9
 
+    # growcar-lrc v1.1.12: 抓住车载 MediaSession 引用。
+    # sSession 原先只在 apply() 里赋值，而 apply() 只被 soundplayer viewmodel
+    # 调用；sCarSession 只在 injectExtras() 里赋值，而那条路只在队列变化时才跑。
+    # 车机后台切歌时两者常为 null，导致 onLrcReady()→repushMeta() 直接 return，
+    # 歌词异步加载完成也推不出去 —— 这是「第一遍只有 1/6 概率多行」的真正原因。
+    # s.P() 是 metadata 唯一出口，这里拿到的就是真实车载 session。
+    # 只存引用，无分配无 IO，不违反热路径铁律。
+    if-eqz p1, :raw_check
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
+    if-eq v0, p1, :raw_check
+    sput-object p1, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
+
+    :raw_check
     if-eqz p0, :raw_orig
 
     # 铁律 1+3：没歌词就地返回，零拷贝零 IO
@@ -2503,7 +2516,7 @@
 # 切歌时 metadata 已经推过（那时还没歌词），必须在歌词就绪后再推一次，
 # 否则车机永远看不到 LYRICS_WHOLE。
 .method public static onLrcReady()V
-    .registers 3
+    .registers 4
 
     :try_start_rdy
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
@@ -2512,8 +2525,28 @@
     move-result v1
     if-lez v1, :rdy_done
 
-    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->repushMeta()V
+    # v1.1.12: 直接强推一次，不再依赖 repushMeta 的「LYRICS_WHOLE 为空」判断。
+    # 歌词刚到达时车载 session 里的 metadata 必定不含歌词，强推最直接。
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
+    if-nez v2, :rdy_have
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
 
+    :rdy_have
+    if-eqz v2, :rdy_ticker
+
+    invoke-virtual {v2}, Landroid/media/session/MediaSession;->getController()Landroid/media/session/MediaController;
+    move-result-object v3
+    if-eqz v3, :rdy_ticker
+    invoke-virtual {v3}, Landroid/media/session/MediaController;->getMetadata()Landroid/media/MediaMetadata;
+    move-result-object v3
+    if-eqz v3, :rdy_ticker
+
+    invoke-static {v3, v2}, Lcom/luna/music/car/CarLyricsBridge;->applyRaw(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
+    move-result-object v3
+    if-eqz v3, :rdy_ticker
+    invoke-virtual {v2, v3}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
+
+    :rdy_ticker
     # 歌词刚到，ticker 若已停则重启（负责原子随身听 lrc_change 与行同步）
     sget-boolean v1, Lcom/luna/music/car/CarLyricsBridge;->sTickerActive:Z
     if-nez v1, :rdy_done
