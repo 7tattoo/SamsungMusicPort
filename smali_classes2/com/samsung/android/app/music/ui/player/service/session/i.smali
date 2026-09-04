@@ -2605,6 +2605,15 @@
     .line 121
     invoke-virtual {v0, p3}, Landroid/support/v4/media/session/s;->P(Landroid/support/v4/media/MediaMetadataCompat;)V
 
+    # growcar-lrc v1.1.11: 主动请求本曲歌词。
+    # 车机后台切歌时没有任何别的代码会触发歌词加载（详见
+    # CarLyricsBridge.requestLyrics 的注释），必须自己请求。
+    invoke-virtual {v2}, Lcom/samsung/android/app/music/repository/model/player/music/Music;->getCpAttrs()J
+    move-result-wide v4
+    invoke-virtual {v2}, Lcom/samsung/android/app/music/repository/model/player/music/Music;->getMediaId()J
+    move-result-wide v6
+    invoke-static {v4, v5, v6, v7}, Lcom/luna/music/car/CarLyricsBridge;->requestLyrics(JJ)V
+
     .line 122
     .line 123
     .line 124

@@ -2420,6 +2420,115 @@
     return-void
 .end method
 
+# growcar-lrc v1.1.11: 车载后台切歌时主动请求歌词加载。
+#
+# 根因（v1.1.8/1.1.9/1.1.10 都没触及）：全 APK 只有 5 处会调
+# lyrics/g.b(cpAttrs, audioId, callback, extras) 触发歌词加载 ——
+#   1. player/v3/fullplayer/albumview/B  全屏播放器专辑视图（分页适配器）
+#   2. player/v3/fullplayer/tag/e        全屏播放器 tag 页
+#   3. lyrics/v3/e                       歌词界面
+#   4. gms/measurement/api/a             Bixby 语音（Music_15_6）
+#   5. session/p.B()                     服务端，但只由三星私有
+#                                        ServiceBox REQUEST_LYRIC 动作触发
+# 前三个都在 player UI 内；vivo 车机发的是 ucar.* / vivomusicmix.* 动作，
+# 永远不会发三星私有的 REQUEST_LYRIC。
+#
+# 所以在车机上后台切歌时**没有任何代码去加载歌词** → LruCache 未命中 →
+# UcarLyrics.fill() 与 CarLyricsBridge 都拿不到 LYRICS_WHOLE → 车机退回单行。
+# 这解释了用户观察到的全部现象：进播放页会触发 [1]（分页适配器预取当前+相邻
+# 曲目），所以回车机主页后切「下一首」刚好命中预取缓存 → 多行；再往下切就
+# 超出预取范围 → 单行。
+#
+# 修复：切歌时自己调 g.b() 请求歌词，回调 CarLrcCallback 把结果喂回车载通道。
+# 寄存器（.registers 12；static (JJ)V → p0/p1=v8/v9 cpAttrs, p2/p3=v10/v11 audioId）
+# 每个寄存器类型单一，避免 VerifyError：
+#   v0 narrow int（boolean / length / cmp 结果）
+#   v1 ref  g（歌词加载器单例）        ← range 起点
+#   v2 int  cpAttrs
+#   v3-v4 long audioId
+#   v5 ref  CarLrcCallback
+#   v6 ref  null Bundle                ← range 终点（b() 共占 6 个寄存器）
+#   v7 ref  Context / String / Throwable scratch
+.method public static requestLyrics(JJ)V
+    .registers 12
+
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->isEnabled()Z
+    move-result v0
+    if-eqz v0, :req_done
+
+    :try_start_req
+    sget-object v1, Lcom/samsung/android/app/music/lyrics/d;->a:Lcom/samsung/android/app/music/lyrics/g;
+    if-eqz v1, :req_done
+
+    # 加载器需要 Context（App 启动时由 x.k() 赋值）；缺失则用我们自己的
+    iget-object v7, v1, Lcom/samsung/android/app/music/lyrics/g;->c:Landroid/content/Context;
+    if-nez v7, :req_have_ctx
+    sget-object v7, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
+    if-eqz v7, :req_done
+    iput-object v7, v1, Lcom/samsung/android/app/music/lyrics/g;->c:Landroid/content/Context;
+
+    :req_have_ctx
+    # 已经有当前曲目的整段歌词就不必再请求
+    sget-wide v3, Lcom/luna/music/car/CarLyricsBridge;->sTrackId:J
+    cmp-long v0, v3, p2
+    if-nez v0, :req_go
+    sget-object v7, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    if-eqz v7, :req_go
+    invoke-virtual {v7}, Ljava/lang/String;->length()I
+    move-result v0
+    if-gtz v0, :req_done
+
+    :req_go
+    long-to-int v2, p0
+    move-wide v3, p2
+
+    new-instance v5, Lcom/luna/music/car/CarLrcCallback;
+    invoke-direct {v5}, Lcom/luna/music/car/CarLrcCallback;-><init>()V
+
+    const/4 v6, 0x0
+
+    invoke-virtual/range {v1 .. v6}, Lcom/samsung/android/app/music/lyrics/g;->b(IJLcom/samsung/android/app/music/lyrics/f;Landroid/os/Bundle;)V
+    :try_end_req
+    .catchall {:try_start_req .. :try_end_req} :catchall_req
+
+    :req_done
+    return-void
+
+    :catchall_req
+    move-exception v7
+    return-void
+.end method
+
+# growcar-lrc v1.1.11: 歌词异步到达后补推一次车载 metadata。
+# 切歌时 metadata 已经推过（那时还没歌词），必须在歌词就绪后再推一次，
+# 否则车机永远看不到 LYRICS_WHOLE。
+.method public static onLrcReady()V
+    .registers 3
+
+    :try_start_rdy
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    if-eqz v0, :rdy_done
+    invoke-virtual {v0}, Ljava/lang/String;->length()I
+    move-result v1
+    if-lez v1, :rdy_done
+
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->repushMeta()V
+
+    # 歌词刚到，ticker 若已停则重启（负责原子随身听 lrc_change 与行同步）
+    sget-boolean v1, Lcom/luna/music/car/CarLyricsBridge;->sTickerActive:Z
+    if-nez v1, :rdy_done
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->startTickerOnly()V
+    :try_end_rdy
+    .catchall {:try_start_rdy .. :try_end_rdy} :catchall_rdy
+
+    :rdy_done
+    return-void
+
+    :catchall_rdy
+    move-exception v2
+    return-void
+.end method
+
 .method private static shouldResendLrc()Z
     .registers 6
 
