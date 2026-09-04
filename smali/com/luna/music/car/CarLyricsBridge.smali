@@ -320,6 +320,10 @@
     move v1, v2
 
     .line 496
+    # growcar-lrc v1.1.9: 对齐酷我音乐 12.0.8.0（车机多行歌词正常工作的参照实现）。
+    # 参照实现 ViVoCarLinkMediaSessionBridge 只写 LYRICS_WHOLE，**从不写**
+    # LYRICS_STATUS / LYRICS_LINE。LYRICS_LINE 是「单行歌词」协议信号，
+    # 一旦写入车机就会优先采信单行模式，整段歌词被忽略。
     :cond_9c
     const-string v4, "ucar.media.metadata.LYRICS_STATUS"
 
@@ -327,7 +331,7 @@
 
     const-string v8, "ucar.media.metadata.LYRICS_WHOLE"
 
-    if-eqz v1, :cond_ad
+    if-eqz v1, :cond_c6
 
     .line 497
     sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
@@ -336,36 +340,6 @@
 
     .line 498
     invoke-virtual {v3, v4, v5, v6}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
-
-    goto :goto_b5
-
-    .line 501
-    :cond_ad
-    invoke-virtual {v3, v8, v7}, Landroid/media/MediaMetadata$Builder;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/media/MediaMetadata$Builder;
-
-    .line 502
-    const-wide/16 v5, 0x2
-
-    invoke-virtual {v3, v4, v5, v6}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
-
-    .line 504
-    :goto_b5
-    if-eqz v0, :cond_c6
-
-    invoke-virtual {v0}, Ljava/lang/String;->trim()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/String;->length()I
-
-    move-result v1
-
-    if-lez v1, :cond_c6
-
-    .line 505
-    const-string v1, "ucar.media.metadata.LYRICS_LINE"
-
-    invoke-virtual {v3, v1, v0}, Landroid/media/MediaMetadata$Builder;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/media/MediaMetadata$Builder;
 
     .line 509
     :cond_c6
@@ -411,34 +385,8 @@
     invoke-direct {v3, v1}, Landroid/os/Bundle;-><init>(Landroid/os/Bundle;)V
 
     .line 520
-    if-eqz v0, :cond_f2
-
-    invoke-virtual {v0}, Ljava/lang/String;->trim()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/String;->length()I
-
-    move-result v1
-
-    if-lez v1, :cond_f2
-
-    .line 521
-    const-string v1, "music.media.extras.LYRIC"
-
-    invoke-virtual {v3, v1, v0}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
-
-    .line 523
+    # growcar-lrc v1.1.9: 移除 music.media.extras.* 单行通道（见 pushExtrasTo 注释）
     :cond_f2
-    const-string v1, "music.media.extras.LYRIC_IS_ALLOWED"
-
-    invoke-virtual {v3, v1, v2}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
-
-    .line 524
-    const-string v1, "music.media.extras.NOTICE_CAR"
-
-    invoke-virtual {v3, v1, v2}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
-
     .line 526
     const-string v1, "vivomusicmix.meida.extra.key.action"
 
@@ -685,37 +633,24 @@
     iget-object v0, p0, Landroid/support/v4/media/MediaMetadataCompat;->a:Landroid/os/Bundle;
     if-eqz v0, :compat_done
 
+    # growcar-lrc v1.1.9: 只写 LYRICS_WHOLE，不写 LYRICS_LINE / 负状态。
+    # 见 apply() 处注释：LYRICS_LINE 会让车机切到单行模式。
     sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
-    if-eqz v1, :compat_empty
+    if-eqz v1, :compat_cap
 
     invoke-virtual {v1}, Ljava/lang/String;->trim()Ljava/lang/String;
     move-result-object v2
     invoke-virtual {v2}, Ljava/lang/String;->length()I
     move-result v2
-    if-lez v2, :compat_empty
+    if-lez v2, :compat_cap
 
     const-string v2, "ucar.media.metadata.LYRICS_WHOLE"
     invoke-virtual {v0, v2, v1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
     const-string v2, "ucar.media.metadata.LYRICS_STATUS"
     const-wide/16 v3, 0x0
     invoke-virtual {v0, v2, v3, v4}, Landroid/os/BaseBundle;->putLong(Ljava/lang/String;J)V
-    goto :compat_line
 
-    :compat_empty
-    const-string v1, "ucar.media.metadata.LYRICS_WHOLE"
-    const-string v2, ""
-    invoke-virtual {v0, v1, v2}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
-    const-string v1, "ucar.media.metadata.LYRICS_STATUS"
-    const-wide/16 v2, 0x2
-    invoke-virtual {v0, v1, v2, v3}, Landroid/os/BaseBundle;->putLong(Ljava/lang/String;J)V
-
-    :compat_line
-    const-string v1, "ucar.media.metadata.LYRICS_LINE"
-    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
-    if-nez v2, :compat_put_line
-    const-string v2, ""
-    :compat_put_line
-    invoke-virtual {v0, v1, v2}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
+    :compat_cap
 
     # Add vivo atomic widget capability bits: 7 (base) | 8 (lyrics) | 16 (seek) = 31
     const-string v1, "vivomusicmix.media.metadata.support_event"
@@ -1315,36 +1250,8 @@
     sput-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
     .line 357
+    # growcar-lrc v1.1.9: 移除 music.media.extras.* 单行通道（见 pushExtrasTo 注释）
     :cond_45
-    const-string v0, "music.media.extras.LYRIC_IS_ALLOWED"
-
-    const/4 v1, 0x1
-
-    invoke-virtual {p0, v0, v1}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
-
-    .line 358
-    const-string v0, "music.media.extras.NOTICE_CAR"
-
-    invoke-virtual {p0, v0, v1}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
-
-    .line 359
-    if-eqz v2, :cond_61
-
-    invoke-virtual {v2}, Ljava/lang/String;->trim()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/String;->length()I
-
-    move-result v0
-
-    if-lez v0, :cond_61
-
-    .line 360
-    const-string v0, "music.media.extras.LYRIC"
-
-    invoke-virtual {p0, v0, v2}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
-
     .line 362
     :cond_61
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
@@ -2128,36 +2035,8 @@
     invoke-direct {v1, v0}, Landroid/os/Bundle;-><init>(Landroid/os/Bundle;)V
 
     .line 432
-    if-eqz p1, :cond_25
-
-    invoke-virtual {p1}, Ljava/lang/String;->trim()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/String;->length()I
-
-    move-result v0
-
-    if-lez v0, :cond_25
-
-    .line 433
-    const-string v0, "music.media.extras.LYRIC"
-
-    invoke-virtual {v1, v0, p1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
-
-    .line 435
+    # growcar-lrc v1.1.9: 移除 music.media.extras.* 单行通道（见 pushExtrasTo 注释）
     :cond_25
-    const-string p1, "music.media.extras.LYRIC_IS_ALLOWED"
-
-    const/4 v0, 0x1
-
-    invoke-virtual {v1, p1, v0}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
-
-    .line 436
-    const-string p1, "music.media.extras.NOTICE_CAR"
-
-    invoke-virtual {v1, p1, v0}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
-
     .line 437
     const-string p1, "vivomusicmix.meida.extra.key.action"
 
@@ -2363,15 +2242,7 @@
     const-wide/16 v5, 0x0
     invoke-virtual {v3, v4, v5, v6}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
 
-    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
-    if-eqz v2, :raw_cap
-    invoke-virtual {v2}, Ljava/lang/String;->length()I
-    move-result v1
-    if-lez v1, :raw_cap
-    const-string v4, "ucar.media.metadata.LYRICS_LINE"
-    invoke-virtual {v3, v4, v2}, Landroid/media/MediaMetadata$Builder;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/media/MediaMetadata$Builder;
-
-    :raw_cap
+    # v1.1.9: 不写 LYRICS_LINE（单行信号），只保留整段歌词
     const-string v4, "vivomusicmix.media.metadata.support_event"
     const-wide/16 v5, 0x1f
     invoke-virtual {v3, v4, v5, v6}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
@@ -2547,33 +2418,25 @@
     if-nez p0, :cond_3
     return-void
 
+    # growcar-lrc v1.1.9: 不再推送 music.media.extras.LYRIC / LYRIC_IS_ALLOWED /
+    # NOTICE_CAR 这条「单行歌词」通道。
+    # 参照酷我音乐 12.0.8.0（车机多行歌词正常）—— 它完全不使用该通道，
+    # 只靠 metadata 里的 LYRICS_WHOLE 让车机自己按进度滚动。
+    # 而所有 joviincar「单行适配版」都推这三个键，卡片就固定在单行模式。
+    # NOTICE_CAR=true 字面含义即「通知车机（按通知样式显示）」，ticker 每 500ms
+    # 推一次，会持续把车载卡片压回单行。此处只保留原子随身听 vivomusicmix.* 通道。
     :cond_3
     :try_start_3
     new-instance v0, Landroid/os/Bundle;
     invoke-direct {v0}, Landroid/os/Bundle;-><init>()V
 
-    if-eqz p1, :cond_19
-    invoke-virtual {p1}, Ljava/lang/String;->trim()Ljava/lang/String;
-    move-result-object v1
-    invoke-virtual {v1}, Ljava/lang/String;->length()I
-    move-result v1
-    if-lez v1, :cond_19
-    const-string v1, "music.media.extras.LYRIC"
-    invoke-virtual {v0, v1, p1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
-
-    :cond_19
-    const-string p1, "music.media.extras.LYRIC_IS_ALLOWED"
-    const/4 v1, 0x1
-    invoke-virtual {v0, p1, v1}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
-
-    const-string p1, "music.media.extras.NOTICE_CAR"
-    invoke-virtual {v0, p1, v1}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
-
     # Check if we should send lrc_change (every ~25s)
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->shouldResendLrc()Z
     move-result p1
 
-    if-eqz p1, :skip_lrc
+    # 没有 lrc_change 要发时直接返回 —— 单行通道已移除，此时 Bundle 为空，
+    # 若仍调 setExtras 会把车机/原子已收到的 extras 清空。
+    if-eqz p1, :goto_8b
 
     # Send lrc_change event
     const-string p1, "vivomusicmix.meida.extra.key.action"
@@ -2625,7 +2488,6 @@
     move-result-wide v4
     sput-wide v4, Lcom/luna/music/car/CarLyricsBridge;->sAtomicLrcAt:J
 
-    :skip_lrc
     invoke-virtual {p0, v0}, Landroid/media/session/MediaSession;->setExtras(Landroid/os/Bundle;)V
     :try_end_57
     .catchall {:try_start_57 .. :try_end_57} :catchall_89
@@ -2824,7 +2686,7 @@
 
     const-string v5, "ucar.media.metadata.LYRICS_WHOLE"
 
-    if-eqz v0, :cond_8d
+    if-eqz v0, :cond_ac
 
     .line 412
     :try_start_82
@@ -2837,41 +2699,7 @@
 
     invoke-virtual {v1, v2, v5, v6}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
 
-    goto :goto_95
-
-    .line 415
-    :cond_8d
-    invoke-virtual {v1, v5, v3}, Landroid/media/MediaMetadata$Builder;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/media/MediaMetadata$Builder;
-
-    .line 416
-    const-wide/16 v5, 0x2
-
-    invoke-virtual {v1, v2, v5, v6}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
-
-    .line 418
-    :goto_95
-    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
-
-    if-eqz v0, :cond_ac
-
-    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
-
-    invoke-virtual {v0}, Ljava/lang/String;->trim()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Ljava/lang/String;->length()I
-
-    move-result v0
-
-    if-lez v0, :cond_ac
-
-    .line 419
-    const-string v0, "ucar.media.metadata.LYRICS_LINE"
-
-    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
-
-    invoke-virtual {v1, v0, v2}, Landroid/media/MediaMetadata$Builder;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/media/MediaMetadata$Builder;
+    # v1.1.9: 不写 LYRICS_LINE / 不写负状态（单行信号会让车机忽略整段歌词）
 
     .line 421
     :cond_ac
