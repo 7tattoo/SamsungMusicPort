@@ -2382,6 +2382,44 @@
     return-void
 .end method
 
+# growcar-lrc v1.1.10: 由 UcarLyrics 用 App 自己的歌词 LruCache 给 sLrc 播种。
+# UcarLyrics 不依赖歌词界面存活，因此后台/未开歌词页时也能拿到整段歌词。
+# 严格零副作用：只在 trackId 匹配且当前无歌词时写入，不触发 ticker、不做 IO。
+.method public static seedLrc(JLjava/lang/String;)V
+    .registers 8
+
+    if-eqz p2, :seed_done
+    invoke-virtual {p2}, Ljava/lang/String;->length()I
+    move-result v0
+    if-lez v0, :seed_done
+
+    # 只接受当前曲目的歌词（sTrackId 未初始化 -1 时也接受）
+    sget-wide v0, Lcom/luna/music/car/CarLyricsBridge;->sTrackId:J
+    const-wide/16 v2, -0x1
+    cmp-long v4, v0, v2
+    if-eqz v4, :seed_ok
+    cmp-long v4, v0, p0
+    if-nez v4, :seed_done
+
+    :seed_ok
+    # 刷新保活缓存（同一首歌被 setLyrics(null) 清空后可自愈）
+    sput-object p2, Lcom/luna/music/car/CarLyricsBridge;->sLrcKeep:Ljava/lang/String;
+    sput-wide p0, Lcom/luna/music/car/CarLyricsBridge;->sLrcKeepTrack:J
+
+    # 已有相同歌词则不重复写
+    sget-object v5, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    if-eqz v5, :seed_put
+    invoke-virtual {p2, v5}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    move-result v4
+    if-nez v4, :seed_done
+
+    :seed_put
+    sput-object p2, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+
+    :seed_done
+    return-void
+.end method
+
 .method private static shouldResendLrc()Z
     .registers 6
 
