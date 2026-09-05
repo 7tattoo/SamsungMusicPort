@@ -81,6 +81,68 @@ jobs:
           "$ZIPALIGN" -c -p 4 /tmp/aligned.apk
           echo "Zipalign verification passed"
 
+      - name: Validate package-specific lyric protocols
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHECK_DIR=/tmp/protocol-check
+          rm -rf "$CHECK_DIR"
+          mkdir -p "$CHECK_DIR"
+          unzip -q /tmp/aligned.apk 'classes*.dex' -d "$CHECK_DIR"
+
+          contains_key() {
+            local key="$1"
+            local dex hits
+            for dex in "$CHECK_DIR"/classes*.dex; do
+              # grep -c reads all input, so no SIGPIPE under `set -o pipefail`
+              # (grep -q would exit early, kill `strings` with 141 and break the check)
+              hits=$(strings "$dex" | grep -Fc -- "$key" || true)
+              if [[ "${hits:-0}" -gt 0 ]]; then
+                return 0
+              fi
+            done
+            return 1
+          }
+
+          require_key() {
+            contains_key "$1" || { echo "ERROR: missing protocol key: $1"; exit 1; }
+          }
+
+          forbid_key() {
+            if contains_key "$1"; then
+              echo "ERROR: forbidden single-line key remains: $1"
+              exit 1
+            fi
+          }
+
+          # Every package must provide the ucar whole-LRC path.
+          require_key "ucar.media.metadata.LYRICS_WHOLE"
+          forbid_key "ucar.media.metadata.LYRICS_LINE"
+          forbid_key "music.media.extras.LYRIC"
+          forbid_key "music.media.extras.LYRIC_IS_ALLOWED"
+          forbid_key "music.media.extras.NOTICE_CAR"
+
+          # Atomic lyrics are guaranteed only for Apple Music and Spotify.
+          if [[ "${{ matrix.package }}" == "com.apple.android.music" || \
+                "${{ matrix.package }}" == "com.spotify.music" ]]; then
+            AAPT2=$(find /opt/bt -name aapt2 | head -1)
+            if ! "$AAPT2" dump xmltree /tmp/aligned.apk --file AndroidManifest.xml \
+                 | grep -Fc -- "com.vivo.musicwidgetmix.support.service" > /dev/null; then
+              echo "ERROR: missing atomic MediaBrowserService action"
+              exit 1
+            fi
+            require_key "vivomusicmix.media.metadata.support_event"
+            require_key "vivomusicmix.meida.extra.key.action"
+            require_key "vivomusicmix.extra.lrc_change"
+            require_key "vivomusicmix.extra.key.lyric"
+            require_key "vivomusicmix.extra.key.meidia_id"
+            echo "Atomic lyric validation passed for ${{ matrix.package }}"
+          else
+            echo "Atomic lyric validation skipped for ${{ matrix.package }} (not guaranteed)"
+          fi
+
+          echo "CarLink whole-LRC validation passed for ${{ matrix.package }}"
+
       - name: Sign APK
         run: |
           base64 -d keystore/car-release.keystore.b64 > /tmp/car-release.keystore
@@ -103,7 +165,14 @@ jobs:
           body: |
             Samsung Music 16.2.45.1 · vivo 车载投屏歌词适配 · 10 个不同包名版本
 
-            所有版本功能相同，仅 applicationId 不同，可同时安装互不冲突。
+            所有版本均保证 vivo 车联投屏整段 LRC 滚动歌词。
+            仅 com.apple.android.music（Apple Music）和 com.spotify.music（Spotify）
+            额外保证 vivo 原子随身听整段 LRC 滚动歌词；其他 8 个包名不承诺原子随身听。
+
+            车联协议：只使用 ucar.media.metadata.LYRICS_WHOLE，移除单行歌词字段和
+            music.media.extras.* 单行通道，由车机按 PlaybackState 进度滚动。
+            Apple Music / Spotify 原子协议：保留 support_event=31、lrc_change、
+            lyric 和 meidia_id（按 vivo 官方拼写）。
 
             包名列表：
             - com.tencent.ibg.joox (JOOX)
@@ -117,4 +186,6 @@ jobs:
             - cn.aqzscn.stream_music (Aqzscn Music)
             - com.tencent.wecarflow (腾讯车联)
 
-            基于 Build #4 baseline (commit 431bd26d)，包含 zipalign 4 字节对齐修复。
+            基于已实机验证通过的 car-multi-v1.1.12（commit 5f103ccd），包含：
+            后台主动加载歌词、统一 metadata 出口、异步歌词强推、session 引用捕获、
+            4 字节 zipalign，以及 Apple Music / Spotify 原子随身听协议校验。
