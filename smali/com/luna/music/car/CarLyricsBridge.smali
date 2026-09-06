@@ -2367,6 +2367,14 @@
     move-result-object v4
     if-eqz v4, :rp_ret_b
 
+    # v1.1.13: 快照必须已含封面位图才允许补推。
+    # 自动切歌时封面协程（Glide 解码 1-2s）可能晚于歌词就绪，若在封面
+    # 发布前补推，会把无 ALBUM_ART 的 metadata 推给车机 → 卡片变纯色。
+    const-string v5, "android.media.metadata.ALBUM_ART"
+    invoke-virtual {v4, v5}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v6
+    if-eqz v6, :rp_ret_b
+
     const-string v5, "ucar.media.metadata.LYRICS_WHOLE"
     invoke-virtual {v4, v5}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
     move-result-object v6
@@ -2516,7 +2524,7 @@
 # 切歌时 metadata 已经推过（那时还没歌词），必须在歌词就绪后再推一次，
 # 否则车机永远看不到 LYRICS_WHOLE。
 .method public static onLrcReady()V
-    .registers 4
+    .registers 6
 
     :try_start_rdy
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
@@ -2540,6 +2548,14 @@
     invoke-virtual {v3}, Landroid/media/session/MediaController;->getMetadata()Landroid/media/MediaMetadata;
     move-result-object v3
     if-eqz v3, :rdy_ticker
+
+    # v1.1.13: 快照必须有封面位图才允许补推。
+    # 后台自动切歌时，若在封面协程完成前抓取快照，会推一份无 ALBUM_ART 的
+    # metadata 把车机卡片刷成纯色；手动切歌封面已就绪所以不复现。
+    const-string v4, "android.media.metadata.ALBUM_ART"
+    invoke-virtual {v3, v4}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v5
+    if-eqz v5, :rdy_ticker
 
     invoke-static {v3, v2}, Lcom/luna/music/car/CarLyricsBridge;->applyRaw(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
     move-result-object v3
