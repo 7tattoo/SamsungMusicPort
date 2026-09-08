@@ -2849,7 +2849,7 @@
 .end method
 
 .method private static pushMetadata(Landroid/media/session/MediaSession;)V
-    .registers 8
+    .registers 9
 
     .line 388
     const-string v0, "_"
@@ -2954,10 +2954,12 @@
 
     .line 397
     # growcar-lrc: extras 触发补推时也优先读取当前 Session metadata
-    # growcar-cover v1.1.14: 记录读取前的封面版本号，供发布前复查竞态
+    # growcar-cover v1.1.16: 记录读取前的封面版本号（存 v7=新增空闲寄存器）。
+    # v1.1.14/15 误用 v3 —— 原代码 const-wide v2,v3(0x1f) 把 v3 用作 wide 高位，
+    # ART 校验 if-eq v5,v3 时报 (Integer,High-half Constant) VerifyError → 启动即崩
     const/4 v0, 0x0
 
-    sget v3, Lcom/luna/music/car/CarLyricsBridge;->sCoverRev:I
+    sget v7, Lcom/luna/music/car/CarLyricsBridge;->sCoverRev:I
 
     .line 400
     :try_start_51
@@ -3025,7 +3027,7 @@
     :pm_check_stale_live
     sget v5, Lcom/luna/music/car/CarLyricsBridge;->sCoverRev:I
 
-    if-eq v5, v3, :pm_use_live
+    if-eq v5, v7, :pm_use_live
 
     sget-object v5, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
 
@@ -3108,7 +3110,7 @@
     # （v1.1.14 写成 if-ne → 分支取反：竞态时发布无封面版、平时反而清空卡片，已修正为 if-eq）
     sget v5, Lcom/luna/music/car/CarLyricsBridge;->sCoverRev:I
 
-    if-eq v5, v3, :pm_build_go
+    if-eq v5, v7, :pm_build_go
 
     const/4 v5, 0x0
 
