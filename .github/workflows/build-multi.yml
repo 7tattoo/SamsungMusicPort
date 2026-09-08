@@ -192,11 +192,20 @@ jobs:
             - cn.aqzscn.stream_music (Aqzscn Music)
             - com.tencent.wecarflow (腾讯车联)
 
-            基于 car-multi-v1.1.13（commit b0e25800），新增 growcar-cover v1.1.14
-            封面竞态修复：自动切歌时歌词回调在封面加载完成前抢先推送"无封面"快照，
-            导致车机主页卡片渲染纯色封面。现以"含封面锚点 + 版本号撤销"机制兜底——
-            pushMetadata 发布前复查封面版本号，竞态窗口内的无封面推送被撤销并以
-            最近一次含封面 metadata 重建；换歌/清歌词时作废锚点，杜绝旧封面跨歌复用。
+            基于 car-multi-v1.1.14（commit a13fc07c），修正 growcar-cover 封面竞态
+            修复的三处实现缺陷（v1.1.15）：
+            1) applyRaw/apply/pushMetadata 的锚点检查误用错误 key（support_event /
+               sLastLine / null），导致锚点缓存与版本号提升恒不触发 → 全部改用
+               android.media.metadata.ALBUM_ART；
+            2) pushMetadata 竞态分支取反（if-ne 写成反义）——竞态窗口反而发布无封面
+               快照、平时却 setMetadata(null) 清空车载卡片 → 修正为 rev 未变才发布，
+               rev 变化走 lyrics-only 撤销；
+            3) 锚点仅在发布物确认含封面时缓存，杜绝无封面锚点跨歌复用。
+
+            机制：自动切歌时歌词回调在封面加载完成前抢先推送"无封面"快照，导致车机
+            主页卡片渲染纯色封面。现在 pushMetadata 发布前复查封面版本号，竞态窗口内
+            的无封面推送被撤销并以最近一次含封面 metadata 重建；阶段②（Glide 补封面）
+            经 applyRaw 发布后缓存锚点并提升版本号；换歌/清歌词时作废锚点。
 
             包含历史能力：后台主动加载歌词、统一 metadata 出口、异步歌词强推、
             session 引用捕获、4 字节 zipalign，以及 Apple Music / Spotify 原子随身听
