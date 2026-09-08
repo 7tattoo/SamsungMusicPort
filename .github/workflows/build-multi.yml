@@ -122,6 +122,12 @@ jobs:
           forbid_key "music.media.extras.LYRIC_IS_ALLOWED"
           forbid_key "music.media.extras.NOTICE_CAR"
 
+          # growcar-cover v1.1.14: 封面竞态保护符号必须存在于每个包（防回归）。
+          require_key "bumpCoverRev"
+          require_key "ensureCoverFlushed"
+          require_key "sCoverMeta"
+          require_key "sCoverRev"
+
           # Atomic lyrics are guaranteed only for Apple Music and Spotify.
           if [[ "${{ matrix.package }}" == "com.apple.android.music" || \
                 "${{ matrix.package }}" == "com.spotify.music" ]]; then
@@ -186,6 +192,12 @@ jobs:
             - cn.aqzscn.stream_music (Aqzscn Music)
             - com.tencent.wecarflow (腾讯车联)
 
-            基于已实机验证通过的 car-multi-v1.1.12（commit 5f103ccd），包含：
-            后台主动加载歌词、统一 metadata 出口、异步歌词强推、session 引用捕获、
-            4 字节 zipalign，以及 Apple Music / Spotify 原子随身听协议校验。
+            基于 car-multi-v1.1.13（commit b0e25800），新增 growcar-cover v1.1.14
+            封面竞态修复：自动切歌时歌词回调在封面加载完成前抢先推送"无封面"快照，
+            导致车机主页卡片渲染纯色封面。现以"含封面锚点 + 版本号撤销"机制兜底——
+            pushMetadata 发布前复查封面版本号，竞态窗口内的无封面推送被撤销并以
+            最近一次含封面 metadata 重建；换歌/清歌词时作废锚点，杜绝旧封面跨歌复用。
+
+            包含历史能力：后台主动加载歌词、统一 metadata 出口、异步歌词强推、
+            session 引用捕获、4 字节 zipalign，以及 Apple Music / Spotify 原子随身听
+            协议校验。

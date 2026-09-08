@@ -47,7 +47,107 @@
 
 .field static volatile sLrcKeepTrack:J
 
+# growcar-cover v1.1.14: 封面竞态保护
+# 最近一次"含封面"的完整 metadata（由 pushMetadata 缓存）与其版本号。
+# 竞态窗口内的无封面推送会被撤销并改用此缓存重建。
+.field private static volatile sCoverMeta:Landroid/media/MediaMetadata;
+.field private static volatile sCoverRev:I
+
 # direct methods
+# growcar-cover v1.1.14: 封面版本号自增。任何含 ALBUM_ART 的 setMetadata 落地后调用，
+# 使正在其它线程构建中的"无封面"推送在发布前检查到 rev 变化而自行撤销。
+.method public static bumpCoverRev()V
+    .registers 3
+
+    sget v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverRev:I
+
+    const/4 v1, 0x1
+
+    add-int/2addr v0, v1
+
+    sput v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverRev:I
+
+    return-void
+.end method
+
+# growcar-cover v1.1.14: 若车载 Session 当前 metadata 丢了 ALBUM_ART（被竞态窗口
+# 的无封面推送覆盖），立即用 sCoverMeta 重推一次。只走 setter，无分配无 IO。
+# 供后续埋点/心跳调用；当前主修逻辑在 pushMetadata 的撤销检查。
+.method public static ensureCoverFlushed()V
+    .registers 8
+
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
+    if-eqz v0, :ecf_done
+
+    :ecf_try_start
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
+
+    if-nez v1, :ecf_have
+
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
+
+    :ecf_have
+    if-eqz v1, :ecf_done
+
+    invoke-virtual {v1}, Landroid/media/session/MediaSession;->getController()Landroid/media/session/MediaController;
+
+    move-result-object v2
+
+    if-eqz v2, :ecf_done
+
+    invoke-virtual {v2}, Landroid/media/session/MediaController;->getMetadata()Landroid/media/MediaMetadata;
+
+    move-result-object v2
+
+    if-eqz v2, :ecf_flush
+
+    const-string v3, "android.media.metadata.ALBUM_ART"
+
+    invoke-virtual {v2, v3}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v2
+
+    if-eqz v2, :ecf_done
+
+    :ecf_flush
+    invoke-virtual {v1, v0}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
+    :ecf_try_end
+    .catchall {:ecf_try_start .. :ecf_try_end} :ecf_catch
+
+    goto :ecf_done
+
+    :ecf_catch
+    move-exception v1
+
+    :ecf_done
+    return-void
+.end method
+
+# growcar-cover v1.1.14: 生成与 sCoverRev 绑定的去重 key（替换固定 "carcover#"），
+# 使 sLastPushKey 不会吞掉不同封面版本对同一首歌的重发。
+.method private static revAtomicId()Ljava/lang/String;
+    .registers 3
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "carcover#"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    sget v1, Lcom/luna/music/car/CarLyricsBridge;->sCoverRev:I
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method static constructor <clinit>()V
     .registers 6
 
@@ -348,6 +448,14 @@
     const-string v1, "vivomusicmix.media.metadata.support_event"
     const-wide/16 v5, 0x1f
     invoke-virtual {v3, v1, v5, v6}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
+
+    # growcar-cover v1.1.14: 本路径马上要发布"基底快照+歌词"。若基底含封面，
+    # 发布后立即提升版本号，使竞态窗口中其它线程的无封面推送在发布前自检撤销。
+    invoke-virtual {p0, v0}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v1
+    if-eqz v1, :cover_no_bump
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->bumpCoverRev()V
+    :cover_no_bump
 
     :try_start_c6
     invoke-virtual {v3}, Landroid/media/MediaMetadata$Builder;->build()Landroid/media/MediaMetadata;
@@ -765,6 +873,9 @@
 
     .line 285
     :cond_3c
+    # growcar-cover v1.1.14c: 记录读取基底前的封面版本号（v3 空闲）
+    sget v3, Lcom/luna/music/car/CarLyricsBridge;->sCoverRev:I
+
     invoke-static {v2}, Lcom/luna/music/car/CarLyricsBridge;->ensureSongReset(Landroid/media/MediaMetadata;)V
 
     .line 286
@@ -779,6 +890,20 @@
 
     .line 289
     :try_start_45
+    # growcar-cover v1.1.14c: 发布前复查 rev —— 若 apply() 期间有含封面发布落地，
+    # v1 是"无封面旧快照+歌词"，直接发布会给车机纯色窗口。改用 sCoverMeta
+    #（最后一次含封面版本，apply() 已在其内附加歌词键）。
+    sget v2, Lcom/luna/music/car/CarLyricsBridge;->sCoverRev:I
+
+    if-eq v2, v3, :ep_publish_live
+
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
+    if-eqz v2, :ep_publish_live
+
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
+    :ep_publish_live
     invoke-virtual {v0, v1}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
 
     .line 290
@@ -1546,6 +1671,11 @@
     invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     :set_track_done
+    # growcar-cover v1.1.14: 换歌 → 封面缓存作废（旧封面元数据不得跨歌复用）
+    const/4 v0, 0x0
+
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
     return-void
 .end method
 
@@ -2265,6 +2395,21 @@
     :try_end_raw
     .catchall {:try_start_raw .. :try_end_raw} :catchall_raw
 
+    # growcar-cover v1.1.14b: 本方法在 s.P() 内被调用，是阶段②（Glide 补封面）
+    # 经 applyRaw 装饰后 setMetadata 的必经之路。若入参含 ALBUM_ART（阶段②
+    # 已覆盖封面），装饰结果就是"最新完整版"，在此缓存锚点并提升版本号，
+    # 让所有竞态窗口中的无封面推送在发布前自检撤销。
+    invoke-virtual {p0, v4}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v5
+
+    if-eqz v5, :raw_no_cache
+
+    sput-object v3, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->bumpCoverRev()V
+
+    :raw_no_cache
     if-eqz v3, :raw_orig
     return-object v3
 
@@ -2389,6 +2534,8 @@
     if-eqz v6, :rp_ret_b
     if-eq v6, v4, :rp_ret_b
     invoke-virtual {v0, v6}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
+    # growcar-cover v1.1.14: 补推落地后提升版本号（撤销窗口中的无封面推送）
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->bumpCoverRev()V
 
     :rp_ret_b
     return-void
@@ -2549,18 +2696,17 @@
     move-result-object v3
     if-eqz v3, :rdy_ticker
 
-    # v1.1.13: 快照必须有封面位图才允许补推。
-    # 后台自动切歌时，若在封面协程完成前抓取快照，会推一份无 ALBUM_ART 的
-    # metadata 把车机卡片刷成纯色；手动切歌封面已就绪所以不复现。
-    const-string v4, "android.media.metadata.ALBUM_ART"
-    invoke-virtual {v3, v4}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
-    move-result-object v5
-    if-eqz v5, :rdy_ticker
-
+    # growcar-cover v1.1.14: 弃用 v1.1.13 的 getBitmap 守卫 —— 本进程 set 的
+    # ALBUM_ART 在 framework 侧副本里，controller 快照读不到，守卫恒失败；
+    # 且竞态窗口内快照真实无封面，判空救不了。改为：正常补推歌词，
+    # 推送成功后立刻提升封面版本号，撤销任何正在构建中的无封面推送
+    #（pushMetadata 发布前复查 rev），随后 sCoverMeta 有机会则立即回填封面。
     invoke-static {v3, v2}, Lcom/luna/music/car/CarLyricsBridge;->applyRaw(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
     move-result-object v3
-    if-eqz v3, :rdy_ticker
+    if-eqz v3, :rdy_nopush
     invoke-virtual {v2, v3}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->bumpCoverRev()V
+    :rdy_nopush
 
     :rdy_ticker
     # 歌词刚到，ticker 若已停则重启（负责原子随身听 lrc_change 与行同步）
@@ -2803,7 +2949,10 @@
 
     .line 397
     # growcar-lrc: extras 触发补推时也优先读取当前 Session metadata
+    # growcar-cover v1.1.14: 记录读取前的封面版本号，供发布前复查竞态
     const/4 v0, 0x0
+
+    sget v3, Lcom/luna/music/car/CarLyricsBridge;->sCoverRev:I
 
     .line 400
     :try_start_51
@@ -2846,6 +2995,42 @@
 
     .line 409
     :cond_64
+    # growcar-cover v1.1.14: 基底选择 + 竞态撤销。
+    # 1) 若 sCoverMeta 有效但 v0 丢了 ALBUM_ART（竞态窗口的无封面快照）→ 用 sCoverMeta。
+    # 2) 若 build 后 sCoverRev 变了（期间有封面发布落地）→ 本份是无封面旧状态，
+    #    弃发整份 metadata，改发 lyrics-only（clear + lrc_change）撤销，绝不给车机纯色窗口。
+    sget-object v5, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
+    if-eqz v5, :pm_check_stale_live
+
+    invoke-virtual {v0, v4}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v5
+
+    if-eqz v5, :pm_use_cached
+
+    goto :pm_use_live
+
+    :pm_use_cached
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
+    :pm_check_stale_live
+    sget v5, Lcom/luna/music/car/CarLyricsBridge;->sCoverRev:I
+
+    if-eq v5, v3, :pm_use_live
+
+    sget-object v5, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
+    if-eqz v5, :pm_use_live
+
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
+    goto :pm_have_base
+
+    :pm_use_live
+    sget v5, Lcom/luna/music/car/CarLyricsBridge;->sCoverRev:I
+
+    :pm_have_base
     new-instance v1, Landroid/media/MediaMetadata$Builder;
 
     invoke-direct {v1, v0}, Landroid/media/MediaMetadata$Builder;-><init>(Landroid/media/MediaMetadata;)V
@@ -2909,12 +3094,47 @@
 
     move-result-object v0
 
+    # growcar-cover v1.1.14: 构建期间有含封面 metadata 落地 → 本份是无封面旧状态。
+    # 撤销：清车载 Session 残留的歌词键 + 发 lyrics-only（lrc_change 触发车机重取，
+    # 使用其现有封面渲染），绝不发布无封面整份 metadata（卡片会闪纯色）。
+    sget v5, Lcom/luna/music/car/CarLyricsBridge;->sCoverRev:I
+
+    if-ne v5, v3, :pm_build_go
+
+    const/4 v5, 0x0
+
+    invoke-virtual {p0, v5}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
+
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->revAtomicId()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-static {p0, v5}, Lcom/luna/music/car/CarLyricsBridge;->pushExtrasTo(Landroid/media/session/MediaSession;Ljava/lang/String;)V
+
+    const-string v5, "pushMetadata: race window detected, lyrics-only revoke sent"
+
+    invoke-static {v5}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+
+    return-void
+
+    :pm_build_go
     invoke-virtual {p0, v0}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
 
     .line 422
     new-instance p0, Ljava/lang/StringBuilder;
 
     invoke-direct {p0}, Ljava/lang/StringBuilder;-><init>()V
+
+    # growcar-cover v1.1.14: 发布成功且含歌词 → 缓存为封面锚点并提升版本号
+    sget-object v5, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+    if-eqz v5, :pm_cache_new
+    invoke-virtual {v0, v4}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v5
+    if-eqz v5, :pm_cache_skip
+    :pm_cache_new
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->bumpCoverRev()V
+    :pm_cache_skip
 
     const-string v0, "pushMetadata ok lrcLen="
 
@@ -3073,6 +3293,13 @@
 
     # Start ticker when new lyrics arrive
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->scheduleRePush()V
+
+    # growcar-cover v1.1.14: 歌词被清空（换歌）→ 封面缓存作废，防止旧封面跨歌复用。
+    # 注意不再 ensureCoverFlushed：sCoverMeta 是"旧封面+旧词"锚点时反向覆盖刚推的
+    # 新词会造成歌词回退抖动；封面回填交给阶段②正常路径（Glide 完成后 s.P()）。
+    const/4 v0, 0x0
+
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
 
     sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
@@ -3501,6 +3728,13 @@
 
     :car_lrc_accept_new
     invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->setLrc(Ljava/lang/String;)V
+
+    # growcar-cover v1.1.14: 歌词刚被替换 → 作废旧封面缓存（避免旧封面+旧词
+    # 锚点被后续 pushMetadata 复用）。不在锁内 flush —— flush 只锦上添花，
+    # 真正回填由阶段② s.P() 路径或下一轮 ticker repushMeta 完成。
+    const/4 v0, 0x0
+
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
 
     .line 217
     new-instance v0, Ljava/lang/StringBuilder;
