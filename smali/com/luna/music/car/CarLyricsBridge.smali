@@ -2414,6 +2414,13 @@
 
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->bumpCoverRev()V
 
+    # growcar-cover v1.1.17: 封面加载完成后立即检查并重推 —— 修复自动切歌时
+    # 封面异步到达但车载 Session 未更新的问题。
+    # 场景：切歌 → pushMetadata 推无封面版 → 1-2s 后封面到 → applyRaw 缓存 + bump
+    # 但此时车载 Session 仍是无封面版 → 卡片变纯色。
+    # ensureCoverFlushed() 检查车载 Session 若丢封面则立即用 sCoverMeta 重推。
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->ensureCoverFlushed()V
+
     :raw_no_cache
     if-eqz v3, :raw_orig
     return-object v3
