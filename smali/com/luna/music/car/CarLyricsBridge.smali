@@ -2354,6 +2354,29 @@
     :raw_check
     if-eqz p0, :raw_orig
 
+    # growcar-cover v1.1.18: 封面独立检查 —— 在歌词检查之前执行，无论 sLrc 是否为空，
+    # 只要入参含封面就缓存 + 提升版本号 + 触发重推。
+    # v1.1.17 的修复藏在 try 块内（歌词门控之后），自动切歌后封面到达时 sLrc 通常为空，
+    # 歌词检查 if-eqz v0, :raw_orig 直接跳过，封面缓存和 ensureCoverFlushed 全不执行。
+    # 这就是 v1.1.17 未生效的根因。
+    const-string v5, "android.media.metadata.ALBUM_ART"
+
+    invoke-virtual {p0, v5}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v5
+
+    if-eqz v5, :raw_has_cover_v18
+    goto :raw_cover_check_done
+
+    :raw_has_cover_v18
+    # 入参含封面 → 缓存为锚点并立即触发封面重推
+    sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->bumpCoverRev()V
+
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->ensureCoverFlushed()V
+
+    :raw_cover_check_done
     # 铁律 1+3：没歌词就地返回，零拷贝零 IO
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
     if-eqz v0, :raw_orig
