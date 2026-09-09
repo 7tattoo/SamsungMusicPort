@@ -2731,11 +2731,23 @@
     move-result-object v3
     if-eqz v3, :rdy_ticker
 
-    # growcar-cover v1.1.14: 弃用 v1.1.13 的 getBitmap 守卫 —— 本进程 set 的
-    # ALBUM_ART 在 framework 侧副本里，controller 快照读不到，守卫恒失败；
-    # 且竞态窗口内快照真实无封面，判空救不了。改为：正常补推歌词，
-    # 推送成功后立刻提升封面版本号，撤销任何正在构建中的无封面推送
-    #（pushMetadata 发布前复查 rev），随后 sCoverMeta 有机会则立即回填封面。
+    # growcar-cover v1.1.19: 修复 onLrcReady 覆盖封面的致命 bug。
+    # controller.getMetadata() 读不到本进程刚 set 的封面位图（framework 副本不同步）。
+    # 歌词到达（~1-2s）时 controller 快照不含封面 → applyRaw 返回无封面 metadata
+    # → setMetadata 直接覆盖车机已显示的封面 → 卡片变纯色。
+    # 修复：若 sCoverMeta 有效，用它替换 controller 快照作为基底，确保推给车机的
+    # metadata 始终含封面。
+    sget-object v4, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+    if-eqz v4, :rdy_no_cover
+    invoke-virtual {v4, v2}, Lcom/luna/music/car/CarLyricsBridge;->applyRaw(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
+    move-result-object v3
+    if-eqz v3, :rdy_no_cover
+    if-eq v3, v4, :rdy_nopush
+    invoke-virtual {v2, v3}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->bumpCoverRev()V
+    goto :rdy_ticker
+
+    :rdy_no_cover
     invoke-static {v3, v2}, Lcom/luna/music/car/CarLyricsBridge;->applyRaw(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
     move-result-object v3
     if-eqz v3, :rdy_nopush
