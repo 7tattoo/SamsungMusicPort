@@ -2365,7 +2365,8 @@
 
     move-result-object v5
 
-    if-eqz v5, :raw_has_cover_v18
+    # 有封面（v5 != null）→ 执行缓存 + 重推；无封面 → 跳过
+    if-nez v5, :raw_has_cover_v18
     goto :raw_cover_check_done
 
     :raw_has_cover_v18
@@ -2739,7 +2740,7 @@
     # metadata 始终含封面。
     sget-object v4, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
     if-eqz v4, :rdy_no_cover
-    invoke-virtual {v4, v2}, Lcom/luna/music/car/CarLyricsBridge;->applyRaw(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
+    invoke-static {v4, v2}, Lcom/luna/music/car/CarLyricsBridge;->applyRaw(Landroid/media/MediaMetadata;Landroid/media/session/MediaSession;)Landroid/media/MediaMetadata;
     move-result-object v3
     if-eqz v3, :rdy_no_cover
     if-eq v3, v4, :rdy_nopush
