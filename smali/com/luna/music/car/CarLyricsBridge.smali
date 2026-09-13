@@ -108,7 +108,9 @@
 
     move-result-object v2
 
-    if-eqz v2, :ecf_done
+    # v1.1.19: 逻辑修复——controller 快照读到"有内容但无封面"说明封面被
+    # 无封面推送覆盖，正是需要重推的场景；旧代码 if-eqz :ecf_done 直接放弃。
+    if-eqz v2, :ecf_flush
 
     :ecf_flush
     invoke-virtual {v1, v0}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
@@ -2367,7 +2369,7 @@
 
     # 有封面（v5 != null）→ 执行缓存 + 重推；无封面 → 跳过
     if-nez v5, :raw_has_cover_v18
-    goto :raw_cover_check_done
+    goto :raw_no_input_cover
 
     :raw_has_cover_v18
     # 入参含封面 → 缓存为锚点并立即触发封面重推
@@ -2377,7 +2379,75 @@
 
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->ensureCoverFlushed()V
 
+    goto :raw_cover_check_done
+
+    # v1.1.19: 入参无封面（自动切歌的过渡更新）时，若锚点缓存 sCoverMeta
+    # 仍持有封面 bitmap，立即补位重建，保证任何时刻推给车机的 metadata
+    # 都带封面 —— 车机收到无封面更新会清空为纯色，这是自动切歌纯色的
+    # 直接来源。补的是上一首封面（短暂旧封面优于纯色），新封面异步到达
+    # 后由 :raw_has_cover_v18 分支更新锚点覆盖。
+    :raw_no_input_cover
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
+    if-eqz v0, :raw_cover_check_done
+
+    invoke-virtual {v0, v5}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    if-eqz v0, :raw_cover_check_done
+
+    new-instance v6, Landroid/media/MediaMetadata$Builder;
+
+    invoke-direct {v6, p0}, Landroid/media/MediaMetadata$Builder;-><init>(Landroid/media/MediaMetadata;)V
+
+    invoke-virtual {v6, v5, v0}, Landroid/media/MediaMetadata$Builder;->putBitmap(Ljava/lang/String;Landroid/graphics/Bitmap;)Landroid/media/MediaMetadata$Builder;
+
+    invoke-virtual {v6}, Landroid/media/MediaMetadata$Builder;->build()Landroid/media/MediaMetadata;
+
+    move-result-object p0
+
     :raw_cover_check_done
+    # v1.1.19 诊断：记录每次推送的封面/歌词状态（c=入参是否含封面 l=歌词长度）
+    :try_start_diag
+    new-instance v0, Ljava/lang/StringBuilder;
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "RAW c="
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p0, v5}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v1
+    if-eqz v1, :diag_nocov
+    const/4 v1, 0x1
+    goto :diag_cov
+    :diag_nocov
+    const/4 v1, 0x0
+    :diag_cov
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string v1, " lrc="
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    if-eqz v1, :diag_nolrc
+    invoke-virtual {v1}, Ljava/lang/String;->length()I
+    move-result v1
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    goto :diag_lrcdone
+    :diag_nolrc
+    const/4 v1, 0x0
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    :diag_lrcdone
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v0
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    :try_end_diag
+    .catchall {:try_start_diag .. :try_end_diag} :diag_catch
+
+    goto :raw_lyrics_gate
+    :diag_catch
+    :raw_lyrics_gate
     # 铁律 1+3：没歌词就地返回，零拷贝零 IO
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
     if-eqz v0, :raw_orig
