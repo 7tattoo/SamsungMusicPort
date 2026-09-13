@@ -2391,6 +2391,9 @@
 
     if-eqz v0, :raw_cover_check_done
 
+    # v5 在上方 move-result-object 后已是 Bitmap 类型，必须重新赋值为 String 才能传参
+    const-string v5, "android.media.metadata.ALBUM_ART"
+
     invoke-virtual {v0, v5}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
 
     move-result-object v0
@@ -2416,6 +2419,8 @@
     const-string v1, "RAW c="
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
+    # v5 在 v1.1.18 检查块 move-result-object 后已是 Bitmap 类型，重新赋值为 String
+    const-string v5, "android.media.metadata.ALBUM_ART"
     invoke-virtual {p0, v5}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
     move-result-object v1
     if-eqz v1, :diag_nocov
