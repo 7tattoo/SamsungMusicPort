@@ -2607,6 +2607,8 @@
 
     sget-object v1, Landroid/provider/MediaStore$Audio$Media;->EXTERNAL_CONTENT_URI:Landroid/net/Uri;
 
+    # query(uri, projection, selection, selectionArgs, sortOrder)
+    # 3 args = uri + projection + selection，其余 null（projection 要 album_id，selection 用 "_id=?" + [songId]）
     const/4 v2, 0x1
 
     new-array v2, v2, [Ljava/lang/String;
@@ -2626,6 +2628,8 @@
     const/4 v5, 0x0
 
     aput-object p1, v4, v5
+
+    const/4 v4, 0x0
 
     const/4 v5, 0x0
 
