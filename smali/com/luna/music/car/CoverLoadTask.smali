@@ -28,21 +28,23 @@
 
     # v1.1.29: 整个方法单一 try 包裹（多 try 共用 catchall 有异常重放风险）
     :try_start_r
+    const/4 v7, 0x0
+
+    # v1.1.32: 记录是否做了 MediaStore 尝试（v7=1 已试过，miss 后不再重复）
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
 
-    # v1.1.29: v1 在两条路径（loadCover 路径=String / 直落路径=未初始化）汇合到
-    # :r_miss 后会被 sleep(J) 当宽寄存器低半读 → 必须入口处统一初始化
+    # v1: 两条路径汇合后会被 sleep(J) 当宽寄存器低半读，入口统一初始化
     const/4 v1, 0x0
-
-    const/4 v7, 0x0
 
     if-eqz v0, :r_miss
 
-    iget-object v1, p0, Lcom/luna/music/car/CoverLoadTask;->a:Ljava/lang/String;
+    iget-object v2, p0, Lcom/luna/music/car/CoverLoadTask;->a:Ljava/lang/String;
 
-    if-eqz v1, :r_miss
+    if-eqz v2, :r_miss
 
-    invoke-static {v0, v1}, Lcom/luna/music/car/CarLyricsBridge;->loadCover(Landroid/content/Context;Ljava/lang/String;)Landroid/graphics/Bitmap;
+    const/4 v7, 0x1
+
+    invoke-static {v0, v2}, Lcom/luna/music/car/CarLyricsBridge;->loadCover(Landroid/content/Context;Ljava/lang/String;)Landroid/graphics/Bitmap;
 
     move-result-object v0
 
@@ -99,10 +101,11 @@
     return-void
 
     :r_fetch
-    # 自己从 metadata 的 ALBUM_ART_URI 拉封面
+    # 自己从 metadata 的 ALBUM_ART_URI 拉封面；compat 路径下 sLastMeta 为空，
+    # 退到 applyCompat 记录的 sFetchUri
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastMeta:Landroid/media/MediaMetadata;
 
-    if-eqz v0, :r_fbdone
+    if-eqz v0, :r_meta_uri
 
     const-string v1, "android.media.metadata.ALBUM_ART_URI"
 
@@ -110,6 +113,15 @@
 
     move-result-object v0
 
+    :r_meta_uri
+    if-eqz v0, :r_fb_uri
+
+    goto :r_do_fetch
+
+    :r_fb_uri
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sFetchUri:Ljava/lang/String;
+
+    :r_do_fetch
     if-eqz v0, :r_fbdone
 
     invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->fetchCoverFromUri(Ljava/lang/String;)Landroid/graphics/Bitmap;
