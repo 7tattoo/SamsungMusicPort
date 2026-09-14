@@ -778,7 +778,7 @@
 .end method
 
 .method public static ensurePushed()V
-    .registers 4
+    .registers 10
 
     .line 253
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
@@ -911,22 +911,26 @@
 
     sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
 
-    # v1.1.25: 发布前检查——controller 快照读不到本进程刚 set 的封面，
-    # rev 不变时 v1 是"无封面快照+歌词"，直接发布会覆盖含封面 metadata
-    # → 车机纯色（日志确认的根因）。v1 无封面且 sCoverMeta 有效时改用 sCoverMeta。
-    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
-
-    if-eqz v2, :ep_publish_live
-
+    # v1.1.26: bitmap 补位而非全量替换——避免标题回退到旧歌。
+    # 策略：v1 无封面且 sCoverMeta 有效时，从 sCoverMeta 提取 ALBUM_ART，
+    # 用 Builder(p0) 重建 v1 并补入 bitmap（只补封面，保留 v1 所有字段包括标题）。
     const-string v2, "android.media.metadata.ALBUM_ART"
-
     invoke-virtual {v1, v2}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
-
     move-result-object v2
-
     if-nez v2, :ep_publish_live
-
-    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+    if-eqz v2, :ep_publish_live
+    const-string v3, "android.media.metadata.ALBUM_ART"
+    invoke-virtual {v2, v3}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v2
+    if-eqz v2, :ep_publish_live
+    new-instance v3, Landroid/media/MediaMetadata$Builder;
+    invoke-direct {v3, v1}, Landroid/media/MediaMetadata$Builder;-><init>(Landroid/media/MediaMetadata;)V
+    invoke-virtual {v3, v3, v2}, Landroid/media/MediaMetadata$Builder;->putBitmap(Ljava/lang/String;Landroid/graphics/Bitmap;)Landroid/media/MediaMetadata$Builder;
+    invoke-virtual {v3}, Landroid/media/MediaMetadata$Builder;->build()Landroid/media/MediaMetadata;
+    move-result-object v1
+    const-string v2, "ensurePushed: refilled cover from sCoverMeta"
+    invoke-static {v2}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
     :ep_publish_live
     invoke-virtual {v0, v1}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
@@ -3632,12 +3636,12 @@
     # Start ticker when new lyrics arrive
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->scheduleRePush()V
 
-    # growcar-cover v1.1.14: 歌词被清空（换歌）→ 封面缓存作废，防止旧封面跨歌复用。
-    # 注意不再 ensureCoverFlushed：sCoverMeta 是"旧封面+旧词"锚点时反向覆盖刚推的
-    # 新词会造成歌词回退抖动；封面回填交给阶段②正常路径（Glide 完成后 s.P()）。
+    # v1.1.26: 不再清空 sCoverMeta —— 后台切歌时封面协程（session/d）不回调，
+    # 没有任何带 ALBUM_ART 的更新到达 P()。锚点是 ensurePushed 发布时唯一
+    # 可用的封面来源（bitmap 补位到新歌快照，标题不回退）。旧封面跨歌复用
+    # 仅出现在补位窗口（短暂旧封面优于纯色），新封面到达后由
+    # :raw_has_cover_v18 更新锚点覆盖。
     const/4 v0, 0x0
-
-    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
 
     sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastLine:Ljava/lang/String;
 
