@@ -2398,6 +2398,23 @@
     goto :raw_no_input_cover
 
     :raw_has_cover_v18
+    # v1.1.28: 1x1 占位 bitmap 检测 —— 新歌未缓存时 app 下发 1x1 占位图
+    # （封面缓存命中才下发真图，实测矩阵确认）。占位图当作无封面处理：
+    # 不污染 sCoverMeta，走补位分支（上一首封面优于占位纯色）。
+    invoke-virtual {v5}, Landroid/graphics/Bitmap;->getWidth()I
+
+    move-result v0
+
+    invoke-virtual {v5}, Landroid/graphics/Bitmap;->getHeight()I
+
+    move-result v1
+
+    add-int/2addr v0, v1
+
+    const/16 v1, 0x10
+
+    if-le v0, v1, :raw_no_input_cover
+
     # 入参含封面 → 缓存为锚点并立即触发封面重推
     sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
 
