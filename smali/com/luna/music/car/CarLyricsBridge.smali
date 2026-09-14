@@ -911,6 +911,23 @@
 
     sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
 
+    # v1.1.25: 发布前检查——controller 快照读不到本进程刚 set 的封面，
+    # rev 不变时 v1 是"无封面快照+歌词"，直接发布会覆盖含封面 metadata
+    # → 车机纯色（日志确认的根因）。v1 无封面且 sCoverMeta 有效时改用 sCoverMeta。
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
+    if-eqz v2, :ep_publish_live
+
+    const-string v2, "android.media.metadata.ALBUM_ART"
+
+    invoke-virtual {v1, v2}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v2
+
+    if-nez v2, :ep_publish_live
+
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
     :ep_publish_live
     invoke-virtual {v0, v1}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
 
