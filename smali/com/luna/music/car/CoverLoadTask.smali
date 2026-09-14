@@ -26,14 +26,17 @@
 .method public run()V
     .registers 8
 
+    # v1.1.29: 整个方法单一 try 包裹（多 try 共用 catchall 有异常重放风险）
     :try_start_r
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
 
-    if-eqz v0, :r_done
+    const/4 v7, 0x0
+
+    if-eqz v0, :r_miss
 
     iget-object v1, p0, Lcom/luna/music/car/CoverLoadTask;->a:Ljava/lang/String;
 
-    if-eqz v1, :r_done
+    if-eqz v1, :r_miss
 
     invoke-static {v0, v1}, Lcom/luna/music/car/CarLyricsBridge;->loadCover(Landroid/content/Context;Ljava/lang/String;)Landroid/graphics/Bitmap;
 
@@ -41,79 +44,92 @@
 
     if-eqz v0, :r_miss
 
-    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLastMeta:Landroid/media/MediaMetadata;
+    # MediaStore 命中 → 直接发布
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->publishCoverBitmap(Landroid/graphics/Bitmap;)V
 
-    if-eqz v1, :r_done
+    return-void
 
-    new-instance v2, Landroid/media/MediaMetadata$Builder;
+    # 在线未缓存歌 MediaStore 无条目。等 6s（app 前台时 Glide 自己会推真封面），
+    # 复查 sLastMeta 封面尺寸；仍是占位/缺失则自己从 ALBUM_ART_URI 拉图。
+    :r_miss
+    const-wide/16 v0, 0x1770
 
-    invoke-direct {v2, v1}, Landroid/media/MediaMetadata$Builder;-><init>(Landroid/media/MediaMetadata;)V
+    invoke-static {v0, v1}, Ljava/lang/Thread;->sleep(J)V
 
-    const-string v3, "android.media.metadata.ALBUM_ART"
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastMeta:Landroid/media/MediaMetadata;
 
-    invoke-virtual {v2, v3, v0}, Landroid/media/MediaMetadata$Builder;->putBitmap(Ljava/lang/String;Landroid/graphics/Bitmap;)Landroid/media/MediaMetadata$Builder;
+    if-eqz v0, :r_fetch
 
-    sget-object v3, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+    const-string v1, "android.media.metadata.ALBUM_ART"
 
-    if-eqz v3, :r_nolrc
+    invoke-virtual {v0, v1}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
 
-    invoke-virtual {v3}, Ljava/lang/String;->length()I
+    move-result-object v2
 
-    move-result v4
+    if-eqz v2, :r_fetch
 
-    if-lez v4, :r_nolrc
+    invoke-virtual {v2}, Landroid/graphics/Bitmap;->getWidth()I
 
-    const-string v4, "ucar.media.metadata.LYRICS_WHOLE"
+    move-result v2
 
-    invoke-virtual {v2, v4, v3}, Landroid/media/MediaMetadata$Builder;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/media/MediaMetadata$Builder;
+    invoke-virtual {v0, v1}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
 
-    :r_nolrc
-    const-string v3, "vivomusicmix.media.metadata.support_event"
+    move-result-object v1
 
-    const-wide/16 v4, 0x1f
+    invoke-virtual {v1}, Landroid/graphics/Bitmap;->getHeight()I
 
-    invoke-virtual {v2, v3, v4, v5}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
+    move-result v1
 
-    invoke-virtual {v2}, Landroid/media/MediaMetadata$Builder;->build()Landroid/media/MediaMetadata;
+    add-int/2addr v2, v1
 
-    move-result-object v0
+    const/16 v1, 0x20
 
-    # 更新封面锚点：后续同歌的无封面更新由补位机制带上新封面
-    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+    if-le v2, v1, :r_fetch
 
-    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->bumpCoverRev()V
-
-    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
-
-    if-nez v1, :r_have
-
-    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
-
-    :r_have
-    if-eqz v1, :r_done
-
-    invoke-virtual {v1, v0}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
-
-    const-string v0, "COVER pushed"
+    # app 已自己补好真图，无需干预
+    const-string v0, "COVER app-fixed, skip"
 
     invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
-    goto :r_done
+    return-void
 
-    :r_miss
+    :r_fetch
+    # 自己从 metadata 的 ALBUM_ART_URI 拉封面
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastMeta:Landroid/media/MediaMetadata;
+
+    if-eqz v0, :r_fbdone
+
+    const-string v1, "android.media.metadata.ALBUM_ART_URI"
+
+    invoke-virtual {v0, v1}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    if-eqz v0, :r_fbdone
+
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->fetchCoverFromUri(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    if-eqz v0, :r_fbdone
+
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->publishCoverBitmap(Landroid/graphics/Bitmap;)V
+
+    goto :r_ret
+
+    :r_fbdone
     const-string v0, "COVER miss"
 
     invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
-    :r_done
+    :r_ret
     :try_end_r
     .catchall {:try_start_r .. :try_end_r} :r_catch
 
-    goto :r_ret
+    return-void
 
     :r_catch
     move-exception v0
 
-    :r_ret
     return-void
 .end method

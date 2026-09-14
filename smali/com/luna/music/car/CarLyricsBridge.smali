@@ -2413,8 +2413,17 @@
 
     const/16 v1, 0x10
 
-    if-le v0, v1, :raw_no_input_cover
+    # v1.1.29: 原 if-le 方向反了——大图被跳进补位分支、占位小图反被当真封面。
+    # 占位判定应为 w+h <= 16。
+    if-lez v0, :raw_no_input_cover
 
+    cmp-long v0, v0, v1
+
+    if-lez v0, :raw_has_real_cover
+
+    goto :raw_no_input_cover
+
+    :raw_has_real_cover
     # 入参含封面 → 缓存为锚点并立即触发封面重推
     sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
 
@@ -2500,17 +2509,8 @@
     # 没有任何带 ALBUM_ART 的更新到达 P()，sCoverMeta 恒为 null，车机卡片纯色。
     # 这里按 MEDIA_ID 查 MediaStore albumart 自己加载封面并重推（换歌只触发一次）。
     :try_start_self
-    # v5 可能仍是 Bitmap 类型（上方检查块 move-result-object 覆盖），重新赋值为 String
-    const-string v5, "android.media.metadata.ALBUM_ART"
-    invoke-virtual {p0, v5}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
-
-    move-result-object v0
-
-    if-eqz v0, :self_check_key
-
-    goto :self_done
-
-    :self_check_key
+    # v1.1.29: 不再要求 bitmap==null——未缓存新歌带占位图同样要自加载。
+    # 触发条件 = MEDIA_ID 变化（按歌去重；CoverLoadTask 里发现已是真图会自行跳过）
     const-string v1, "android.media.metadata.MEDIA_ID"
 
     invoke-virtual {p0, v1}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
@@ -2530,6 +2530,39 @@
     if-nez v0, :self_done
 
     :self_load_go
+    # v1.1.29: 入参已带真图（w+h>32，即缓存命中的正常推送）→ 无需自加载。
+    # 仅当封面缺失或为占位小图时才起线程（v3/v4 此处空闲，try 内即时写读）。
+    const-string v3, "android.media.metadata.ALBUM_ART"
+
+    invoke-virtual {p0, v3}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v3
+
+    if-eqz v3, :self_load_run
+
+    invoke-virtual {v3}, Landroid/graphics/Bitmap;->getWidth()I
+
+    move-result v3
+
+    const-string v4, "android.media.metadata.ALBUM_ART"
+
+    invoke-virtual {p0, v4}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v4
+
+    invoke-virtual {v4}, Landroid/graphics/Bitmap;->getHeight()I
+
+    move-result v4
+
+    add-int/2addr v3, v4
+
+    const/16 v4, 0x20
+
+    if-le v3, v4, :self_load_run
+
+    goto :self_done
+
+    :self_load_run
     sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
 
     sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sLastMeta:Landroid/media/MediaMetadata;
@@ -2638,6 +2671,164 @@
 # v1.1.21: 按 songId 查 MediaStore albumart 并解码为 bitmap（后台线程调用）。
 # 车机可直接读 MediaStore URI，但本方法在 app 侧加载后 putBitmap 推送，
 # 与现有 metadata 位图机制保持一致，不依赖车机的 URI 加载能力。
+.method public static publishCoverBitmap(Landroid/graphics/Bitmap;)V
+    .registers 6
+
+    # v1.1.29: 自加载封面统一发布出口（sLastMeta+bitmap+歌词+能力位）
+    :try_start_p
+    if-eqz p0, :pc_done
+
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastMeta:Landroid/media/MediaMetadata;
+
+    if-eqz v0, :pc_done
+
+    new-instance v1, Landroid/media/MediaMetadata$Builder;
+
+    invoke-direct {v1, v0}, Landroid/media/MediaMetadata$Builder;-><init>(Landroid/media/MediaMetadata;)V
+
+    const-string v2, "android.media.metadata.ALBUM_ART"
+
+    invoke-virtual {v1, v2, p0}, Landroid/media/MediaMetadata$Builder;->putBitmap(Ljava/lang/String;Landroid/graphics/Bitmap;)Landroid/media/MediaMetadata$Builder;
+
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+
+    if-eqz v2, :pc_nolrc
+
+    invoke-virtual {v2}, Ljava/lang/String;->length()I
+
+    move-result v3
+
+    if-lez v3, :pc_nolrc
+
+    const-string v3, "ucar.media.metadata.LYRICS_WHOLE"
+
+    invoke-virtual {v1, v3, v2}, Landroid/media/MediaMetadata$Builder;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/media/MediaMetadata$Builder;
+
+    :pc_nolrc
+    const-string v2, "vivomusicmix.media.metadata.support_event"
+
+    const-wide/16 v3, 0x1f
+
+    invoke-virtual {v1, v2, v3, v4}, Landroid/media/MediaMetadata$Builder;->putLong(Ljava/lang/String;J)Landroid/media/MediaMetadata$Builder;
+
+    invoke-virtual {v1}, Landroid/media/MediaMetadata$Builder;->build()Landroid/media/MediaMetadata;
+
+    move-result-object v0
+
+    sput-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverMeta:Landroid/media/MediaMetadata;
+
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->bumpCoverRev()V
+
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
+
+    if-nez v1, :pc_have
+
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
+
+    :pc_have
+    if-eqz v1, :pc_done
+
+    invoke-virtual {v1, v0}, Landroid/media/session/MediaSession;->setMetadata(Landroid/media/MediaMetadata;)V
+
+    const-string v0, "COVER pushed"
+
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+
+    :pc_done
+    :try_end_p
+    .catchall {:try_start_p .. :try_end_p} :pc_catch
+
+    goto :pc_ret
+
+    :pc_catch
+    move-exception v0
+
+    :pc_ret
+    return-void
+.end method
+
+.method public static fetchCoverFromUri(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    .registers 4
+
+    # v1.1.29: 在线未缓存歌 MediaStore 无条目，从 metadata 的 ALBUM_ART_URI 直拉。
+    # http(s) 走 HttpURLConnection（8s 超时 + UA），其余协议 openStream。全程吞异常。
+    :try_start_f
+    const/4 v0, 0x0
+
+    if-eqz p0, :fc_done
+
+    const-string v2, "http"
+
+    invoke-virtual {p0, v2}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v1
+
+    new-instance v2, Ljava/net/URL;
+
+    invoke-direct {v2, p0}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
+
+    if-eqz v1, :fc_plain
+
+    invoke-virtual {v2}, Ljava/net/URL;->openConnection()Ljava/net/URLConnection;
+
+    move-result-object v1
+
+    check-cast v1, Ljava/net/HttpURLConnection;
+
+    const/16 v2, 0x1F40
+
+    invoke-virtual {v1, v2}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
+
+    const/16 v2, 0x1F40
+
+    invoke-virtual {v1, v2}, Ljava/net/HttpURLConnection;->setReadTimeout(I)V
+
+    const-string v2, "User-Agent"
+
+    const-string v3, "Mozilla/5.0"
+
+    invoke-virtual {v1, v2, v3}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
+
+    invoke-virtual {v1}, Ljava/net/HttpURLConnection;->getInputStream()Ljava/io/InputStream;
+
+    move-result-object v1
+
+    goto :fc_stream
+
+    :fc_plain
+    invoke-virtual {v2}, Ljava/net/URL;->openStream()Ljava/io/InputStream;
+
+    move-result-object v1
+
+    :fc_stream
+    if-eqz v1, :fc_done
+
+    const/4 v2, 0x0
+
+    invoke-static {v1, v2, v2}, Landroid/graphics/BitmapFactory;->decodeStream(Ljava/io/InputStream;Landroid/graphics/Rect;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    :fc_close
+    if-eqz v1, :fc_done
+
+    invoke-virtual {v1}, Ljava/io/InputStream;->close()V
+
+    :fc_done
+    :try_end_f
+    .catchall {:try_start_f .. :try_end_f} :fc_catch
+
+    goto :fc_ret
+
+    :fc_catch
+    move-exception v0
+
+    const/4 v0, 0x0
+
+    :fc_ret
+    return-object v0
+.end method
+
 .method public static loadCover(Landroid/content/Context;Ljava/lang/String;)Landroid/graphics/Bitmap;
     .registers 8
 
