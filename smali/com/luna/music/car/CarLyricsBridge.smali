@@ -926,7 +926,8 @@
     if-eqz v2, :ep_publish_live
     new-instance v3, Landroid/media/MediaMetadata$Builder;
     invoke-direct {v3, v1}, Landroid/media/MediaMetadata$Builder;-><init>(Landroid/media/MediaMetadata;)V
-    invoke-virtual {v3, v3, v2}, Landroid/media/MediaMetadata$Builder;->putBitmap(Ljava/lang/String;Landroid/graphics/Bitmap;)Landroid/media/MediaMetadata$Builder;
+    const-string v4, "android.media.metadata.ALBUM_ART"
+    invoke-virtual {v3, v4, v2}, Landroid/media/MediaMetadata$Builder;->putBitmap(Ljava/lang/String;Landroid/graphics/Bitmap;)Landroid/media/MediaMetadata$Builder;
     invoke-virtual {v3}, Landroid/media/MediaMetadata$Builder;->build()Landroid/media/MediaMetadata;
     move-result-object v1
     const-string v2, "ensurePushed: refilled cover from sCoverMeta"
