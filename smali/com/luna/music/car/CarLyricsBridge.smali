@@ -2461,6 +2461,8 @@
     # 没有任何带 ALBUM_ART 的更新到达 P()，sCoverMeta 恒为 null，车机卡片纯色。
     # 这里按 MEDIA_ID 查 MediaStore albumart 自己加载封面并重推（换歌只触发一次）。
     :try_start_self
+    # v5 可能仍是 Bitmap 类型（上方检查块 move-result-object 覆盖），重新赋值为 String
+    const-string v5, "android.media.metadata.ALBUM_ART"
     invoke-virtual {p0, v5}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
 
     move-result-object v0
@@ -2641,7 +2643,7 @@
 
     const/4 v3, 0x0
 
-    invoke-interface {v2, v3}, Landroid/database/Cursor;->moveToFirst()Z
+    invoke-interface {v2}, Landroid/database/Cursor;->moveToFirst()Z
 
     move-result v3
 
