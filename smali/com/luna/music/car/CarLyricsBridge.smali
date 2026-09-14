@@ -2411,17 +2411,10 @@
 
     add-int/2addr v0, v1
 
-    const/16 v1, 0x10
+    # v1.1.29: 占位判定 w+h <= 16。add-int/lit8 后若 <=0 即占位 → 补位分支。
+    add-int/lit8 v0, v0, -0x10
 
-    # v1.1.29: 原 if-le 方向反了——大图被跳进补位分支、占位小图反被当真封面。
-    # 占位判定应为 w+h <= 16。
     if-lez v0, :raw_no_input_cover
-
-    cmp-long v0, v0, v1
-
-    if-lez v0, :raw_has_real_cover
-
-    goto :raw_no_input_cover
 
     :raw_has_real_cover
     # 入参含封面 → 缓存为锚点并立即触发封面重推
@@ -2556,9 +2549,10 @@
 
     add-int/2addr v3, v4
 
-    const/16 v4, 0x20
+    # v1.1.29: 真图（w+h>32）→ 跳过自加载；占位/小图 → 起线程
+    add-int/lit8 v3, v3, -0x20
 
-    if-le v3, v4, :self_load_run
+    if-lez v3, :self_load_run
 
     goto :self_done
 

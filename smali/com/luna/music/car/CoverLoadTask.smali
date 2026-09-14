@@ -30,6 +30,10 @@
     :try_start_r
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
 
+    # v1.1.29: v1 在两条路径（loadCover 路径=String / 直落路径=未初始化）汇合到
+    # :r_miss 后会被 sleep(J) 当宽寄存器低半读 → 必须入口处统一初始化
+    const/4 v1, 0x0
+
     const/4 v7, 0x0
 
     if-eqz v0, :r_miss
@@ -82,9 +86,10 @@
 
     add-int/2addr v2, v1
 
-    const/16 v1, 0x20
+    # 真图判定：w+h-32 > 0 → app 已补好真图
+    add-int/lit8 v2, v2, -0x20
 
-    if-le v2, v1, :r_fetch
+    if-lez v2, :r_fetch
 
     # app 已自己补好真图，无需干预
     const-string v0, "COVER app-fixed, skip"
