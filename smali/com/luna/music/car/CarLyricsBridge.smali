@@ -2778,58 +2778,64 @@
 .method public static coverBaseMeta()Landroid/media/MediaMetadata;
     .registers 3
 
-    # v1.1.32: 封面重推基线 —— 后台走 compat 路径时 sLastMeta 为空，
-    # 退到车载 session 的 controller 快照（app 自己写的 metadata 在系统侧是有的）。
+    # v1.1.32: 封面重推基线 —— compat 路径下 sLastMeta 恒空，退到 session
+    # controller 快照。注意：失败分支必须走 :cb_null，不能带着 MediaSession
+    # 类型跳到 :cb_ret（汇合成 java.lang.Object → VerifyError）。
     :try_start_cb
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastMeta:Landroid/media/MediaMetadata;
 
-    if-nez v0, :cb_ret
+    if-nez v0, :cb_try_car
 
+    return-object v0
+
+    :cb_try_car
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCarSession:Landroid/media/session/MediaSession;
 
-    if-eqz v0, :cb_app
+    if-eqz v0, :cb_try_app
 
     invoke-virtual {v0}, Landroid/media/session/MediaSession;->getController()Landroid/media/session/MediaController;
 
     move-result-object v1
 
-    if-eqz v1, :cb_app
+    if-eqz v1, :cb_try_app
 
     invoke-virtual {v1}, Landroid/media/session/MediaController;->getMetadata()Landroid/media/MediaMetadata;
 
     move-result-object v0
 
-    if-nez v0, :cb_app
+    if-nez v0, :cb_try_app
 
-    goto :cb_ret
+    return-object v0
 
-    :cb_app
+    :cb_try_app
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sSession:Landroid/media/session/MediaSession;
 
-    if-eqz v0, :cb_ret
+    if-eqz v0, :cb_null
 
     invoke-virtual {v0}, Landroid/media/session/MediaSession;->getController()Landroid/media/session/MediaController;
 
     move-result-object v1
 
-    if-eqz v1, :cb_ret
+    if-eqz v1, :cb_null
 
     invoke-virtual {v1}, Landroid/media/session/MediaController;->getMetadata()Landroid/media/MediaMetadata;
 
     move-result-object v0
 
-    :cb_ret
+    return-object v0
+
+    :cb_null
+    const/4 v0, 0x0
+
+    return-object v0
     :try_end_cb
     .catchall {:try_start_cb .. :try_end_cb} :cb_catch
-
-    goto :cb_end
 
     :cb_catch
     move-exception v0
 
     const/4 v0, 0x0
 
-    :cb_end
     return-object v0
 .end method
 
