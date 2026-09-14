@@ -38,7 +38,17 @@
 .method public final onAudioFocusChange(I)V
     .locals 5
 
-    .line 1
+    # growcar-focus v1.1.31: 「与其他应用同时播放」开启时，忽略音频焦点变化
+    # （导航播报/其他应用出声不再暂停本应用）。关闭时行为完全不变。
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->allowConcurrent()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_focus_normal
+
+    return-void
+
+    :cond_focus_normal
     iget v0, p0, Landroidx/media3/exoplayer/b;->a:I
 
     .line 2

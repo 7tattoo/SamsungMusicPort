@@ -1597,6 +1597,42 @@
     return-void
 .end method
 
+.method public static allowConcurrent()Z
+    .registers 3
+
+    # v1.1.31: 「与其他应用同时播放」开关（默认关=原行为）
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :ac_none
+
+    :try_start_5
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
+
+    invoke-static {v0}, Landroid/preference/PreferenceManager;->getDefaultSharedPreferences(Landroid/content/Context;)Landroid/content/SharedPreferences;
+
+    move-result-object v0
+
+    const-string v2, "play_with_others"
+
+    invoke-interface {v0, v2, v1}, Landroid/content/SharedPreferences;->getBoolean(Ljava/lang/String;Z)Z
+
+    move-result v1
+    :try_end_11
+    .catchall {:try_start_5 .. :try_end_11} :catchall_12
+
+    return v1
+
+    :catchall_12
+    move-exception v0
+
+    const/4 v1, 0x0
+
+    :ac_none
+    return v1
+.end method
+
 .method public static isEnabled()Z
     .registers 3
 

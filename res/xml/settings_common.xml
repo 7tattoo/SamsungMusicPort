@@ -17,6 +17,7 @@
     </androidx.preference.PreferenceCategory>
     <androidx.preference.PreferenceCategory android:title="@string/general" android:key="category_general" android:textAllCaps="true">
         <SwitchPreferenceCompat android:title="车载投屏歌词" android:key="car_lyrics_enabled" android:defaultValue="true" android:summary="开启后将当前歌曲歌词投送到 vivo 智能车载" />
+        <SwitchPreferenceCompat android:title="与其他应用同时播放" android:key="play_with_others" android:defaultValue="false" android:summary="开启后导航播报、其他应用播放声音时本应用不暂停（可能被压低音量）" />
         <SwitchPreferenceCompat android:title="@string/mobile_data" android:key="mobile_data" />
         <androidx.preference.Preference android:title="@string/manage_tabs" android:key="manage_tabs" />
         <SwitchPreferenceCompat android:title="@string/setting_dark_mode" android:key="dark_theme" />
