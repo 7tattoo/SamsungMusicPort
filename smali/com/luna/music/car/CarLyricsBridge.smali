@@ -795,7 +795,7 @@
 
     move-result v3
 
-    if-eqz v3, :compat_lrc
+    if-nez v3, :compat_lrc
 
     :compat_kick_go
     sput-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
@@ -2621,7 +2621,7 @@
 
     if-nez v2, :diag_uri
 
-    const-string v2, "-"
+    const-string v2, "null"
 
     :diag_uri
     invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -2681,21 +2681,13 @@
     sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCompatMid:Ljava/lang/String;
 
     :self_have_id
-    if-nez v1, :self_key
+    if-eqz v1, :self_key
 
-    const-string v2, "android.media.metadata.TITLE"
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCompatTitle:Ljava/lang/String;
 
-    invoke-virtual {p0, v2}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
+    if-nez v2, :self_done
 
-    move-result-object v2
-
-    if-eqz v2, :self_done
-
-    const-string v1, "android.media.metadata.ARTIST"
-
-    invoke-virtual {p0, v1}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v3
+    sget-object v3, Lcom/luna/music/car/CarLyricsBridge;->sCompatArtist:Ljava/lang/String;
 
     new-instance v0, Ljava/lang/StringBuilder;
 
@@ -2714,7 +2706,7 @@
     move-result-object v1
 
     :self_key
-    if-eqz v1, :self_done
+    if-nez v1, :self_done
 
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
 
@@ -2724,7 +2716,7 @@
 
     move-result v4
 
-    if-eqz v4, :self_done
+    if-nez v4, :self_done
 
     :self_kick
     sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
@@ -4897,7 +4889,7 @@
     sget-object v6, Lcom/luna/music/car/CarLyricsBridge;->sFetchUri:Ljava/lang/String;
 
     :pc_u1
-    if-eqz v6, :pc_u2
+    if-nez v6, :pc_u2
 
     const-string v6, "-"
 
@@ -4922,7 +4914,7 @@
     const-string v6, "-"
 
     :pc_m1
-    if-eqz v6, :pc_m2
+    if-nez v6, :pc_m2
 
     const-string v6, "-"
 
@@ -5274,7 +5266,7 @@
 
     move-result v3
 
-    if-eqz v3, :oc_ret
+    if-nez v3, :oc_ret
 
     :oc_dump
     sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCompatSig:Ljava/lang/String;
@@ -5409,7 +5401,7 @@
 
     const/4 v14, 0x1
 
-    const-string v1, "data"
+    const-string v1, "_data"
 
     aput-object v1, v10, v14
 
@@ -5492,7 +5484,7 @@
 
     move-result-object v10
 
-    if-eqz v10, :sc_try_file
+    if-nez v10, :sc_try_file
 
     const/4 v13, 0x0
 
@@ -5502,7 +5494,7 @@
 
     invoke-virtual {v10}, Ljava/io/InputStream;->close()V
 
-    if-eqz v7, :sc_try_file
+    if-nez v7, :sc_try_file
 
     return-object v7
 
@@ -5518,9 +5510,7 @@
 
     invoke-virtual {v1, v3}, Landroid/media/MediaMetadataRetriever;->setDataSource(Ljava/lang/String;)V
 
-    const/4 v13, -0x3
-
-    invoke-virtual {v1, v13}, Landroid/media/MediaMetadataRetriever;->extractMetadata(I)[B
+    invoke-virtual {v1}, Landroid/media/MediaMetadataRetriever;->getEmbeddedPicture()[B
 
     move-result-object v0
 
