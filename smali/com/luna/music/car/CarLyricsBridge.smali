@@ -789,13 +789,13 @@
 
     sget-object v3, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
 
-    if-eqz v3, :compat_kick_go
+    if-nez v3, :compat_kick_go
 
     invoke-virtual {v3, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v3
 
-    if-nez v3, :compat_lrc
+    if-eqz v3, :compat_lrc
 
     :compat_kick_go
     sput-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
@@ -2506,28 +2506,16 @@
 
     move-result-object v5
 
-    # 有封面（v5 != null）→ 执行缓存 + 重推；无封面 → 跳过
-    if-nez v5, :raw_has_cover_v18
+    # 有封面（v5 != null）→ 检查真伪；无封面（v5 == null）→ 补位
+    if-eqz v5, :raw_has_cover_v18
     goto :raw_no_input_cover
 
     :raw_has_cover_v18
-    # v1.1.28: 1x1 占位 bitmap 检测 —— 新歌未缓存时 app 下发 1x1 占位图
-    # （封面缓存命中才下发真图，实测矩阵确认）。占位图当作无封面处理：
-    # 不污染 sCoverMeta，走补位分支（上一首封面优于占位纯色）。
-    invoke-virtual {v5}, Landroid/graphics/Bitmap;->getWidth()I
-
+    # v1.1.28/34: 纯色占位 bitmap 检测 —— 新歌未缓存时 app 下发占位图（1x1 或大尺寸纯色）
+    # 占位图当作无封面处理：不污染 sCoverMeta，走补位分支（上一首封面优于占位纯色）。
+    invoke-static {v5}, Lcom/luna/music/car/CarLyricsBridge;->isSolid(Landroid/graphics/Bitmap;)Z
     move-result v0
-
-    invoke-virtual {v5}, Landroid/graphics/Bitmap;->getHeight()I
-
-    move-result v1
-
-    add-int/2addr v0, v1
-
-    # v1.1.29: 占位判定 w+h <= 16。add-int/lit8 后若 <=0 即占位 → 补位分支。
-    add-int/lit8 v0, v0, -0x10
-
-    if-lez v0, :raw_no_input_cover
+    if-eqz v0, :raw_no_input_cover
 
     :raw_has_real_cover
     # 入参含封面 → 缓存为锚点并立即触发封面重推
@@ -2710,13 +2698,13 @@
 
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
 
-    if-eqz v0, :self_kick
+    if-nez v0, :self_kick
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v4
 
-    if-nez v4, :self_done
+    if-eqz v4, :self_done
 
     :self_kick
     sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
@@ -5260,13 +5248,13 @@
 
     sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCompatSig:Ljava/lang/String;
 
-    if-eqz v2, :oc_dump
+    if-nez v2, :oc_dump
 
     invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v3
 
-    if-nez v3, :oc_ret
+    if-eqz v3, :oc_ret
 
     :oc_dump
     sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCompatSig:Ljava/lang/String;
@@ -5436,7 +5424,7 @@
 
     move-result v14
 
-    if-eqz v14, :sc_close
+    if-nez v14, :sc_close
 
     const/4 v13, 0x0
 
