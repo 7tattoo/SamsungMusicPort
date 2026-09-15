@@ -8,7 +8,7 @@
 
 .field private static final TS_PAT:Ljava/util/regex/Pattern;
 
-.field private static volatile sApp:Landroid/content/Context;
+.field static volatile sApp:Landroid/content/Context;   # v1.1.34: CoverLoadTask(同包不同类)要读，private 会 IllegalAccessError
 
 .field private static volatile sBaseMeta:Landroid/media/MediaMetadata;
 
@@ -54,10 +54,13 @@
 .field private static volatile sCoverRev:I
 
 # v1.1.21: app 侧封面自加载（app 的封面协程在后台不回调时的兜底）
-.field private static volatile sLastMeta:Landroid/media/MediaMetadata;
+.field static volatile sLastMeta:Landroid/media/MediaMetadata;   # v1.1.34: 同上
 .field private static volatile sCoverLoadedKey:Ljava/lang/String;
 
 .field static volatile sFetchUri:Ljava/lang/String;
+
+# v1.1.34: 封面轮询诊断去重（只在状态变化时写一行，避免 10s 心跳刷屏）
+.field static volatile sLastPoll:Ljava/lang/String;
 
 # direct methods
 # growcar-cover v1.1.14: 封面版本号自增。任何含 ALBUM_ART 的 setMetadata 落地后调用，
@@ -2566,120 +2569,218 @@
     move-result-object p0
 
     :raw_cover_check_done
-    # v1.1.19 诊断：记录每次推送的封面/歌词状态（c=入参是否含封面 l=歌词长度）
+    # v1.1.34 诊断：封面尺寸+纯色标记 / mediaId / 封面 URI / 歌词长度
+    # （v1.1.33 及以前的 "RAW c=1" 只说明"有位图"，分不清真图还是纯色占位图）
     :try_start_diag
     new-instance v0, Ljava/lang/StringBuilder;
+
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v1, "RAW c="
+    const-string v1, "RAW b="
+
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    # v5 在 v1.1.18 检查块 move-result-object 后已是 Bitmap 类型，重新赋值为 String
-    const-string v5, "android.media.metadata.ALBUM_ART"
-    invoke-virtual {p0, v5}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
-    move-result-object v1
-    if-eqz v1, :diag_nocov
-    const/4 v1, 0x1
-    goto :diag_cov
-    :diag_nocov
-    const/4 v1, 0x0
-    :diag_cov
-    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    const-string v1, "android.media.metadata.ALBUM_ART"
+
+    invoke-virtual {p0, v1}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v2
+
+    invoke-static {v2}, Lcom/luna/music/car/CarLyricsBridge;->bitmapTag(Landroid/graphics/Bitmap;)Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v1, " mid="
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v1, "android.media.metadata.MEDIA_ID"
+
+    invoke-virtual {p0, v1}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
+
+    if-eqz v2, :diag_mid
+
+    const-string v2, "-"
+
+    :diag_mid
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v1, " uri="
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v1, "android.media.metadata.ALBUM_ART_URI"
+
+    invoke-virtual {p0, v1}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
+
+    if-eqz v2, :diag_uri
+
+    const-string v2, "-"
+
+    :diag_uri
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     const-string v1, " lrc="
+
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sLrc:Ljava/lang/String;
+
     if-eqz v1, :diag_nolrc
+
     invoke-virtual {v1}, Ljava/lang/String;->length()I
+
     move-result v1
+
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
     goto :diag_lrcdone
+
     :diag_nolrc
     const/4 v1, 0x0
+
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
     :diag_lrcdone
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
     move-result-object v0
+
     invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+
     :try_end_diag
     .catchall {:try_start_diag .. :try_end_diag} :diag_catch
 
     goto :raw_lyrics_gate
     :diag_catch
     :raw_lyrics_gate
-    # v1.1.21: app 侧封面自加载 —— app 的封面协程（session/d）在后台不回调时，
-    # 没有任何带 ALBUM_ART 的更新到达 P()，sCoverMeta 恒为 null，车机卡片纯色。
-    # 这里按 MEDIA_ID 查 MediaStore albumart 自己加载封面并重推（换歌只触发一次）。
+    # v1.1.34: 封面自加载重写。
+    # v1.1.29 的触发条件带「入参封面是真图（w+h>32）就跳过」这道门 —— 实测被
+    # app 后台下发的**纯色占位图**骗过（有位图、尺寸也不小 → 判定为真图 → 静默
+    # 跳过，所以 v1.1.32/33 整段纯色期一条 COVER 日志都没有）。
+    # 现在改成：每首歌无条件起一次自加载任务，真图/占位图由任务里的 isSolid()
+    # 像素采样判断。key 优先 MEDIA_ID，缺失时退到 TITLE|ARTIST（v1.1.33 之前
+    # MEDIA_ID 为空会整段静默不触发）。
     :try_start_self
-    # v1.1.29: 不再要求 bitmap==null——未缓存新歌带占位图同样要自加载。
-    # 触发条件 = MEDIA_ID 变化（按歌去重；CoverLoadTask 里发现已是真图会自行跳过）
     const-string v1, "android.media.metadata.MEDIA_ID"
 
     invoke-virtual {p0, v1}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
+    if-nez v1, :self_key
+
+    const-string v1, "android.media.metadata.TITLE"
+
+    invoke-virtual {p0, v1}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
+
+    if-eqz v2, :self_done
+
+    const-string v1, "android.media.metadata.ARTIST"
+
+    invoke-virtual {p0, v1}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v3
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v2, "|"
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    :self_key
     if-eqz v1, :self_done
 
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
 
-    if-eqz v0, :self_load_go
+    if-eqz v0, :self_kick
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
-    move-result v0
-
-    if-nez v0, :self_done
-
-    :self_load_go
-    # v1.1.29: 入参已带真图（w+h>32，即缓存命中的正常推送）→ 无需自加载。
-    # 仅当封面缺失或为占位小图时才起线程（v3/v4 此处空闲，try 内即时写读）。
-    const-string v3, "android.media.metadata.ALBUM_ART"
-
-    invoke-virtual {p0, v3}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
-
-    move-result-object v3
-
-    if-eqz v3, :self_load_run
-
-    invoke-virtual {v3}, Landroid/graphics/Bitmap;->getWidth()I
-
-    move-result v3
-
-    const-string v4, "android.media.metadata.ALBUM_ART"
-
-    invoke-virtual {p0, v4}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
-
-    move-result-object v4
-
-    invoke-virtual {v4}, Landroid/graphics/Bitmap;->getHeight()I
-
     move-result v4
 
-    add-int/2addr v3, v4
+    if-eqz v4, :self_done
 
-    # v1.1.29: 真图（w+h>32）→ 跳过自加载；占位/小图 → 起线程
-    add-int/lit8 v3, v3, -0x20
-
-    if-lez v3, :self_load_run
-
-    goto :self_done
-
-    :self_load_run
+    :self_kick
     sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
 
     sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sLastMeta:Landroid/media/MediaMetadata;
 
+    const-string v2, "android.media.metadata.ALBUM_ART_URI"
+
+    invoke-virtual {p0, v2}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
+
+    sput-object v2, Lcom/luna/music/car/CarLyricsBridge;->sFetchUri:Ljava/lang/String;
+
+    # 日志：COVER kick(raw) b=<WxH u0/1> k=<key>
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "COVER kick(raw) b="
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v2, "android.media.metadata.ALBUM_ART"
+
+    invoke-virtual {p0, v2}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v2
+
+    invoke-static {v2}, Lcom/luna/music/car/CarLyricsBridge;->bitmapTag(Landroid/graphics/Bitmap;)Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v2, " k="
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+
+    # 任务参数 = MEDIA_ID（拿去查 MediaStore albumart）；为空则任务只走 URI 拉图
+    const-string v2, "android.media.metadata.MEDIA_ID"
+
+    invoke-virtual {p0, v2}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
+
     new-instance v0, Lcom/luna/music/car/CoverLoadTask;
 
-    invoke-direct {v0, v1}, Lcom/luna/music/car/CoverLoadTask;-><init>(Ljava/lang/String;)V
+    invoke-direct {v0, v2}, Lcom/luna/music/car/CoverLoadTask;-><init>(Ljava/lang/String;)V
 
-    new-instance v1, Ljava/lang/Thread;
+    new-instance v3, Ljava/lang/Thread;
 
-    invoke-direct {v1, v0}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
+    invoke-direct {v3, v0}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
 
-    invoke-virtual {v1}, Ljava/lang/Thread;->start()V
+    invoke-virtual {v3}, Ljava/lang/Thread;->start()V
 
     :self_done
     :try_end_self
@@ -2845,6 +2946,12 @@
     # v1.1.29: 自加载封面统一发布出口（sLastMeta+bitmap+歌词+能力位）
     :try_start_p
     if-eqz p0, :pc_done
+
+    # v1.1.34: 自加载图可能很大（1000x1000=4MB parcel）→ 超 binder 事务上限会让
+    # setMetadata 静默失败，统一限到 <=420
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->downscale(Landroid/graphics/Bitmap;)Landroid/graphics/Bitmap;
+
+    move-result-object p0
 
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->coverBaseMeta()Landroid/media/MediaMetadata;
 
@@ -3208,6 +3315,9 @@
     invoke-virtual {v3}, Landroid/media/session/MediaController;->getMetadata()Landroid/media/MediaMetadata;
     move-result-object v4
     if-eqz v4, :rp_ret_b
+
+    # v1.1.34: 每 10s 记录「session 实际封面 vs 我们最后交出去的封面」，只在变化时写
+    invoke-static {v4}, Lcom/luna/music/car/CarLyricsBridge;->pollCover(Landroid/media/MediaMetadata;)V
 
     # v1.1.13: 快照必须已含封面位图才允许补推。
     # 自动切歌时封面协程（Glide 解码 1-2s）可能晚于歌词就绪，若在封面
@@ -4488,5 +4598,346 @@
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->scheduleRePush()V
 
     .line 220
+    return-void
+.end method
+
+# ==================== v1.1.34 新增：纯色判定 / 位图标记 / 缩放 / 轮询诊断 ====================
+
+# 纯色（占位图）判定：w+h<=32 直接算纯色；否则采样四角+中心五点，全同色算纯色。
+# 取不到像素（HARDWARE bitmap / 0x0）也返回 1 —— 未知一律当作"需要换图"。
+.method public static isSolid(Landroid/graphics/Bitmap;)Z
+    .registers 9
+
+    const/4 v0, 0x1
+
+    if-eqz p0, :iso_ret
+
+    :try_start_iso
+    invoke-virtual {p0}, Landroid/graphics/Bitmap;->getWidth()I
+
+    move-result v1
+
+    invoke-virtual {p0}, Landroid/graphics/Bitmap;->getHeight()I
+
+    move-result v2
+
+    add-int v3, v1, v2
+
+    const/16 v4, 0x20
+
+    if-gt v3, v4, :iso_sample
+
+    return v0
+
+    :iso_sample
+    const/4 v0, 0x0
+
+    const/4 v6, 0x0
+
+    invoke-virtual {p0, v6, v6}, Landroid/graphics/Bitmap;->getPixel(II)I
+
+    move-result v3
+
+    add-int/lit8 v5, v1, -0x1
+
+    invoke-virtual {p0, v5, v6}, Landroid/graphics/Bitmap;->getPixel(II)I
+
+    move-result v4
+
+    if-eq v4, v3, :iso_ne
+
+    add-int/lit8 v6, v2, -0x1
+
+    invoke-virtual {p0, v5, v6}, Landroid/graphics/Bitmap;->getPixel(II)I
+
+    move-result v4
+
+    if-eq v4, v3, :iso_ne
+
+    div-int/lit8 v5, v1, 0x2
+
+    div-int/lit8 v6, v2, 0x2
+
+    invoke-virtual {p0, v5, v6}, Landroid/graphics/Bitmap;->getPixel(II)I
+
+    move-result v4
+
+    if-eq v4, v3, :iso_ne
+
+    const/4 v0, 0x1
+
+    :iso_ne
+    :try_end_iso
+    .catchall {:try_start_iso .. :try_end_iso} :iso_catch
+
+    goto :iso_ret
+
+    :iso_catch
+    move-exception v7
+
+    const/4 v0, 0x1
+
+    :iso_ret
+    return v0
+.end method
+
+# 日志用位图标记："WxH u<0/1>"（u1=纯色），null → "none"
+.method public static bitmapTag(Landroid/graphics/Bitmap;)Ljava/lang/String;
+    .registers 6
+
+    if-eqz p0, :bt_null
+
+    :try_start_bt
+    invoke-virtual {p0}, Landroid/graphics/Bitmap;->getWidth()I
+
+    move-result v0
+
+    invoke-virtual {p0}, Landroid/graphics/Bitmap;->getHeight()I
+
+    move-result v1
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string v3, "x"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string v3, " u"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->isSolid(Landroid/graphics/Bitmap;)Z
+
+    move-result v0
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+
+    :try_end_bt
+    .catchall {:try_start_bt .. :try_end_bt} :bt_catch
+
+    :bt_catch
+    move-exception v4
+
+    const/4 v0, 0x0
+
+    return-object v0
+
+    :bt_null
+    const/4 v0, 0x0
+
+    return-object v0
+.end method
+
+# 发布前限幅：最长边 >420 就逐次减半后重采样。
+# 400x400 ARGB_8888 ≈ 640KB，已经贴着 binder 1MB 事务上限；
+# 自己拉到的图动辄 1000x1000（4MB）会让 setMetadata 静默失败。
+.method public static downscale(Landroid/graphics/Bitmap;)Landroid/graphics/Bitmap;
+    .registers 6
+
+    if-eqz p0, :ds_ret
+
+    :try_start_ds
+    invoke-virtual {p0}, Landroid/graphics/Bitmap;->getWidth()I
+
+    move-result v0
+
+    invoke-virtual {p0}, Landroid/graphics/Bitmap;->getHeight()I
+
+    move-result v1
+
+    :ds_loop
+    move v2, v0
+
+    if-gt v1, v2, :ds_max
+
+    move v2, v1
+
+    :ds_max
+    const/16 v3, 0x1a4
+
+    if-gt v2, v3, :ds_done
+
+    div-int/lit8 v0, v0, 0x2
+
+    div-int/lit8 v1, v1, 0x2
+
+    goto :ds_loop
+
+    :ds_done
+    const/4 v3, 0x1
+
+    invoke-static {p0, v0, v1, v3}, Landroid/graphics/Bitmap;->createScaledBitmap(Landroid/graphics/Bitmap;IIZ)Landroid/graphics/Bitmap;
+
+    move-result-object p0
+
+    :ds_ret
+    return-object p0
+
+    :try_end_ds
+    .catchall {:try_start_ds .. :try_end_ds} :ds_catch
+
+    :ds_catch
+    move-exception v4
+
+    return-object p0
+.end method
+
+# 每 10s 一次（挂在 repushMeta 开头）：a=framework session 实际内容（车机读的就是它），
+# b=我们最后一次交出去的 metadata。两者封面不一致 → 说明中途有人覆盖了推送。
+.method static pollCover(Landroid/media/MediaMetadata;)V
+    .registers 10
+
+    # p0 = session 快照（repushMeta 每 10s 已经取好，不再多跑一次 IPC）
+    :try_start_pc
+    const/4 v1, 0x0
+
+    if-eqz p0, :pc_a
+
+    const-string v0, "android.media.metadata.ALBUM_ART"
+
+    invoke-virtual {p0, v0}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v1
+
+    :pc_a
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLastMeta:Landroid/media/MediaMetadata;
+
+    const-string v4, "android.media.metadata.ALBUM_ART"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "POLL a="
+
+    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    if-eqz v1, :pc_a0
+
+    invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->bitmapTag(Landroid/graphics/Bitmap;)Ljava/lang/String;
+
+    move-result-object v6
+
+    goto :pc_a1
+
+    :pc_a0
+    const-string v6, "n/a"
+
+    :pc_a1
+    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v5, " b="
+
+    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    if-eqz v2, :pc_b0
+
+    invoke-virtual {v2, v4}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v6
+
+    invoke-static {v6}, Lcom/luna/music/car/CarLyricsBridge;->bitmapTag(Landroid/graphics/Bitmap;)Ljava/lang/String;
+
+    move-result-object v6
+
+    goto :pc_b1
+
+    :pc_b0
+    const-string v6, "n/a"
+
+    :pc_b1
+    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v5, " uri="
+
+    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    if-eqz v2, :pc_u0
+
+    const-string v4, "android.media.metadata.ALBUM_ART_URI"
+
+    invoke-virtual {v2, v4}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v6
+
+    goto :pc_u1
+
+    :pc_u0
+    sget-object v6, Lcom/luna/music/car/CarLyricsBridge;->sFetchUri:Ljava/lang/String;
+
+    :pc_u1
+    if-eqz v6, :pc_u2
+
+    const-string v6, "-"
+
+    :pc_u2
+    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v5, " mid="
+
+    invoke-virtual {v3, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    if-eqz v2, :pc_m0
+
+    const-string v4, "android.media.metadata.MEDIA_ID"
+
+    invoke-virtual {v2, v4}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v6
+
+    goto :pc_m1
+
+    :pc_m0
+    const-string v6, "-"
+
+    :pc_m1
+    if-eqz v6, :pc_m2
+
+    const-string v6, "-"
+
+    :pc_m2
+    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    sget-object v4, Lcom/luna/music/car/CarLyricsBridge;->sLastPoll:Ljava/lang/String;
+
+    if-eqz v4, :pc_log
+
+    invoke-virtual {v4, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v7
+
+    if-eqz v7, :pc_done
+
+    :pc_log
+    sput-object v3, Lcom/luna/music/car/CarLyricsBridge;->sLastPoll:Ljava/lang/String;
+
+    invoke-static {v3}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+
+    :pc_done
+    :try_end_pc
+    .catchall {:try_start_pc .. :try_end_pc} :pc_catch
+
+    goto :pc_ret
+
+    :pc_catch
+    move-exception v8
+
+    :pc_ret
     return-void
 .end method
