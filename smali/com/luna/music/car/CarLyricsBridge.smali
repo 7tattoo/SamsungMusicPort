@@ -789,13 +789,13 @@
 
     sget-object v3, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
 
-    if-nez v3, :compat_kick_go
+    if-eqz v3, :compat_kick_go
 
     invoke-virtual {v3, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v3
 
-    if-eqz v3, :compat_lrc
+    if-nez v3, :compat_lrc
 
     :compat_kick_go
     sput-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
@@ -2515,7 +2515,7 @@
     # 占位图当作无封面处理：不污染 sCoverMeta，走补位分支（上一首封面优于占位纯色）。
     invoke-static {v5}, Lcom/luna/music/car/CarLyricsBridge;->isSolid(Landroid/graphics/Bitmap;)Z
     move-result v0
-    if-eqz v0, :raw_no_input_cover
+    if-nez v0, :raw_no_input_cover
 
     :raw_has_real_cover
     # 入参含封面 → 缓存为锚点并立即触发封面重推
@@ -2694,17 +2694,17 @@
     move-result-object v1
 
     :self_key
-    if-nez v1, :self_done
+    if-eqz v1, :self_done
 
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
 
-    if-nez v0, :self_kick
+    if-eqz v0, :self_kick
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v4
 
-    if-eqz v4, :self_done
+    if-nez v4, :self_done
 
     :self_kick
     sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCoverLoadedKey:Ljava/lang/String;
@@ -2884,7 +2884,7 @@
     :try_start_cb
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sLastMeta:Landroid/media/MediaMetadata;
 
-    if-nez v0, :cb_try_car
+    if-eqz v0, :cb_try_car
 
     return-object v0
 
@@ -2903,7 +2903,7 @@
 
     move-result-object v0
 
-    if-nez v0, :cb_try_app
+    if-eqz v0, :cb_try_app
 
     return-object v0
 
@@ -5248,13 +5248,13 @@
 
     sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCompatSig:Ljava/lang/String;
 
-    if-nez v2, :oc_dump
+    if-eqz v2, :oc_dump
 
     invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v3
 
-    if-eqz v3, :oc_ret
+    if-nez v3, :oc_ret
 
     :oc_dump
     sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCompatSig:Ljava/lang/String;
