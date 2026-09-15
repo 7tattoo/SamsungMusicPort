@@ -5299,8 +5299,11 @@
 
     const/4 v0, 0x0
 
-    if-eqz p0, :fa_ret
+    if-nez p0, :fa_ret
 
+    return-object v0
+
+    :fa_ret
     :try_start_fa
     const-string v1, "http"
 
@@ -5308,16 +5311,26 @@
 
     move-result v1
 
-    if-nez v1, :fa_http
+    if-eqz v1, :fa_content
 
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->fetchCoverFromUri(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    return-object v0
+
+    :fa_content
     invoke-static {p0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v1
 
     sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
 
-    if-eqz v2, :fa_ret
+    if-nez v2, :fa_ret_null
 
+    return-object v0
+
+    :fa_ret_null
     invoke-virtual {v2}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v2
@@ -5326,8 +5339,11 @@
 
     move-result-object v1
 
-    if-eqz v1, :fa_ret
+    if-nez v1, :fa_ret_null2
 
+    return-object v0
+
+    :fa_ret_null2
     const/4 v2, 0x0
 
     invoke-static {v1, v2, v2}, Landroid/graphics/BitmapFactory;->decodeStream(Ljava/io/InputStream;Landroid/graphics/Rect;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/Bitmap;
@@ -5336,19 +5352,15 @@
 
     invoke-virtual {v1}, Ljava/io/InputStream;->close()V
 
-    goto :fa_ret
-
-    :fa_http
-    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->fetchCoverFromUri(Ljava/lang/String;)Landroid/graphics/Bitmap;
-
-    move-result-object v0
+    return-object v0
     :try_end_fa
     .catchall {:try_start_fa .. :try_end_fa} :fa_catch
 
     :fa_catch
     move-exception v3
 
-    :fa_ret
+    const/4 v0, 0x0
+
     return-object v0
 .end method
 
@@ -5362,19 +5374,25 @@
     :try_start_sc
     sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
 
-    if-eqz v0, :sc_ret
+    if-nez v0, :sc_ret_null
 
+    return-object v7
+
+    :sc_ret_null
     sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCompatTitle:Ljava/lang/String;
 
-    if-eqz v2, :sc_ret
+    if-nez v2, :sc_ret_null2
 
+    return-object v7
+
+    :sc_ret_null2
     sget-object v3, Lcom/luna/music/car/CarLyricsBridge;->sCompatArtist:Ljava/lang/String;
 
-    if-eqz v3, :sc_noart
+    if-nez v3, :sc_have_art
 
     const-string v3, ""
 
-    :sc_noart
+    :sc_have_art
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v8
@@ -5417,8 +5435,11 @@
 
     move-result-object v9
 
-    if-eqz v9, :sc_ret
+    if-nez v9, :sc_ret_null3
 
+    return-object v7
+
+    :sc_ret_null3
     invoke-interface {v9}, Landroid/database/Cursor;->moveToFirst()Z
 
     move-result v14
@@ -5437,10 +5458,17 @@
 
     move-result-object v3
 
+    goto :sc_got_vals
+
     :sc_close
+    const/4 v2, 0x0
+
+    const/4 v3, 0x0
+
+    :sc_got_vals
     invoke-interface {v9}, Landroid/database/Cursor;->close()V
 
-    if-eqz v2, :sc_file
+    if-nez v2, :sc_try_file
 
     new-instance v12, Ljava/lang/StringBuilder;
 
@@ -5464,7 +5492,7 @@
 
     move-result-object v10
 
-    if-eqz v10, :sc_file
+    if-eqz v10, :sc_try_file
 
     const/4 v13, 0x0
 
@@ -5474,11 +5502,16 @@
 
     invoke-virtual {v10}, Ljava/io/InputStream;->close()V
 
-    if-nez v7, :sc_ret
+    if-eqz v7, :sc_try_file
 
-    :sc_file
-    if-eqz v3, :sc_ret
+    return-object v7
 
+    :sc_try_file
+    if-nez v3, :sc_ret_null4
+
+    return-object v7
+
+    :sc_ret_null4
     new-instance v1, Landroid/media/MediaMetadataRetriever;
 
     invoke-direct {v1}, Landroid/media/MediaMetadataRetriever;-><init>()V
@@ -5493,19 +5526,24 @@
 
     invoke-virtual {v1}, Landroid/media/MediaMetadataRetriever;->release()V
 
-    if-eqz v0, :sc_ret
+    if-nez v0, :sc_ret_null5
 
+    return-object v7
+
+    :sc_ret_null5
     array-length v14, v0
 
-    if-lez v14, :sc_ret
+    if-gtz v14, :sc_ret_null6
 
+    return-object v7
+
+    :sc_ret_null6
     const/4 v13, 0x0
 
     invoke-static {v0, v13, v14}, Landroid/graphics/BitmapFactory;->decodeByteArray([BII)Landroid/graphics/Bitmap;
 
     move-result-object v7
 
-    :sc_ret
     return-object v7
     :try_end_sc
     .catchall {:try_start_sc .. :try_end_sc} :sc_catch
@@ -5557,36 +5595,34 @@
 
     move-result v1
 
-    if-eqz v1, :gc_store
+    if-nez v1, :gc_store
 
     const-string v1, "COVER src=uri ok"
 
     invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
-    move-object v0, v2
-
-    goto :gc_ret
+    return-object v2
 
     :gc_store
     invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->storeCover()Landroid/graphics/Bitmap;
 
     move-result-object v2
 
-    if-eqz v2, :gc_ret
+    if-eqz v2, :gc_ret_null
 
     invoke-static {v2}, Lcom/luna/music/car/CarLyricsBridge;->isSolid(Landroid/graphics/Bitmap;)Z
 
     move-result v1
 
-    if-eqz v1, :gc_ret
+    if-nez v1, :gc_ret_null
 
     const-string v1, "COVER src=store ok"
 
     invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
-    move-object v0, v2
+    return-object v2
 
-    :gc_ret
+    :gc_ret_null
     return-object v0
     :try_end_gc
     .catchall {:try_start_gc .. :try_end_gc} :gc_catch
@@ -5594,6 +5630,5 @@
     :gc_catch
     move-exception v4
 
-    :gc_ret2
     return-object v0
 .end method
