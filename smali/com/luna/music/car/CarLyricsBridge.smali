@@ -2602,7 +2602,7 @@
 
     move-result-object v2
 
-    if-eqz v2, :diag_mid
+    if-nez v2, :diag_mid
 
     const-string v2, "-"
 
@@ -2619,7 +2619,7 @@
 
     move-result-object v2
 
-    if-eqz v2, :diag_uri
+    if-nez v2, :diag_uri
 
     const-string v2, "-"
 
@@ -2668,17 +2668,24 @@
     # 像素采样判断。key 优先 MEDIA_ID，缺失时退到 TITLE|ARTIST（v1.1.33 之前
     # MEDIA_ID 为空会整段静默不触发）。
     :try_start_self
+    # v1.1.35: key = framework MEDIA_ID -> compat MEDIA_ID -> TITLE|ARTIST
+    # (framework getString 对非 String 值返 null，必须从 compat 兜底)
     const-string v1, "android.media.metadata.MEDIA_ID"
 
     invoke-virtual {p0, v1}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
+    if-nez v1, :self_have_id
+
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCompatMid:Ljava/lang/String;
+
+    :self_have_id
     if-nez v1, :self_key
 
-    const-string v1, "android.media.metadata.TITLE"
+    const-string v2, "android.media.metadata.TITLE"
 
-    invoke-virtual {p0, v1}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {p0, v2}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
@@ -2724,40 +2731,59 @@
 
     sput-object p0, Lcom/luna/music/car/CarLyricsBridge;->sLastMeta:Landroid/media/MediaMetadata;
 
+    # sFetchUri = framework ALBUM_ART_URI -> compat ALBUM_ART_URI
     const-string v2, "android.media.metadata.ALBUM_ART_URI"
 
     invoke-virtual {p0, v2}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
+    if-nez v2, :self_uri_set
+
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCompatUri:Ljava/lang/String;
+
+    :self_uri_set
     sput-object v2, Lcom/luna/music/car/CarLyricsBridge;->sFetchUri:Ljava/lang/String;
 
-    # 日志：COVER kick(raw) b=<WxH u0/1> k=<key>
+    # 日志：COVER kick(raw) b=<tag> k=<key> u=<uri>
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v2, "COVER kick(raw) b="
+    const-string v5, "COVER kick(raw) b="
 
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    const-string v2, "android.media.metadata.ALBUM_ART"
+    const-string v5, "android.media.metadata.ALBUM_ART"
 
-    invoke-virtual {p0, v2}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    invoke-virtual {p0, v5}, Landroid/media/MediaMetadata;->getBitmap(Ljava/lang/String;)Landroid/graphics/Bitmap;
 
-    move-result-object v2
+    move-result-object v5
 
-    invoke-static {v2}, Lcom/luna/music/car/CarLyricsBridge;->bitmapTag(Landroid/graphics/Bitmap;)Ljava/lang/String;
+    invoke-static {v5}, Lcom/luna/music/car/CarLyricsBridge;->bitmapTag(Landroid/graphics/Bitmap;)Ljava/lang/String;
 
-    move-result-object v2
+    move-result-object v5
 
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    const-string v2, " k="
+    const-string v5, " k="
 
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v5, " u="
+
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    sget-object v5, Lcom/luna/music/car/CarLyricsBridge;->sFetchUri:Ljava/lang/String;
+
+    if-eqz v5, :self_no_uri
+
+    const-string v5, "-"
+
+    :self_no_uri
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
@@ -2765,16 +2791,9 @@
 
     invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
 
-    # 任务参数 = MEDIA_ID（拿去查 MediaStore albumart）；为空则任务只走 URI 拉图
-    const-string v2, "android.media.metadata.MEDIA_ID"
-
-    invoke-virtual {p0, v2}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v2
-
     new-instance v0, Lcom/luna/music/car/CoverLoadTask;
 
-    invoke-direct {v0, v2}, Lcom/luna/music/car/CoverLoadTask;-><init>(Ljava/lang/String;)V
+    invoke-direct {v0, v1}, Lcom/luna/music/car/CoverLoadTask;-><init>(Ljava/lang/String;)V
 
     new-instance v3, Ljava/lang/Thread;
 
@@ -4940,4 +4959,641 @@
 
     :pc_ret
     return-void
+.end method
+
+# ==================== v1.1.35 从 MediaMetadataCompat 取身份/图源 ====================
+
+.field static volatile sCompatUri:Ljava/lang/String;
+
+.field static volatile sCompatMid:Ljava/lang/String;
+
+.field static volatile sCompatTitle:Ljava/lang/String;
+
+.field static volatile sCompatArtist:Ljava/lang/String;
+
+.field static volatile sCompatSig:Ljava/lang/String;
+
+# Bundle 取值转字符串。framework MediaMetadata.getString() 只对 String 值返内容，
+# media3Compatframework 转换后 Uri 存成 Uri 对象、id 存成 Long 都会被 getString
+# 变成 null —— 必须从 compat 原始 Bundle（MediaMetadataCompat.a 是 public 字段）取。
+.method static bundleStr(Landroid/os/Bundle;Ljava/lang/String;)Ljava/lang/String;
+    .registers 5
+
+    const/4 v0, 0x0
+
+    if-eqz p0, :bs_ret
+
+    if-eqz p1, :bs_ret
+
+    :try_start_bs
+    invoke-virtual {p0, p1}, Landroid/os/Bundle;->get(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v1
+
+    if-eqz v1, :bs_ret
+
+    instance-of v2, v1, Landroid/graphics/Bitmap;
+
+    if-nez v2, :bs_ret
+
+    invoke-virtual {v1}, Ljava/lang/Object;->toString()Ljava/lang/String;
+
+    move-result-object v0
+    :try_end_bs
+    .catchall {:try_start_bs .. :try_end_bs} :bs_catch
+
+    goto :bs_ret2
+
+    :bs_catch
+    move-exception v2
+
+    const/4 v0, 0x0
+
+    :bs_ret2
+    return-object v0
+
+    :bs_ret
+    const/4 v0, 0x0
+
+    return-object v0
+.end method
+
+# dump 用：位图只报尺寸，长值截到 60 字符
+.method static descObj(Ljava/lang/Object;)Ljava/lang/String;
+    .registers 6
+
+    :try_start_dw
+    const-string v0, "null"
+
+    if-eqz p0, :dw_ret
+
+    instance-of v1, p0, Landroid/graphics/Bitmap;
+
+    if-eqz v1, :dw_str
+
+    check-cast p0, Landroid/graphics/Bitmap;
+
+    invoke-virtual {p0}, Landroid/graphics/Bitmap;->getWidth()I
+
+    move-result v1
+
+    invoke-virtual {p0}, Landroid/graphics/Bitmap;->getHeight()I
+
+    move-result v2
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "bmp"
+
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string v3, "x"
+
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    goto :dw_ret
+
+    :dw_str
+    invoke-virtual {p0}, Ljava/lang/Object;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    if-eqz v0, :dw_ret
+
+    invoke-virtual {v0}, Ljava/lang/String;->length()I
+
+    move-result v1
+
+    const/16 v2, 0x3c
+
+    if-le v1, v2, :dw_ret
+
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1, v2}, Ljava/lang/String;->substring(II)Ljava/lang/String;
+
+    move-result-object v0
+    :try_end_dw
+    .catchall {:try_start_dw .. :try_end_dw} :dw_catch
+
+    goto :dw_ret
+
+    :dw_catch
+    move-exception v4
+
+    const-string v0, "?"
+
+    goto :dw_ret
+
+    :dw_ret
+    return-object v0
+.end method
+
+# 换歌时把 compat Bundle 每个键打一遍（含值类型/内容摘要），一次换歌只打一条。
+# 这是唯一能看到 app 到底塞了哪些键（图源在哪个键、id 是什么类型）的地方。
+.method static dumpBundle(Landroid/os/Bundle;)V
+    .registers 9
+
+    :try_start_db
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "CBUNDLE "
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const/4 v3, 0x0
+
+    invoke-virtual {p0}, Landroid/os/Bundle;->keySet()Ljava/util/Set;
+
+    move-result-object v2
+
+    if-eqz v2, :db_log
+
+    invoke-interface {v2}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
+
+    move-result-object v1
+
+    :db_loop
+    invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v6
+
+    if-eqz v6, :db_log
+
+    const/16 v6, 0x30
+
+    if-ge v3, v6, :db_log
+
+    invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v2
+
+    add-int/lit8 v3, v3, 0x1
+
+    instance-of v6, v2, Ljava/lang/String;
+
+    if-eqz v6, :db_loop
+
+    check-cast v2, Ljava/lang/String;
+
+    move-object v4, v2
+
+    const-string v6, "LYRIC"
+
+    invoke-virtual {v4, v6}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+
+    move-result v6
+
+    if-nez v6, :db_loop
+
+    const-string v6, "lyric"
+
+    invoke-virtual {v4, v6}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+
+    move-result v6
+
+    if-nez v6, :db_loop
+
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v5, "="
+
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p0, v4}, Landroid/os/Bundle;->get(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v5
+
+    invoke-static {v5}, Lcom/luna/music/car/CarLyricsBridge;->descObj(Ljava/lang/Object;)Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v5, " ; "
+
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    goto :db_loop
+
+    :db_log
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+    :try_end_db
+    .catchall {:try_start_db .. :try_end_db} :db_catch
+
+    goto :db_ret
+
+    :db_catch
+    move-exception v7
+
+    :db_ret
+    return-void
+.end method
+
+# 挂在 MediaSessionCompat 的 metadata 推送入口（s.smali:P() 第一行）：
+# 那里 p1 还是 MediaMetadataCompat，再往下就被 parcel 换来的 framework 对象覆盖。
+.method public static onCompat(Landroid/support/v4/media/MediaMetadataCompat;)V
+    .registers 9
+
+    :try_start_oc
+    if-eqz p0, :oc_ret
+
+    iget-object v0, p0, Landroid/support/v4/media/MediaMetadataCompat;->a:Landroid/os/Bundle;
+
+    if-eqz v0, :oc_ret
+
+    const-string v1, "android.media.metadata.MEDIA_ID"
+
+    invoke-static {v0, v1}, Lcom/luna/music/car/CarLyricsBridge;->bundleStr(Landroid/os/Bundle;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
+
+    const-string v1, "android.media.metadata.TITLE"
+
+    invoke-static {v0, v1}, Lcom/luna/music/car/CarLyricsBridge;->bundleStr(Landroid/os/Bundle;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v3
+
+    const-string v1, "android.media.metadata.ARTIST"
+
+    invoke-static {v0, v1}, Lcom/luna/music/car/CarLyricsBridge;->bundleStr(Landroid/os/Bundle;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v4
+
+    const-string v1, "android.media.metadata.ALBUM_ART_URI"
+
+    invoke-static {v0, v1}, Lcom/luna/music/car/CarLyricsBridge;->bundleStr(Landroid/os/Bundle;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v5
+
+    sput-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCompatMid:Ljava/lang/String;
+
+    sput-object v3, Lcom/luna/music/car/CarLyricsBridge;->sCompatTitle:Ljava/lang/String;
+
+    sput-object v4, Lcom/luna/music/car/CarLyricsBridge;->sCompatArtist:Ljava/lang/String;
+
+    sput-object v5, Lcom/luna/music/car/CarLyricsBridge;->sCompatUri:Ljava/lang/String;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v2, "|"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCompatSig:Ljava/lang/String;
+
+    if-eqz v2, :oc_dump
+
+    invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v3
+
+    if-eqz v3, :oc_ret
+
+    :oc_dump
+    sput-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCompatSig:Ljava/lang/String;
+
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->dumpBundle(Landroid/os/Bundle;)V
+    :try_end_oc
+    .catchall {:try_start_oc .. :try_end_oc} :oc_catch
+
+    goto :oc_ret
+
+    :oc_catch
+    move-exception v7
+
+    :oc_ret
+    return-void
+.end method
+
+# content:// 与 file:// 也要能拉：封面 uri 常常是 content://，
+# v1.1.34 只支持 http（new URL("content://...") 抛异常）→ 永远返回 null
+.method static fetchAny(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    .registers 5
+
+    const/4 v0, 0x0
+
+    if-eqz p0, :fa_ret
+
+    :try_start_fa
+    const-string v1, "http"
+
+    invoke-virtual {p0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-nez v1, :fa_http
+
+    invoke-static {p0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
+
+    if-eqz v2, :fa_ret
+
+    invoke-virtual {v2}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v1}, Landroid/content/ContentResolver;->openInputStream(Landroid/net/Uri;)Ljava/io/InputStream;
+
+    move-result-object v1
+
+    if-eqz v1, :fa_ret
+
+    const/4 v2, 0x0
+
+    invoke-static {v1, v2, v2}, Landroid/graphics/BitmapFactory;->decodeStream(Ljava/io/InputStream;Landroid/graphics/Rect;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    invoke-virtual {v1}, Ljava/io/InputStream;->close()V
+
+    goto :fa_ret
+
+    :fa_http
+    invoke-static {p0}, Lcom/luna/music/car/CarLyricsBridge;->fetchCoverFromUri(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+    :try_end_fa
+    .catchall {:try_start_fa .. :try_end_fa} :fa_catch
+
+    :fa_catch
+    move-exception v3
+
+    :fa_ret
+    return-object v0
+.end method
+
+# MediaStore 只能按标题+歌手查：app 的 track id 不是 MediaStore _id，
+# 按它查会把别的歌封面贴上来（v1.1.34 传的就是它，幸好一直是 null 没触发）。
+.method static storeCover()Landroid/graphics/Bitmap;
+    .registers 16
+
+    const/4 v7, 0x0
+
+    :try_start_sc
+    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
+
+    if-eqz v0, :sc_ret
+
+    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCompatTitle:Ljava/lang/String;
+
+    if-eqz v2, :sc_ret
+
+    sget-object v3, Lcom/luna/music/car/CarLyricsBridge;->sCompatArtist:Ljava/lang/String;
+
+    if-eqz v3, :sc_noart
+
+    const-string v3, ""
+
+    :sc_noart
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v8
+
+    const/4 v14, 0x2
+
+    new-array v10, v14, [Ljava/lang/String;
+
+    const/4 v13, 0x0
+
+    const-string v1, "album_id"
+
+    aput-object v1, v10, v13
+
+    const/4 v14, 0x1
+
+    const-string v1, "data"
+
+    aput-object v1, v10, v14
+
+    const-string v11, "TITLE=? AND IFNULL(ARTIST,'')=?"
+
+    const/4 v14, 0x2
+
+    new-array v12, v14, [Ljava/lang/String;
+
+    const/4 v13, 0x0
+
+    aput-object v2, v12, v13
+
+    const/4 v14, 0x1
+
+    aput-object v3, v12, v14
+
+    sget-object v9, Landroid/provider/MediaStore$Audio$Media;->EXTERNAL_CONTENT_URI:Landroid/net/Uri;
+
+    const/4 v13, 0x0
+
+    invoke-virtual/range {v8 .. v13}, Landroid/content/ContentResolver;->query(Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)Landroid/database/Cursor;
+
+    move-result-object v9
+
+    if-eqz v9, :sc_ret
+
+    invoke-interface {v9}, Landroid/database/Cursor;->moveToFirst()Z
+
+    move-result v14
+
+    if-eqz v14, :sc_close
+
+    const/4 v13, 0x0
+
+    invoke-interface {v9, v13}, Landroid/database/Cursor;->getString(I)Ljava/lang/String;
+
+    move-result-object v2
+
+    const/4 v13, 0x1
+
+    invoke-interface {v9, v13}, Landroid/database/Cursor;->getString(I)Ljava/lang/String;
+
+    move-result-object v3
+
+    :sc_close
+    invoke-interface {v9}, Landroid/database/Cursor;->close()V
+
+    if-eqz v2, :sc_file
+
+    new-instance v12, Ljava/lang/StringBuilder;
+
+    invoke-direct {v12}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "content://media/external/audio/albumart/"
+
+    invoke-virtual {v12, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v12, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v12}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v11
+
+    invoke-static {v11}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v11
+
+    invoke-virtual {v8, v11}, Landroid/content/ContentResolver;->openInputStream(Landroid/net/Uri;)Ljava/io/InputStream;
+
+    move-result-object v10
+
+    if-eqz v10, :sc_file
+
+    const/4 v13, 0x0
+
+    invoke-static {v10, v13, v13}, Landroid/graphics/BitmapFactory;->decodeStream(Ljava/io/InputStream;Landroid/graphics/Rect;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/Bitmap;
+
+    move-result-object v7
+
+    invoke-virtual {v10}, Ljava/io/InputStream;->close()V
+
+    if-nez v7, :sc_ret
+
+    :sc_file
+    if-eqz v3, :sc_ret
+
+    new-instance v1, Landroid/media/MediaMetadataRetriever;
+
+    invoke-direct {v1}, Landroid/media/MediaMetadataRetriever;-><init>()V
+
+    invoke-virtual {v1, v3}, Landroid/media/MediaMetadataRetriever;->setDataSource(Ljava/lang/String;)V
+
+    const/4 v13, -0x3
+
+    invoke-virtual {v1, v13}, Landroid/media/MediaMetadataRetriever;->extractMetadata(I)[B
+
+    move-result-object v0
+
+    invoke-virtual {v1}, Landroid/media/MediaMetadataRetriever;->release()V
+
+    if-eqz v0, :sc_ret
+
+    array-length v14, v0
+
+    if-lez v14, :sc_ret
+
+    const/4 v13, 0x0
+
+    invoke-static {v0, v13, v14}, Landroid/graphics/BitmapFactory;->decodeByteArray([BII)Landroid/graphics/Bitmap;
+
+    move-result-object v7
+
+    :sc_ret
+    return-object v7
+    :try_end_sc
+    .catchall {:try_start_sc .. :try_end_sc} :sc_catch
+
+    :sc_catch
+    move-exception v15
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "COVER store err :: "
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v15}, Ljava/lang/Object;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+
+    const/4 v7, 0x0
+
+    return-object v7
+.end method
+
+# 封面来源汇总：compat 的 ALBUM_ART_URI（http/content）→ MediaStore（标题+歌手）
+.method static grabCover()Landroid/graphics/Bitmap;
+    .registers 6
+
+    const/4 v0, 0x0
+
+    :try_start_gc
+    sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCompatUri:Ljava/lang/String;
+
+    invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->fetchAny(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v2
+
+    if-eqz v2, :gc_store
+
+    invoke-static {v2}, Lcom/luna/music/car/CarLyricsBridge;->isSolid(Landroid/graphics/Bitmap;)Z
+
+    move-result v1
+
+    if-eqz v1, :gc_store
+
+    const-string v1, "COVER src=uri ok"
+
+    invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+
+    move-object v0, v2
+
+    goto :gc_ret
+
+    :gc_store
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->storeCover()Landroid/graphics/Bitmap;
+
+    move-result-object v2
+
+    if-eqz v2, :gc_ret
+
+    invoke-static {v2}, Lcom/luna/music/car/CarLyricsBridge;->isSolid(Landroid/graphics/Bitmap;)Z
+
+    move-result v1
+
+    if-eqz v1, :gc_ret
+
+    const-string v1, "COVER src=store ok"
+
+    invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
+
+    move-object v0, v2
+
+    :gc_ret
+    return-object v0
+    :try_end_gc
+    .catchall {:try_start_gc .. :try_end_gc} :gc_catch
+
+    :gc_catch
+    move-exception v4
+
+    :gc_ret2
+    return-object v0
 .end method

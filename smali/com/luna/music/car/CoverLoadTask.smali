@@ -84,71 +84,8 @@
     return-void
 
     :ct_store
-    # 2) MediaStore albumart（本地已缓存的歌）
-    sget-object v3, Lcom/luna/music/car/CarLyricsBridge;->sApp:Landroid/content/Context;
-
-    if-eqz v3, :ct_uri
-
-    iget-object v0, p0, Lcom/luna/music/car/CoverLoadTask;->a:Ljava/lang/String;
-
-    if-eqz v0, :ct_uri
-
-    invoke-static {v3, v0}, Lcom/luna/music/car/CarLyricsBridge;->loadCover(Landroid/content/Context;Ljava/lang/String;)Landroid/graphics/Bitmap;
-
-    move-result-object v1
-
-    if-eqz v1, :ct_uri
-
-    invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->isSolid(Landroid/graphics/Bitmap;)Z
-
-    move-result v7
-
-    if-nez v7, :ct_uri
-
-    invoke-static {v1}, Lcom/luna/music/car/CarLyricsBridge;->publishCoverBitmap(Landroid/graphics/Bitmap;)V
-
-    return-void
-
-    :ct_uri
-    # 3) 自己按 ALBUM_ART_URI 拉图（在线未缓存的歌 MediaStore 没有条目）
-    sget-object v0, Lcom/luna/music/car/CarLyricsBridge;->sFetchUri:Ljava/lang/String;
-
-    if-eqz v0, :ct_uri2
-
-    sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sLastMeta:Landroid/media/MediaMetadata;
-
-    if-eqz v2, :ct_uri2
-
-    const-string v5, "android.media.metadata.ALBUM_ART_URI"
-
-    invoke-virtual {v2, v5}, Landroid/media/MediaMetadata;->getString(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v5
-
-    if-eqz v5, :ct_uri2
-
-    move-object v0, v5
-
-    :ct_uri2
-    new-instance v4, Ljava/lang/StringBuilder;
-
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v5, "COVER fetch "
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-static {v5}, Lcom/luna/music/car/CarLyricsBridge;->logFile(Ljava/lang/String;)V
-
-    if-eqz v0, :ct_wait
-
-    invoke-static {v0}, Lcom/luna/music/car/CarLyricsBridge;->fetchCoverFromUri(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    # v1.1.35: compat ALBUM_ART_URI(http/content) -> MediaStore(标题+歌手) -> 内嵌封面
+    invoke-static {}, Lcom/luna/music/car/CarLyricsBridge;->grabCover()Landroid/graphics/Bitmap;
 
     move-result-object v1
 

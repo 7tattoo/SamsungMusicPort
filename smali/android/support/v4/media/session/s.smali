@@ -1002,6 +1002,10 @@
 .method public P(Landroid/support/v4/media/MediaMetadataCompat;)V
     .locals 3
 
+    # growcar-cover v1.1.35: 此刻 p1 还是 MediaMetadataCompat（再往下就被 parcel
+    # 换来的 framework 对象覆盖）。身份/图源只能在这里取。
+    invoke-static {p1}, Lcom/luna/music/car/CarLyricsBridge;->onCompat(Landroid/support/v4/media/MediaMetadataCompat;)V
+
     .line 1
     iget-object v0, p0, Landroid/support/v4/media/session/s;->a:Ljava/lang/Object;
 
