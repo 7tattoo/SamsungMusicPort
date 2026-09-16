@@ -2507,7 +2507,7 @@
     move-result-object v5
 
     # 有封面（v5 != null）→ 检查真伪；无封面（v5 == null）→ 补位
-    if-eqz v5, :raw_has_cover_v18
+    if-nez v5, :raw_has_cover_v18
     goto :raw_no_input_cover
 
     :raw_has_cover_v18
@@ -2669,7 +2669,7 @@
     sget-object v1, Lcom/luna/music/car/CarLyricsBridge;->sCompatMid:Ljava/lang/String;
 
     :self_have_id
-    if-eqz v1, :self_key
+    if-nez v1, :self_key
 
     sget-object v2, Lcom/luna/music/car/CarLyricsBridge;->sCompatTitle:Ljava/lang/String;
 
